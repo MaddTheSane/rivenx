@@ -1,0 +1,3 @@
+[submodule "Vendor/oldMacHeaders"]
+	path = Vendor/oldMacHeaders
+	url = git@github.com:MaddTheSane/oldMacHeaders.git

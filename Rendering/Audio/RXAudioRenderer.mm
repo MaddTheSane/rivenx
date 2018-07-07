@@ -124,7 +124,7 @@ Float32 AudioRenderer::Gain() const noexcept(false)
 void AudioRenderer::SetGain(Float32 gain) noexcept(false)
 { XThrowIfError(AudioUnitSetParameter(*mixer, kStereoMixerParam_Volume, kAudioUnitScope_Output, 0, gain, 0), "AudioUnitSetParameter"); }
 
-void AudioRenderer::SetAutomaticGraphUpdates(bool b) noexcept
+void AudioRenderer::SetAutomaticGraphUpdates(bool b)
 {
   // if we're enabling automatic updates and an update is required, do it now
   if (b && _graphUpdateNeeded) {

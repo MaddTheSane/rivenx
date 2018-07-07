@@ -168,9 +168,9 @@ enum {
 
     GLenum type;
 #if defined(__LITTLE_ENDIAN__)
-    type = GL_UNSIGNED_INT_8_8_8_8_REV,
+    type = GL_UNSIGNED_INT_8_8_8_8_REV;
 #else
-    type = GL_UNSIGNED_INT_8_8_8_8_REV,
+    type = GL_UNSIGNED_INT_8_8_8_8_REV;
 #endif
     glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_RGBA8, MAX(_current_size.width, 128), _current_size.height, 0, GL_BGRA, type, _texture_storage);
     glReportError();

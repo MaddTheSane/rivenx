@@ -50,7 +50,7 @@ public:
 
   // graph management
   inline bool AutomaticGraphUpdates() const noexcept { return _automaticGraphUpdates; }
-  void SetAutomaticGraphUpdates(bool b) noexcept;
+  void SetAutomaticGraphUpdates(bool b);
 
   inline uint32_t AvailableMixerBusCount() const noexcept { return sourceLimit - sourceCount; }
 

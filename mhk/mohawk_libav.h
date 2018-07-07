@@ -54,6 +54,6 @@ struct mhk_libav {
 };
 
 extern struct mhk_libav g_libav;
-extern void mhk_load_libav();
+extern void mhk_load_libav(void);
 
 __END_DECLS

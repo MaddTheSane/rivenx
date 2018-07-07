@@ -310,7 +310,7 @@ static NSInteger string_numeric_insensitive_sort(id lhs, id rhs, void* context)
   // we're done with the installer
   [_installingTitleField unbind:@"value"];
   [installer removeObserver:self forKeyPath:@"progress"];
-  [installer release], installer = nil;
+  [installer release]; installer = nil;
 
   if (did_install) {
     // mark ourselves as installed

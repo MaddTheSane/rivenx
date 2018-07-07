@@ -27,6 +27,7 @@
 #import "States/RXCardState.h"
 
 #import "Application/RXApplicationDelegate.h"
+#import <Cocoa/Cocoa.h>
 
 NSObject<RXWorldProtocol>* g_world = nil;
 
@@ -215,7 +216,7 @@ NSObject<RXWorldProtocol>* g_world = nil;
     [cursorMetadata enumerateKeysAndObjectsUsingBlock:^(NSString* cursorKey, NSString* cursorHotspotPointString, BOOL* stop)
     {
       NSPoint cursorHotspot = NSPointFromString(cursorHotspotPointString);
-      NSImage* cursorImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:cursorKey ofType:@"png" inDirectory:@"cursors"]];
+      NSImage* cursorImage = [NSImage imageNamed:[NSString stringWithFormat:@"cursors/%@", cursorKey]];
       if (!cursorImage)
         @throw [NSException exceptionWithName:@"RXMissingResourceException"
                                        reason:[NSString stringWithFormat:@"Unable to find cursor %@.", cursorKey]
@@ -226,7 +227,6 @@ NSObject<RXWorldProtocol>* g_world = nil;
       NSMapInsert(_cursors, (const void*)key, (const void*)cursor);
 
       [cursor release];
-      [cursorImage release];
     }];
 
     // the semaphore will be signaled when a thread has setup inter-thread messaging
@@ -276,7 +276,7 @@ NSObject<RXWorldProtocol>* g_world = nil;
 
   if (g_worldView)
     [[g_worldView window] setDelegate:nil];
-  [_cardRenderer release], _cardRenderer = nil;
+  [_cardRenderer release]; _cardRenderer = nil;
   [g_worldView tearDown];
 
   if (_audioRenderer) {
@@ -294,14 +294,14 @@ NSObject<RXWorldProtocol>* g_world = nil;
     NSFreeMapTable(_cursors);
   _cursors = nil;
 
-  [_extrasDescriptor release], _extrasDescriptor = nil;
-  [_gameState release], _gameState = nil;
-  [_worldBase release], _worldBase = nil;
-  [_worldCacheBase release], _worldCacheBase = nil;
-  [_worldSupportBase release], _worldSupportBase = nil;
-  [_engineVariables release], _engineVariables = nil;
-  [_activeStacks release], _activeStacks = nil;
-  [_cachePreferences release], _cachePreferences = nil;
+  [_extrasDescriptor release]; _extrasDescriptor = nil;
+  [_gameState release]; _gameState = nil;
+  [_worldBase release]; _worldBase = nil;
+  [_worldCacheBase release]; _worldCacheBase = nil;
+  [_worldSupportBase release]; _worldSupportBase = nil;
+  [_engineVariables release]; _engineVariables = nil;
+  [_activeStacks release]; _activeStacks = nil;
+  [_cachePreferences release]; _cachePreferences = nil;
 }
 
 #pragma mark -

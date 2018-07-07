@@ -73,7 +73,7 @@
 		314959BD0E327BA500E49C83 /* MHKArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 314959A70E327BA500E49C83 /* MHKArchive.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		314959BE0E327BA500E49C83 /* MHKArchiveQuickTimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 314959A80E327BA500E49C83 /* MHKArchiveQuickTimeAdditions.m */; };
 		314959BF0E327BA500E49C83 /* mohawk_core.h in Headers */ = {isa = PBXBuildFile; fileRef = 314959A90E327BA500E49C83 /* mohawk_core.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		31495A4F0E327DA400E49C83 /* MHKKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3149598F0E327B2D00E49C83 /* MHKKit.framework */; };
+		31495A4F0E327DA400E49C83 /* MHKKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3149598F0E327B2D00E49C83 /* MHKKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		315017990CC0533E001BA929 /* RXCardAudioSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 315017980CC0533D001BA929 /* RXCardAudioSource.mm */; };
 		315017FA0CC06872001BA929 /* RXThreadUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 315017F90CC06872001BA929 /* RXThreadUtilities.m */; };
 		31506B250F3E940800FAC3DB /* Shaders in Copy Shaders */ = {isa = PBXBuildFile; fileRef = 31154B4D0B4990E9002FCEDD /* Shaders */; };
@@ -154,7 +154,6 @@
 		319BBA17182598AF00C4F8F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED4F1790842600B1732D /* Foundation.framework */; };
 		319BBA18182598B700C4F8F8 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED541790844000B1732D /* ApplicationServices.framework */; };
 		319BDEFB186C8FF400C7B334 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 319BDEFA186C8FF400C7B334 /* libz.dylib */; };
-		319BDEFD186C900B00C7B334 /* liblzma.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 319BDEFC186C900B00C7B334 /* liblzma.a */; };
 		319BDF00186C92D000C7B334 /* random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319BDEFE186C92D000C7B334 /* random.cpp */; };
 		319C458109C138380031F95F /* VirtualRingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 319C458009C1382F0031F95F /* VirtualRingBuffer.m */; };
 		319C8C691155793D00DF3E7D /* Welcome.strings in Resources */ = {isa = PBXBuildFile; fileRef = 319C8C681155793D00DF3E7D /* Welcome.strings */; };
@@ -172,7 +171,7 @@
 		31A9F028094D2D0300C6A0AB /* RXRenderState.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A9F027094D2D0300C6A0AB /* RXRenderState.m */; };
 		31ADC95F14ADA17A004FB4AD /* unpackgogsetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31ADC95E14ADA17A004FB4AD /* unpackgogsetup.cpp */; };
 		31B1128B17F4AC00005ABDB8 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1128A17F4AC00005ABDB8 /* Sparkle.framework */; };
-		31B1128C17F4B16C005ABDB8 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1128A17F4AC00005ABDB8 /* Sparkle.framework */; };
+		31B1128C17F4B16C005ABDB8 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 31B1128A17F4AC00005ABDB8 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		31B1128D17F4B18D005ABDB8 /* RXVersionComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3185C4720E06046D00528220 /* RXVersionComparator.m */; };
 		31B644BF10033A15008AD8E0 /* CAAUParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316C38D60F46B22300EFB7FB /* CAAUParameter.cpp */; };
 		31B644EA10033B52008AD8E0 /* BZFSUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3114FF3B0D58DF0A0099AF69 /* BZFSUtilities.m */; };
@@ -186,7 +185,6 @@
 		31D4E8CE1144635D00D70E28 /* Stacks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31D4E8CD1144635D00D70E28 /* Stacks.plist */; };
 		31DAA10F09D8892000F63F20 /* RXCardAudioSource_test.mm in Sources */ = {isa = PBXBuildFile; fileRef = 31DAA10E09D8892000F63F20 /* RXCardAudioSource_test.mm */; };
 		31DAAF0B0DDE21BB00D06D0C /* Cursors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31DAAF0A0DDE21BB00D06D0C /* Cursors.plist */; };
-		31DAAF260DDE21EF00D06D0C /* cursors in Resources */ = {isa = PBXBuildFile; fileRef = 31DAAF0C0DDE21EF00D06D0C /* cursors */; };
 		31DAAF270DDE21EF00D06D0C /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 31DAAF210DDE21EF00D06D0C /* sounds */; };
 		31DBCAD40F2BEB6A004B9277 /* MHKKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3149598F0E327B2D00E49C83 /* MHKKit.framework */; };
 		31DC682909CB880A00BFF447 /* VirtualRingBuffer_test.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DC682809CB880A00BFF447 /* VirtualRingBuffer_test.m */; };
@@ -195,7 +193,6 @@
 		31E9334A1127B0CE00188488 /* RXWelcomeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E933491127B0CE00188488 /* RXWelcomeWindowController.m */; };
 		31EE15E010745FA3006E196D /* RXScriptCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EE15DF10745FA3006E196D /* RXScriptCompiler.m */; };
 		31F0DD4B0D3A7682000FBB5F /* EngineVariables.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31F0DD4A0D3A7682000FBB5F /* EngineVariables.plist */; };
-		31F1BEA60D3B03D000CFE301 /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = 31F1BEA50D3B03D000CFE301 /* about.png */; };
 		31F1BED60D3B1E6E00CFE301 /* Riven X Acknowledgments.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 31F1BED50D3B1E6E00CFE301 /* Riven X Acknowledgments.pdf */; };
 		31F3095708BE5FA200417394 /* RXWorld.mm in Sources */ = {isa = PBXBuildFile; fileRef = 31F3095608BE5FA200417394 /* RXWorld.mm */; };
 		31F32F5A14AE6C7E00E53DF3 /* RXInstaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F32F5914AE6C7E00E53DF3 /* RXInstaller.m */; };
@@ -206,6 +203,10 @@
 		31FA569F0C5AD15D005DE22F /* RXErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FA569E0C5AD15D005DE22F /* RXErrors.m */; };
 		31FF29680D41996E00E3B5FF /* dump_save.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FF29670D41996E00E3B5FF /* dump_save.m */; };
 		31FF29D50D425BFE00E3B5FF /* GameVariables.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31FF29D40D425BFE00E3B5FF /* GameVariables.plist */; };
+		55175F7220F177CB0021A714 /* liblzma.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55175F7120F177CB0021A714 /* liblzma.tbd */; };
+		551BDE4420F17E7400E01805 /* CAMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316C38A60F469FA800EFB7FB /* CAMutex.cpp */; };
+		551BDE4620F17EA200E01805 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551BDE4520F17EA200E01805 /* SystemConfiguration.framework */; };
+		551BDE4720F17EB200E01805 /* CAHostTimeBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316C38AB0F469FC700EFB7FB /* CAHostTimeBase.cpp */; };
 		6BE3ED511790842600B1732D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED4E1790842600B1732D /* Accelerate.framework */; };
 		6BE3ED521790842600B1732D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED4F1790842600B1732D /* Foundation.framework */; };
 		6BE3ED531790842600B1732D /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED501790842600B1732D /* QuickTime.framework */; };
@@ -349,7 +350,7 @@
 		3124F2A609C36782009BA3CF /* RXSoundGroup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RXSoundGroup.mm; sourceTree = "<group>"; };
 		312A89600D57B25600FCDF91 /* RXArchiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXArchiveManager.h; sourceTree = "<group>"; };
 		312A89610D57B25600FCDF91 /* RXArchiveManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXArchiveManager.m; sourceTree = "<group>"; };
-		312D9EC80D4D81A3006E384C /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		312D9EC80D4D81A3006E384C /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		312D9ECC0D4D81A3006E384C /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/About.strings; sourceTree = "<group>"; };
 		312EDC700A2E3B80005D26AF /* RXHotspot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXHotspot.h; sourceTree = "<group>"; };
 		312EDC710A2E3B80005D26AF /* RXHotspot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXHotspot.m; sourceTree = "<group>"; };
@@ -377,7 +378,7 @@
 		313A9D4C18B30A6000FEE683 /* mohawk_libav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mohawk_libav.h; path = mhk/mohawk_libav.h; sourceTree = "<group>"; };
 		313A9D4D18B30A6000FEE683 /* mohawk_libav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mohawk_libav.m; path = mhk/mohawk_libav.m; sourceTree = "<group>"; };
 		313C7EFB08CD057500950A70 /* Riven301.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Riven301.ttf; sourceTree = "<group>"; };
-		31472CE6114C2E46008B6CF7 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Installer.strings; sourceTree = "<group>"; };
+		31472CE6114C2E46008B6CF7 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Installer.strings; sourceTree = "<group>"; };
 		31472CED114C2F66008B6CF7 /* Extras.MHK */ = {isa = PBXFileReference; lastKnownFileType = file; path = Extras.MHK; sourceTree = "<group>"; };
 		3149598F0E327B2D00E49C83 /* MHKKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MHKKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		314959900E327B2D00E49C83 /* MHKKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MHKKit-Info.plist"; sourceTree = "<group>"; };
@@ -467,7 +468,6 @@
 		3196B9340D945CC100BC818E /* RXTiming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXTiming.h; sourceTree = "<group>"; };
 		3196B9350D945CC100BC818E /* RXTiming.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RXTiming.c; sourceTree = "<group>"; };
 		319BDEFA186C8FF400C7B334 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		319BDEFC186C900B00C7B334 /* liblzma.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblzma.a; path = xz/liblzma.a; sourceTree = "<group>"; };
 		319BDEFE186C92D000C7B334 /* random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = random.cpp; sourceTree = "<group>"; };
 		319BDEFF186C92D000C7B334 /* random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = random.h; sourceTree = "<group>"; };
 		319C457F09C1382F0031F95F /* VirtualRingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = VirtualRingBuffer.h; sourceTree = "<group>"; };
@@ -493,8 +493,8 @@
 		31ADC95214ADA128004FB4AD /* unpackgogsetup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unpackgogsetup; sourceTree = BUILT_PRODUCTS_DIR; };
 		31ADC95E14ADA17A004FB4AD /* unpackgogsetup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unpackgogsetup.cpp; sourceTree = "<group>"; };
 		31B1128A17F4AC00005ABDB8 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
-		31B6549F1102B9EF004818AC /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		31B654A11102B9EF004818AC /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Rendering.strings; sourceTree = "<group>"; };
+		31B6549F1102B9EF004818AC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		31B654A11102B9EF004818AC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Rendering.strings; sourceTree = "<group>"; };
 		31BC739C09A57D4E001EC1E0 /* RXAudioSourceBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXAudioSourceBase.h; sourceTree = "<group>"; };
 		31BC739D09A57D4E001EC1E0 /* RXAudioSourceBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RXAudioSourceBase.cpp; sourceTree = "<group>"; };
 		31C356F80D92A38500EDEF81 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
@@ -512,7 +512,6 @@
 		31DAA0DF09D888E100F63F20 /* RXCardAudioSource_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RXCardAudioSource_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		31DAA10E09D8892000F63F20 /* RXCardAudioSource_test.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = RXCardAudioSource_test.mm; sourceTree = "<group>"; };
 		31DAAF0A0DDE21BB00D06D0C /* Cursors.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Cursors.plist; sourceTree = "<group>"; };
-		31DAAF0C0DDE21EF00D06D0C /* cursors */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cursors; sourceTree = "<group>"; };
 		31DAAF210DDE21EF00D06D0C /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		31DC67FF09CB879B00BFF447 /* VirtualRingBuffer_test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = VirtualRingBuffer_test; sourceTree = BUILT_PRODUCTS_DIR; };
 		31DC682809CB880A00BFF447 /* VirtualRingBuffer_test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VirtualRingBuffer_test.m; sourceTree = "<group>"; };
@@ -522,7 +521,6 @@
 		31EE15DE10745FA3006E196D /* RXScriptCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXScriptCompiler.h; sourceTree = "<group>"; };
 		31EE15DF10745FA3006E196D /* RXScriptCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXScriptCompiler.m; sourceTree = "<group>"; };
 		31F0DD4A0D3A7682000FBB5F /* EngineVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EngineVariables.plist; sourceTree = "<group>"; };
-		31F1BEA50D3B03D000CFE301 /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about.png; sourceTree = "<group>"; };
 		31F1BED50D3B1E6E00CFE301 /* Riven X Acknowledgments.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Riven X Acknowledgments.pdf"; sourceTree = "<group>"; };
 		31F3093308BE43C100417394 /* Riven X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Riven X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31F3093508BE43C100417394 /* Riven X-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; path = "Riven X-Info.plist"; sourceTree = "<group>"; };
@@ -543,9 +541,24 @@
 		31FCC1A11261160600EFEAA9 /* auto_spinlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auto_spinlock.h; sourceTree = "<group>"; };
 		31FF29670D41996E00E3B5FF /* dump_save.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dump_save.m; sourceTree = "<group>"; };
 		31FF29D40D425BFE00E3B5FF /* GameVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GameVariables.plist; sourceTree = "<group>"; };
+		55175F6420F1755A0021A714 /* AUOutputBL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUOutputBL.h; sourceTree = "<group>"; };
+		55175F6520F1755B0021A714 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		55175F6620F1755B0021A714 /* CAAUParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAAUParameter.h; sourceTree = "<group>"; };
+		55175F6720F1755B0021A714 /* CAPThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAPThread.h; sourceTree = "<group>"; };
+		55175F6820F175900021A714 /* CAGuard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAGuard.h; sourceTree = "<group>"; };
+		55175F6920F175A10021A714 /* CAMutex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMutex.h; sourceTree = "<group>"; };
+		55175F6A20F175B20021A714 /* CAHostTimeBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAHostTimeBase.h; sourceTree = "<group>"; };
+		55175F6B20F175C40021A714 /* CAXException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		55175F6C20F175D30021A714 /* CAAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAAudioUnit.h; sourceTree = "<group>"; };
+		55175F6D20F175EA0021A714 /* CADebugger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CADebugger.h; sourceTree = "<group>"; };
+		55175F6E20F175FC0021A714 /* CAComponentDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAComponentDescription.h; sourceTree = "<group>"; };
+		55175F6F20F175FC0021A714 /* CAComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAComponent.h; sourceTree = "<group>"; };
+		55175F7020F1760D0021A714 /* CAAudioChannelLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAAudioChannelLayout.h; sourceTree = "<group>"; };
+		55175F7120F177CB0021A714 /* liblzma.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = liblzma.tbd; path = usr/lib/liblzma.tbd; sourceTree = SDKROOT; };
+		551BDE4520F17EA200E01805 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6BE3ED4E1790842600B1732D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		6BE3ED4F1790842600B1732D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		6BE3ED501790842600B1732D /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = System/Library/Frameworks/QuickTime.framework; sourceTree = SDKROOT; };
+		6BE3ED501790842600B1732D /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = Vendor/oldMacHeaders/QuickTime.framework; sourceTree = "<group>"; };
 		6BE3ED541790844000B1732D /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		6BE3ED561790846800B1732D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6BE3ED571790846800B1732D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -553,7 +566,7 @@
 		6BE3ED5C1790849200B1732D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6BE3ED60179084BF00B1732D /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		6BE3ED631790850200B1732D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		6BE3ED641790850200B1732D /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
+		6BE3ED641790850200B1732D /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = Vendor/oldMacHeaders/QTKit.framework; sourceTree = "<group>"; };
 		6BE3ED671790852000B1732D /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		6BE3ED691790857900B1732D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		6BE3ED6C179085DB00B1732D /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = System/Library/Frameworks/ExceptionHandling.framework; sourceTree = SDKROOT; };
@@ -612,7 +625,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				319BDEFD186C900B00C7B334 /* liblzma.a in Frameworks */,
+				55175F7220F177CB0021A714 /* liblzma.tbd in Frameworks */,
 				319BDEFB186C8FF400C7B334 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -651,6 +664,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				551BDE4620F17EA200E01805 /* SystemConfiguration.framework in Frameworks */,
 				6BE3ED581790846800B1732D /* Cocoa.framework in Frameworks */,
 				6BE3ED6D179085DB00B1732D /* ExceptionHandling.framework in Frameworks */,
 				6BE3ED5F1790849200B1732D /* QuartzCore.framework in Frameworks */,
@@ -850,19 +864,32 @@
 		3153EDA309A3EDAF002E1149 /* PublicUtility */ = {
 			isa = PBXGroup;
 			children = (
+				55175F6620F1755B0021A714 /* CAAUParameter.h */,
 				316C38D60F46B22300EFB7FB /* CAAUParameter.cpp */,
+				55175F6420F1755A0021A714 /* AUOutputBL.h */,
 				31A14B810F03F495006EFF93 /* AUOutputBL.cpp */,
+				55175F7020F1760D0021A714 /* CAAudioChannelLayout.h */,
 				31A14B830F03F495006EFF93 /* CAAudioChannelLayout.cpp */,
 				31A14B840F03F495006EFF93 /* CAAudioChannelLayoutObject.cpp */,
+				55175F6C20F175D30021A714 /* CAAudioUnit.h */,
 				31A14BD60F03F568006EFF93 /* CAAudioUnit.cpp */,
+				55175F6F20F175FC0021A714 /* CAComponent.h */,
 				31A14BF20F03F7D3006EFF93 /* CAComponent.cpp */,
+				55175F6E20F175FC0021A714 /* CAComponentDescription.h */,
 				31A14C070F03F912006EFF93 /* CAComponentDescription.cpp */,
+				55175F6D20F175EA0021A714 /* CADebugger.h */,
 				31A14C010F03F8EC006EFF93 /* CADebugger.cpp */,
+				55175F6820F175900021A714 /* CAGuard.h */,
 				31A14B960F03F527006EFF93 /* CAGuard.cpp */,
+				55175F6A20F175B20021A714 /* CAHostTimeBase.h */,
 				316C38AB0F469FC700EFB7FB /* CAHostTimeBase.cpp */,
+				55175F6920F175A10021A714 /* CAMutex.h */,
 				316C38A60F469FA800EFB7FB /* CAMutex.cpp */,
+				55175F6720F1755B0021A714 /* CAPThread.h */,
 				316C38B00F469FDE00EFB7FB /* CAPThread.cpp */,
+				55175F6520F1755B0021A714 /* CAStreamBasicDescription.h */,
 				31200FBF0F3F8495006E6EF7 /* CAStreamBasicDescription.cpp */,
+				55175F6B20F175C40021A714 /* CAXException.h */,
 				31A14B930F03F51E006EFF93 /* CAXException.cpp */,
 			);
 			path = PublicUtility;
@@ -1011,9 +1038,7 @@
 			isa = PBXGroup;
 			children = (
 				3155F1C617F884550064E4BD /* Images.xcassets */,
-				31F1BEA50D3B03D000CFE301 /* about.png */,
 				312D9ECB0D4D81A3006E384C /* About.strings */,
-				31DAAF0C0DDE21EF00D06D0C /* cursors */,
 				31DAAF0A0DDE21BB00D06D0C /* Cursors.plist */,
 				31F0DD4A0D3A7682000FBB5F /* EngineVariables.plist */,
 				31472CED114C2F66008B6CF7 /* Extras.MHK */,
@@ -1090,7 +1115,8 @@
 		6BE3ED4D179083F800B1732D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				319BDEFC186C900B00C7B334 /* liblzma.a */,
+				551BDE4520F17EA200E01805 /* SystemConfiguration.framework */,
+				55175F7120F177CB0021A714 /* liblzma.tbd */,
 				319BDEFA186C8FF400C7B334 /* libz.dylib */,
 				6BE3ED4E1790842600B1732D /* Accelerate.framework */,
 				6BE3ED541790844000B1732D /* ApplicationServices.framework */,
@@ -1319,7 +1345,7 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = MacStorm;
 				TargetAttributes = {
 					3149598E0E327B2D00E49C83 = {
@@ -1396,7 +1422,6 @@
 				3155481008C52A1400A2AA7A /* Extras.plist in Resources */,
 				313C7EFD08CD057500950A70 /* Riven301.ttf in Resources */,
 				31F0DD4B0D3A7682000FBB5F /* EngineVariables.plist in Resources */,
-				31F1BEA60D3B03D000CFE301 /* about.png in Resources */,
 				31F1BED60D3B1E6E00CFE301 /* Riven X Acknowledgments.pdf in Resources */,
 				31FF29D50D425BFE00E3B5FF /* GameVariables.plist in Resources */,
 				312D9ECD0D4D81A3006E384C /* InfoPlist.strings in Resources */,
@@ -1404,7 +1429,6 @@
 				312D9ECF0D4D81A3006E384C /* About.strings in Resources */,
 				31D21B9B0DBC07A700E970E1 /* MainMenu.xib in Resources */,
 				31DAAF0B0DDE21BB00D06D0C /* Cursors.plist in Resources */,
-				31DAAF260DDE21EF00D06D0C /* cursors in Resources */,
 				31DAAF270DDE21EF00D06D0C /* sounds in Resources */,
 				3185C43B0E06027800528220 /* sparkle.pem in Resources */,
 				3160E1820FD3075300F18E86 /* tiny_marbles.png in Resources */,
@@ -1602,6 +1626,7 @@
 				316721DA0D27FB3200FB2C0E /* integer_pair_hash.c in Sources */,
 				312A89660D57B25600FCDF91 /* RXArchiveManager.m in Sources */,
 				3114FF3C0D58DF0A0099AF69 /* BZFSUtilities.m in Sources */,
+				551BDE4720F17EB200E01805 /* CAHostTimeBase.cpp in Sources */,
 				3133D9AF0D5CDDC1004DAD5E /* BZFSOperation.m in Sources */,
 				31C545530D5D50620024B486 /* RXMediaInstaller.m in Sources */,
 				3105EC330D74844900609273 /* RXLogCenter.m in Sources */,
@@ -1630,6 +1655,7 @@
 				31A14C020F03F8EC006EFF93 /* CADebugger.cpp in Sources */,
 				31A14C080F03F912006EFF93 /* CAComponentDescription.cpp in Sources */,
 				31F4EFEA0F35312700A68652 /* RXScriptEngine.m in Sources */,
+				551BDE4420F17E7400E01805 /* CAMutex.cpp in Sources */,
 				31F4F0020F3533EF00A68652 /* RXScriptDecoding.m in Sources */,
 				31B1128D17F4B18D005ABDB8 /* RXVersionComparator.m in Sources */,
 				31F4F03C0F35461C00A68652 /* RXMovieProxy.m in Sources */,
@@ -1769,8 +1795,11 @@
 		31333F5609B01A2300DB6FC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = rxaudio_test;
 			};
 			name = Debug;
@@ -1778,6 +1807,8 @@
 		31333F5809B01A2300DB6FC7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = rxaudio_test;
@@ -1787,7 +1818,9 @@
 		314959910E327B2E00E49C83 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7K63C7SQ45;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1807,6 +1840,7 @@
 				);
 				INFOPLIST_FILE = "MHKKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.macstorm.MHKKit;
 				PRODUCT_NAME = MHKKit;
 				SKIP_INSTALL = YES;
 			};
@@ -1815,7 +1849,9 @@
 		314959920E327B2E00E49C83 /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7K63C7SQ45;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1835,6 +1871,7 @@
 				);
 				INFOPLIST_FILE = "MHKKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.macstorm.MHKKit;
 				PRODUCT_NAME = MHKKit;
 				SKIP_INSTALL = YES;
 			};
@@ -1843,7 +1880,9 @@
 		314959930E327B2E00E49C83 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7K63C7SQ45;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1863,6 +1902,7 @@
 				);
 				INFOPLIST_FILE = "MHKKit-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.macstorm.MHKKit;
 				PRODUCT_NAME = MHKKit;
 				SKIP_INSTALL = YES;
 			};
@@ -1871,8 +1911,11 @@
 		316E1EEA0E77803200F28E2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = /usr/local/bin;
 				MACH_O_TYPE = mh_execute;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = mhkdump;
 			};
 			name = Debug;
@@ -1880,6 +1923,8 @@
 		316E1EEB0E77803200F28E2A /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = /usr/local/bin;
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = mhkdump;
@@ -1889,6 +1934,8 @@
 		316E1EEC0E77803200F28E2A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = /usr/local/bin;
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = mhkdump;
@@ -1898,9 +1945,12 @@
 		317ACC7F0F285B790040FFFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(GCC_PREPROCESSOR_DEFINITIONS)";
 				INFOPLIST_FILE = "Tools/MHKMoviePlayer/MHKMoviePlayer-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.macstorm.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = MHKMoviePlayer;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1909,9 +1959,12 @@
 		317ACC800F285B790040FFFD /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(GCC_PREPROCESSOR_DEFINITIONS)";
 				INFOPLIST_FILE = "Tools/MHKMoviePlayer/MHKMoviePlayer-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.macstorm.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = MHKMoviePlayer;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1920,9 +1973,12 @@
 		317ACC810F285B790040FFFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(GCC_PREPROCESSOR_DEFINITIONS)";
 				INFOPLIST_FILE = "Tools/MHKMoviePlayer/MHKMoviePlayer-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.macstorm.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = MHKMoviePlayer;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1931,9 +1987,9 @@
 		31ADC95914ADA128004FB4AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7K63C7SQ45;
 				GCC_DYNAMIC_NO_PIC = YES;
@@ -1953,7 +2009,7 @@
 		31ADC95A14ADA128004FB4AD /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1975,7 +2031,7 @@
 		31ADC95B14ADA128004FB4AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1997,6 +2053,8 @@
 		31CB99B708B29A4100609EB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2007,7 +2065,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = plistize_stacks;
 				ZERO_LINK = NO;
 			};
@@ -2016,6 +2074,8 @@
 		31CB99B808B29A4100609EB5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ALTIVEC_EXTENSIONS = YES;
@@ -2025,7 +2085,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = plistize_stacks;
 				ZERO_LINK = NO;
 			};
@@ -2036,18 +2095,35 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Frameworks\"";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/Vendor/oldMacHeaders\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -2055,6 +2131,7 @@
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2077,12 +2154,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LLVM_VECTORIZE_LOOPS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-fstack-protector",
 					"-fblocks",
 				);
 				PREPROCESSOR_DEFINITIONS_BASE = "__STDC_LIMIT_MACROS _FORTIFY_SOURCE=2";
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx;
 				SEPARATE_STRIP = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				WARNING_CFLAGS = (
@@ -2110,6 +2188,9 @@
 					"-Wno-unused-const-variable",
 					"-Wno-nullable-to-nonnull-conversion",
 					"-Wno-covered-switch-default",
+					"-Wno-zero-as-null-pointer-constant",
+					"-Wno-shift-sign-overflow",
+					"-Wno-objc-interface-ivars",
 				);
 			};
 			name = Debug;
@@ -2119,19 +2200,35 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Frameworks\"";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/Vendor/oldMacHeaders\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -2139,6 +2236,7 @@
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(PREPROCESSOR_DEFINITIONS_BASE)";
@@ -2160,7 +2258,7 @@
 					"-fblocks",
 				);
 				PREPROCESSOR_DEFINITIONS_BASE = "__STDC_LIMIT_MACROS _FORTIFY_SOURCE=2";
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx;
 				SEPARATE_STRIP = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				WARNING_CFLAGS = (
@@ -2188,6 +2286,9 @@
 					"-Wno-unused-const-variable",
 					"-Wno-nullable-to-nonnull-conversion",
 					"-Wno-covered-switch-default",
+					"-Wno-zero-as-null-pointer-constant",
+					"-Wno-shift-sign-overflow",
+					"-Wno-objc-interface-ivars",
 				);
 			};
 			name = Release;
@@ -2195,6 +2296,8 @@
 		31D6AD8F0D4197E700629AEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2205,7 +2308,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = dump_save;
 				ZERO_LINK = NO;
 			};
@@ -2214,6 +2317,8 @@
 		31D6AD900D4197E700629AEB /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2224,7 +2329,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = dump_save;
 				ZERO_LINK = NO;
 			};
@@ -2233,6 +2337,8 @@
 		31D6AD910D4197E700629AEB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ALTIVEC_EXTENSIONS = YES;
@@ -2242,7 +2348,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = dump_save;
 				ZERO_LINK = NO;
 			};
@@ -2251,8 +2356,11 @@
 		31DAA10B09D888FA00F63F20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = RXCardAudioSource_test;
 			};
 			name = Debug;
@@ -2260,6 +2368,8 @@
 		31DAA10D09D888FA00F63F20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = RXCardAudioSource_test;
@@ -2269,8 +2379,11 @@
 		31DC682509CB87EF00BFF447 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = VirtualRingBuffer_test;
 			};
 			name = Debug;
@@ -2278,6 +2391,8 @@
 		31DC682709CB87EF00BFF447 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = VirtualRingBuffer_test;
@@ -2287,6 +2402,8 @@
 		31EAEB390A92530E004CC449 /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2297,7 +2414,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = plistize_stacks;
 				ZERO_LINK = NO;
 			};
@@ -2306,6 +2422,8 @@
 		31EAEB3A0A92530E004CC449 /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = rxaudio_test;
@@ -2315,6 +2433,8 @@
 		31EAEB3B0A92530E004CC449 /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = VirtualRingBuffer_test;
@@ -2324,6 +2444,8 @@
 		31EAEB3C0A92530E004CC449 /* Beta Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = RXCardAudioSource_test;
@@ -2334,6 +2456,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPCAST_URL = "http://www.devklog.net/software/rivenx/rivenx.xml";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -2350,6 +2473,7 @@
 				INFOPLIST_PREPROCESS = YES;
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				PLIST_FILE_OUTPUT_FORMAT = binary;
+				PRODUCT_BUNDLE_IDENTIFIER = org.macstorm.rivenx;
 				PRODUCT_NAME = "Riven X";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
@@ -2361,19 +2485,35 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/Frameworks\"";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/Vendor/oldMacHeaders\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -2381,6 +2521,7 @@
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2405,7 +2546,7 @@
 					"-fblocks",
 				);
 				PREPROCESSOR_DEFINITIONS_BASE = "__STDC_LIMIT_MACROS _FORTIFY_SOURCE=2";
-				SDKROOT = macosx10.11;
+				SDKROOT = macosx;
 				SEPARATE_STRIP = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"";
 				WARNING_CFLAGS = (
@@ -2433,6 +2574,9 @@
 					"-Wno-unused-const-variable",
 					"-Wno-nullable-to-nonnull-conversion",
 					"-Wno-covered-switch-default",
+					"-Wno-zero-as-null-pointer-constant",
+					"-Wno-shift-sign-overflow",
+					"-Wno-objc-interface-ivars",
 				);
 			};
 			name = "Beta Release";
@@ -2441,9 +2585,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPCAST_URL = "http://www.devklog.net/software/rivenx/rivenx.xml";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 7K63C7SQ45;
@@ -2457,6 +2602,7 @@
 				INFOPLIST_PREPROCESS = YES;
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				PLIST_FILE_OUTPUT_FORMAT = binary;
+				PRODUCT_BUNDLE_IDENTIFIER = org.macstorm.rivenx;
 				PRODUCT_NAME = "Riven X";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
@@ -2467,6 +2613,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPCAST_URL = "http://www.devklog.net/software/rivenx/rivenx.xml";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -2483,6 +2630,7 @@
 				INFOPLIST_PREPROCESS = YES;
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				PLIST_FILE_OUTPUT_FORMAT = binary;
+				PRODUCT_BUNDLE_IDENTIFIER = org.macstorm.rivenx;
 				PRODUCT_NAME = "Riven X";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;

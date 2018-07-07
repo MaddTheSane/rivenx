@@ -2070,7 +2070,7 @@ init_failure:
     if (_credits_state == 24) {
       // delete credits resources
       glDeleteTextures(1, &_credits_texture);
-      free(_credits_texture_buffer), _credits_texture_buffer = nil;
+      free(_credits_texture_buffer); _credits_texture_buffer = nil;
 
       // end the credits and begin a new game; note that we'll remain in credit rendering mode
       // until the active card has been cleared but we won't be rendering anything by checking
@@ -2083,7 +2083,7 @@ init_failure:
     }
   }
 
-  float bottom, top, height;
+  CGFloat bottom, top, height;
   if (_credits_state >= 7) {
     height = 784.f;
     top = t * 784.f;
@@ -2094,8 +2094,8 @@ init_failure:
     top = bottom + height;
   }
 
-  float positions[8] = {124.f, bottom, 124.f + 360.f, bottom, 124.f, top, 124.f + 360.f, top};
-  float tex_coords[8] = {0.f, height, 360.f, height, 0.f, 0.f, 360.f, 0.f};
+  GLfloat positions[8] = {124.f, bottom, 124.f + 360.f, bottom, 124.f, top, 124.f + 360.f, top};
+  GLfloat tex_coords[8] = {0.f, height, 360.f, height, 0.f, 0.f, 360.f, 0.f};
 
   // if we're in one of the fade-in states, we need to set the modulate
   // color to t; conversly, if we're in one of the fade-out states, we need
@@ -2737,7 +2737,7 @@ exit_flush_tasks:
     if (_hotspot_handling_disable_counter > 0)
       [g_worldView setCursor:_hidden_cursor];
 
-    [_hidden_cursor release], _hidden_cursor = nil;
+    [_hidden_cursor release]; _hidden_cursor = nil;
   }
 }
 

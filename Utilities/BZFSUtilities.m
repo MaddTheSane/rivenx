@@ -75,7 +75,7 @@ NSString* BZFSSearchDirectoryForItem(NSString* path, NSString* name, BOOL case_i
 {
   NSArray* content = BZFSContentsOfDirectory(path, error);
   if (!content)
-    return NO;
+    return nil;
 
   for (NSString* item in content) {
     if (case_insensitive) {

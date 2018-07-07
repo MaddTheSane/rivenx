@@ -190,7 +190,7 @@ static void MHKMP2Decompressor_release_buffer(struct AVCodecContext* c, AVFrame*
 
       // load up the packet description entry
       _packet_table[_packet_count].mStartOffset = source_position - size_left_in_buffer;
-      _packet_table[_packet_count].mDataByteSize = frame_length;
+      _packet_table[_packet_count].mDataByteSize = (UInt32)frame_length;
       _packet_table[_packet_count].mVariableFramesInPacket = 0;
 
       // one packet for the team
@@ -198,7 +198,7 @@ static void MHKMP2Decompressor_release_buffer(struct AVCodecContext* c, AVFrame*
 
       // update the maximum packet size
       if (frame_length > _max_packet_size)
-        _max_packet_size = frame_length;
+        _max_packet_size = (UInt32)frame_length;
 
       // do we need a bigger packet table?
       if (packet_table_length == _packet_count) {
