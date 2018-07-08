@@ -67,6 +67,7 @@ static void RXCardAudioSourceArrayWeakRelease(CFAllocatorRef allocator, const vo
 static void RXCardAudioSourceArrayDeleteRelease(CFAllocatorRef allocator, const void* value)
 { delete const_cast<RX::CardAudioSource*>(reinterpret_cast<const RX::CardAudioSource*>(value)); }
 
+static CFStringRef RXCardAudioSourceArrayDescription(const void* value) CF_RETURNS_RETAINED;
 static CFStringRef RXCardAudioSourceArrayDescription(const void* value)
 { return CFStringCreateWithFormat(NULL, NULL, CFSTR("<RX::CardAudioSource: %p>"), value); }
 

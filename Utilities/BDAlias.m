@@ -135,13 +135,11 @@ static CFStringRef FSRefToPathCopy(const FSRef* inRef)
 
 - (id)initWithAliasHandle:(AliasHandle)alias
 {
-  id ret = [super init];
-
-  if (ret != nil) {
+  if ((self = [super init])) {
     _alias = alias;
   }
 
-  return ret;
+  return self;
 }
 
 - (instancetype)init
@@ -159,11 +157,11 @@ static CFStringRef FSRefToPathCopy(const FSRef* inRef)
   anErr = PathToFSRef((CFStringRef)fullPath, &ref);
 
   if (anErr != noErr) {
+    [self release];
     return nil;
   }
 
   return [self initWithFSRef:&ref];
-  ;
 }
 
 - (id)initWithPath:(NSString*)path relativeToPath:(NSString*)relPath
@@ -267,17 +265,17 @@ static CFStringRef FSRefToPathCopy(const FSRef* inRef)
   return [result autorelease];
 }
 
-+ (BDAlias*)aliasWithAliasHandle:(AliasHandle)alias { return [[[BDAlias alloc] initWithAliasHandle:alias] autorelease]; }
++ (BDAlias*)aliasWithAliasHandle:(AliasHandle)alias { return [[[self alloc] initWithAliasHandle:alias] autorelease]; }
 
-+ (BDAlias*)aliasWithData:(NSData*)data { return [[[BDAlias alloc] initWithData:data] autorelease]; }
++ (BDAlias*)aliasWithData:(NSData*)data { return [[[self alloc] initWithData:data] autorelease]; }
 
-+ (BDAlias*)aliasWithPath:(NSString*)fullPath { return [[[BDAlias alloc] initWithPath:fullPath] autorelease]; }
++ (BDAlias*)aliasWithPath:(NSString*)fullPath { return [[[self alloc] initWithPath:fullPath] autorelease]; }
 
 + (BDAlias*)aliasWithPath:(NSString*)path relativeToPath:(NSString*)relPath
-{ return [[[BDAlias alloc] initWithPath:path relativeToPath:relPath] autorelease]; }
+{ return [[[self alloc] initWithPath:path relativeToPath:relPath] autorelease]; }
 
 + (BDAlias*)aliasWithFSRef:(FSRef*)ref { return [[[BDAlias alloc] initWithFSRef:ref] autorelease]; }
 
-+ (BDAlias*)aliasWithFSRef:(FSRef*)ref relativeToFSRef:(FSRef*)relRef { return [[[BDAlias alloc] initWithFSRef:ref relativeToFSRef:relRef] autorelease]; }
++ (BDAlias*)aliasWithFSRef:(FSRef*)ref relativeToFSRef:(FSRef*)relRef { return [[[self alloc] initWithFSRef:ref relativeToFSRef:relRef] autorelease]; }
 
 @end

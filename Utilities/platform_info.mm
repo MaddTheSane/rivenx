@@ -137,7 +137,7 @@ NSString* copy_principal_mac_address(void)
 
 NSString* copy_computer_name(void)
 {
-  NSString* name = CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
+  NSString* name = [CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL)) retain];
   if (name == nil) {
     char buf[1024];
     if (gethostname(buf, sizeof(buf)) == 0)
