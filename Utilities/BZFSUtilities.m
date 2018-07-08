@@ -47,7 +47,7 @@ BOOL BZFSCreateDirectoryExtended(NSString* path, NSString* group, uint32_t permi
 
   NSMutableDictionary* attributes = [NSMutableDictionary dictionary];
   if (permissions)
-    [attributes setObject:[NSNumber numberWithUnsignedInt:permissions] forKey:NSFilePosixPermissions];
+    [attributes setObject:@(permissions) forKey:NSFilePosixPermissions];
   if (group)
     [attributes setObject:group forKey:NSFileGroupOwnerAccountName];
 

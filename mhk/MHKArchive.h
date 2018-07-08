@@ -8,9 +8,12 @@
  */
 
 #import "Base/RXBase.h"
-#import <QuickTime/QuickTime.h>
+#if __has_include(<QuickTime/QuickTime.h>)
+#include <QuickTime/QuickTime.h>
+#endif
+#include <CoreServices/CoreServices.h>
 
-#import <pthread.h>
+#include <pthread.h>
 
 #import <MHKKit/mohawk_core.h>
 #import <MHKKit/mohawk_bitmap.h>
@@ -38,9 +41,9 @@
   MHK_file_table_entry* file_table;
 
   // processed information
-  NSMutableDictionary* file_descriptor_arrays;
-  NSMutableDictionary* file_descriptor_trees;
-  NSMutableDictionary* file_descriptor_name_maps;
+  NSMutableDictionary<NSString*,NSArray<NSMutableDictionary<NSString*,id>*>*>* file_descriptor_arrays;
+  NSMutableDictionary<NSString*,NSMutableData*>* file_descriptor_trees;
+  NSMutableDictionary<NSString*,NSDictionary<NSString*,NSMutableDictionary<NSString*,id>*>*>* file_descriptor_name_maps;
 
   // cached descriptors
   pthread_rwlock_t __cached_sound_descriptors_rwlock;
@@ -48,14 +51,14 @@
 }
 
 // designated initializer
-- (id)initWithURL:(NSURL*)url error:(NSError**)errorPtr;
+- (instancetype)initWithURL:(NSURL*)url error:(NSError**)errorPtr;
 
 // convenience initializers
-- (id)initWithPath:(NSString*)path error:(NSError**)errorPtr;
+- (instancetype)initWithPath:(NSString*)path error:(NSError**)errorPtr;
 
 // accessors
 - (NSURL*)url;
-- (NSArray*)resourceTypes;
+- (NSArray<NSString*>*)resourceTypes;
 
 // MHKArchive is KVO-compliant for all resource types as keys, read-only
 

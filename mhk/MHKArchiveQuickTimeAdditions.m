@@ -10,6 +10,7 @@
 #import "MHKErrors.h"
 #import "Base/RXErrorMacros.h"
 
+#if !defined(__LP64__)
 @implementation MHKArchive (MHKArchiveQuickTimeAdditions)
 
 - (Movie)movieWithID:(uint16_t)movieID error:(NSError**)errorPtr
@@ -54,3 +55,4 @@
 }
 
 @end
+#endif

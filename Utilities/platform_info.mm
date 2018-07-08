@@ -137,7 +137,7 @@ NSString* copy_principal_mac_address(void)
 
 NSString* copy_computer_name(void)
 {
-  NSString* name = NSMakeCollectable((NSString*)SCDynamicStoreCopyComputerName(NULL, NULL));
+  NSString* name = CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
   if (name == nil) {
     char buf[1024];
     if (gethostname(buf, sizeof(buf)) == 0)
@@ -194,10 +194,10 @@ NSString* copy_hardware_uuid(void)
   if (getuuidErr != -1) {
     CFUUIDRef uuidRef = CFUUIDCreateFromUUIDBytes(kCFAllocatorSystemDefault, uuidBytes);
     if (uuidRef != NULL) {
-      uuid = (NSString*)NSMakeCollectable(CFUUIDCreateString(kCFAllocatorDefault, uuidRef));
+      uuid = (NSString*)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuidRef));
       CFRelease(uuidRef);
     }
   }
 
-  return uuid;
+  return [uuid retain];
 }

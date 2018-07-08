@@ -51,6 +51,6 @@
 //	CADebugger
 //=============================================================================
 
-extern void	CADebuggerStop();
+extern void	CADebuggerStop(void);
 
 #endif

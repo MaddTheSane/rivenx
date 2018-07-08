@@ -16,14 +16,15 @@
 __BEGIN_DECLS
 
 /* facilities */
-extern const char* kRXLoggingBase;
-extern const char* kRXLoggingEngine;
-extern const char* kRXLoggingRendering;
-extern const char* kRXLoggingScript;
-extern const char* kRXLoggingGraphics;
-extern const char* kRXLoggingAudio;
-extern const char* kRXLoggingEvents;
-extern const char* kRXLoggingAnimation;
+typedef const char* RXLoggingFacility CF_TYPED_ENUM;
+extern RXLoggingFacility kRXLoggingBase;
+extern RXLoggingFacility kRXLoggingEngine;
+extern RXLoggingFacility kRXLoggingRendering;
+extern RXLoggingFacility kRXLoggingScript;
+extern RXLoggingFacility kRXLoggingGraphics;
+extern RXLoggingFacility kRXLoggingAudio;
+extern RXLoggingFacility kRXLoggingEvents;
+extern RXLoggingFacility kRXLoggingAnimation;
 
 /* levels */
 extern const int kRXLoggingLevelDebug;
@@ -31,16 +32,16 @@ extern const int kRXLoggingLevelMessage;
 extern const int kRXLoggingLevelError;
 extern const int kRXLoggingLevelCritical;
 
-extern void RXCFLog(const char* facility, int level, CFStringRef format, ...) CF_FORMAT_FUNCTION(3, 4);
+extern void RXCFLog(RXLoggingFacility facility, int level, CFStringRef format, ...) CF_FORMAT_FUNCTION(3, 4);
 
 #if defined(__OBJC__)
 
 #import <Foundation/NSString.h>
 
-extern void RXLog(const char* facility, int level, NSString* format, ...) NS_FORMAT_FUNCTION(3, 4);
-extern void RXLogv(const char* facility, int level, NSString* format, va_list args) NS_FORMAT_FUNCTION(3, 0);
+extern void RXLog(RXLoggingFacility facility, int level, NSString* format, ...) NS_FORMAT_FUNCTION(3, 4);
+extern void RXLogv(RXLoggingFacility facility, int level, NSString* format, va_list args) NS_FORMAT_FUNCTION(3, 0);
 
-extern void _RXOLog(id object, const char* facility, int level, NSString* format, ...) NS_FORMAT_FUNCTION(4, 5);
+extern void _RXOLog(id object, RXLoggingFacility facility, int level, NSString* format, ...) NS_FORMAT_FUNCTION(4, 5);
 
 #define RXOLog(format, ...) _RXOLog(self, kRXLoggingBase, kRXLoggingLevelMessage, format, ##__VA_ARGS__)
 #define RXOLog2(facility, level, format, ...) _RXOLog(self, facility, level, format, ##__VA_ARGS__)

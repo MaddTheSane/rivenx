@@ -45,6 +45,6 @@ struct AVFrame;
   pthread_mutex_t _decompressor_lock;
 }
 
-- (id)initWithChannelCount:(UInt32)channels frameCount:(SInt64)frames samplingRate:(double)sps fileHandle:(MHKFileHandle*)fh error:(NSError**)errorPtr;
+- (instancetype)initWithChannelCount:(UInt32)channels frameCount:(SInt64)frames samplingRate:(double)sps fileHandle:(MHKFileHandle*)fh error:(NSError**)errorPtr;
 
 @end

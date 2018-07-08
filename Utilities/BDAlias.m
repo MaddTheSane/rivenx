@@ -39,10 +39,10 @@
 #import "BDAlias.h"
 
 static Handle DataToHandle(CFDataRef inData);
-static CFDataRef HandleToData(Handle inHandle);
+static CFDataRef HandleToData(Handle inHandle) CF_RETURNS_RETAINED;
 
 static OSStatus PathToFSRef(CFStringRef inPath, FSRef* outRef);
-static CFStringRef FSRefToPathCopy(const FSRef* inRef);
+static CFStringRef FSRefToPathCopy(const FSRef* inRef) CF_RETURNS_RETAINED;
 
 static Handle DataToHandle(CFDataRef inData)
 {
@@ -142,6 +142,11 @@ static CFStringRef FSRefToPathCopy(const FSRef* inRef)
   }
 
   return ret;
+}
+
+- (instancetype)init
+{
+  return self = [self initWithAliasHandle:NULL];
 }
 
 - (id)initWithData:(NSData*)data { return [self initWithAliasHandle:(AliasHandle)DataToHandle((CFDataRef)data)]; }

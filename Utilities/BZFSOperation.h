@@ -11,11 +11,10 @@
 
 @class NSRunLoop;
 
-enum {
+typedef NS_ENUM(uint32_t, BZFSOperationType) {
   BZFSOperationCopyOperation = 1,
   BZFSOperationMoveOperation
 };
-typedef uint32_t BZFSOperationType;
 
 @interface BZFSOperation : NSObject {
   FSFileOperationRef _op;
@@ -34,19 +33,18 @@ typedef uint32_t BZFSOperationType;
   NSError* _error;
 }
 
-- (id)initCopyOperationWithSource:(NSString*)source destination:(NSString*)destination;
+- (instancetype)initCopyOperationWithSource:(NSString*)source destination:(NSString*)destination;
 
-- (BOOL)allowOverwriting;
-- (void)setAllowOverwriting:(BOOL)allow;
+@property (atomic) BOOL allowOverwriting;
 
 - (BOOL)scheduleInRunLoop:(NSRunLoop*)aRunLoop forMode:(NSString*)mode error:(NSError**)error;
 - (BOOL)start:(NSError**)error;
 - (BOOL)cancel:(NSError**)error;
 
-- (NSString*)item;
-- (FSFileOperationStage)stage;
-- (NSDictionary*)status;
-- (NSError*)error;
-- (BOOL)cancelled;
+@property (atomic, readonly, copy) NSString *item;
+@property (atomic, readonly) FSFileOperationStage stage;
+@property (atomic, readonly, copy) NSDictionary *status;
+@property (atomic, readonly, retain) NSError *error;
+@property (atomic, readonly) BOOL cancelled;
 
 @end

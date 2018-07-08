@@ -10,7 +10,7 @@
 #if !defined(MHK_ERRORS_H)
 #define MHK_ERRORS_H
 
-#import <sys/cdefs.h>
+#include <sys/cdefs.h>
 
 __BEGIN_DECLS
 
@@ -33,7 +33,21 @@ enum {
 #import <Foundation/NSString.h>
 #import <Foundation/NSError.h>
 
-extern NSString* const MHKErrorDomain;
+extern NSErrorDomain const MHKErrorDomain;
+
+typedef NS_ERROR_ENUM(MHKErrorDomain, MHKErrors) {
+  MHKErrorsFileTooLarge = 1,
+  MHKErrorsBadArchive,
+  MHKErrorsResourceNotFound,
+  MHKErrorsDamagedResource,
+  MHKErrorsInvalidChannelCount,
+  MHKErrorsInvalidFrameCount,
+  MHKErrorsLibavNotAvailable,
+  MHKErrorsInvalidSoundDescriptor,
+  MHKErrorsInvalidBitmapCompression,
+  MHKErrorsInvalidBitmapCompressorInstruction
+};
+
 
 @interface MHKError : NSError
 @end

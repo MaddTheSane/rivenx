@@ -12,7 +12,7 @@
 
 __BEGIN_DECLS
 
-extern NSString* const BZFSErrorDomain;
+extern NSErrorDomain const BZFSErrorDomain;
 
 BOOL BZFSFileExists(NSString* path);
 BOOL BZFSFileURLExists(NSURL* url);

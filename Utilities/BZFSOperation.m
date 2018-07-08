@@ -12,7 +12,8 @@
 #import <Foundation/NSKeyValueObserving.h>
 #import <Foundation/NSRunLoop.h>
 
-@interface BZFSOperation (BZFSOperationPrivate)
+// BZFSOperationPrivate
+@interface BZFSOperation ()
 - (void)_updateStatus:(NSString*)item stage:(FSFileOperationStage)stage error:(NSError*)error status:(NSDictionary*)status;
 @end
 
@@ -150,14 +151,10 @@ BailOut:
   return YES;
 }
 
-- (NSString*)item { return _item; }
-
-- (FSFileOperationStage)stage { return _stage; }
-
-- (NSDictionary*)status { return _status; }
-
-- (NSError*)error { return _error; }
-
-- (BOOL)cancelled { return _cancelled; }
+@synthesize item=_item;
+@synthesize stage=_stage;
+@synthesize status=_status;
+@synthesize error=_error;
+@synthesize cancelled=_cancelled;
 
 @end

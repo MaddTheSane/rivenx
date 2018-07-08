@@ -174,7 +174,7 @@ MHK_INLINE uint32_t compute_file_table_entry_length(MHK_file_table_entry* s)
     NSString* type_key = [[NSString alloc] initWithBytes:type_table_entry->name length:4 encoding:NSASCIIStringEncoding];
     NSArray* descriptors = [[NSArray alloc] init];
     [file_descriptor_arrays setObject:descriptors forKey:type_key];
-    [file_descriptor_trees setObject:descriptors forKey:type_key];
+    [file_descriptor_trees setObject:[NSMutableData data] forKey:type_key];
     [file_descriptor_name_maps setObject:[NSDictionary dictionary] forKey:type_key];
     [descriptors release];
     [type_key release];

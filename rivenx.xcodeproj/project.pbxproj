@@ -375,33 +375,33 @@
 		31333F5909B01A3700DB6FC7 /* rxaudio_test.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = rxaudio_test.mm; sourceTree = "<group>"; };
 		3133D9AD0D5CDDC1004DAD5E /* BZFSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZFSOperation.h; sourceTree = "<group>"; };
 		3133D9AE0D5CDDC1004DAD5E /* BZFSOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZFSOperation.m; sourceTree = "<group>"; };
-		313A9D4C18B30A6000FEE683 /* mohawk_libav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mohawk_libav.h; path = mhk/mohawk_libav.h; sourceTree = "<group>"; };
-		313A9D4D18B30A6000FEE683 /* mohawk_libav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mohawk_libav.m; path = mhk/mohawk_libav.m; sourceTree = "<group>"; };
+		313A9D4C18B30A6000FEE683 /* mohawk_libav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mohawk_libav.h; sourceTree = "<group>"; };
+		313A9D4D18B30A6000FEE683 /* mohawk_libav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mohawk_libav.m; sourceTree = "<group>"; };
 		313C7EFB08CD057500950A70 /* Riven301.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Riven301.ttf; sourceTree = "<group>"; };
 		31472CE6114C2E46008B6CF7 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Installer.strings; sourceTree = "<group>"; };
 		31472CED114C2F66008B6CF7 /* Extras.MHK */ = {isa = PBXFileReference; lastKnownFileType = file; path = Extras.MHK; sourceTree = "<group>"; };
 		3149598F0E327B2D00E49C83 /* MHKKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MHKKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		314959900E327B2D00E49C83 /* MHKKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MHKKit-Info.plist"; sourceTree = "<group>"; };
-		314959950E327BA500E49C83 /* MHKADPCMDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHKADPCMDecompressor.h; path = mhk/MHKADPCMDecompressor.h; sourceTree = "<group>"; };
-		314959960E327BA500E49C83 /* MHKArchiveWAVAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHKArchiveWAVAdditions.m; path = mhk/MHKArchiveWAVAdditions.m; sourceTree = "<group>"; };
-		314959970E327BA500E49C83 /* mohawk_bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mohawk_bitmap.c; path = mhk/mohawk_bitmap.c; sourceTree = "<group>"; };
-		314959980E327BA500E49C83 /* MHKFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHKFileHandle.m; path = mhk/MHKFileHandle.m; sourceTree = "<group>"; };
-		314959990E327BA500E49C83 /* MHKMP2Decompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHKMP2Decompressor.m; path = mhk/MHKMP2Decompressor.m; sourceTree = "<group>"; };
-		3149599A0E327BA500E49C83 /* MHKArchiveBitmapAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHKArchiveBitmapAdditions.m; path = mhk/MHKArchiveBitmapAdditions.m; sourceTree = "<group>"; };
-		3149599B0E327BA500E49C83 /* MHKArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHKArchive.m; path = mhk/MHKArchive.m; sourceTree = "<group>"; };
-		3149599C0E327BA500E49C83 /* mohawk_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mohawk_core.c; path = mhk/mohawk_core.c; sourceTree = "<group>"; };
-		3149599D0E327BA500E49C83 /* MHKErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHKErrors.h; path = mhk/MHKErrors.h; sourceTree = "<group>"; };
-		3149599E0E327BA500E49C83 /* MHKKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHKKit.h; path = mhk/MHKKit.h; sourceTree = "<group>"; };
-		314959A00E327BA500E49C83 /* MHKFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHKFileHandle.h; path = mhk/MHKFileHandle.h; sourceTree = "<group>"; };
-		314959A10E327BA500E49C83 /* mohawk_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mohawk_bitmap.h; path = mhk/mohawk_bitmap.h; sourceTree = "<group>"; };
-		314959A20E327BA500E49C83 /* MHKErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHKErrors.m; path = mhk/MHKErrors.m; sourceTree = "<group>"; };
-		314959A30E327BA500E49C83 /* MHKAudioDecompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHKAudioDecompression.h; path = mhk/MHKAudioDecompression.h; sourceTree = "<group>"; };
-		314959A40E327BA500E49C83 /* mohawk_wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mohawk_wave.h; path = mhk/mohawk_wave.h; sourceTree = "<group>"; };
-		314959A50E327BA500E49C83 /* MHKMP2Decompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHKMP2Decompressor.h; path = mhk/MHKMP2Decompressor.h; sourceTree = "<group>"; };
-		314959A60E327BA500E49C83 /* MHKADPCMDecompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHKADPCMDecompressor.m; path = mhk/MHKADPCMDecompressor.m; sourceTree = "<group>"; };
-		314959A70E327BA500E49C83 /* MHKArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHKArchive.h; path = mhk/MHKArchive.h; sourceTree = "<group>"; };
-		314959A80E327BA500E49C83 /* MHKArchiveQuickTimeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHKArchiveQuickTimeAdditions.m; path = mhk/MHKArchiveQuickTimeAdditions.m; sourceTree = "<group>"; };
-		314959A90E327BA500E49C83 /* mohawk_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mohawk_core.h; path = mhk/mohawk_core.h; sourceTree = "<group>"; };
+		314959900E327B2D00E49C83 /* MHKKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MHKKit-Info.plist"; sourceTree = SOURCE_ROOT; };
+		314959950E327BA500E49C83 /* MHKADPCMDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKADPCMDecompressor.h; sourceTree = "<group>"; };
+		314959960E327BA500E49C83 /* MHKArchiveWAVAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKArchiveWAVAdditions.m; sourceTree = "<group>"; };
+		314959970E327BA500E49C83 /* mohawk_bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mohawk_bitmap.c; sourceTree = "<group>"; };
+		314959980E327BA500E49C83 /* MHKFileHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKFileHandle.m; sourceTree = "<group>"; };
+		314959990E327BA500E49C83 /* MHKMP2Decompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKMP2Decompressor.m; sourceTree = "<group>"; };
+		3149599A0E327BA500E49C83 /* MHKArchiveBitmapAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKArchiveBitmapAdditions.m; sourceTree = "<group>"; };
+		3149599B0E327BA500E49C83 /* MHKArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKArchive.m; sourceTree = "<group>"; };
+		3149599C0E327BA500E49C83 /* mohawk_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mohawk_core.c; sourceTree = "<group>"; };
+		3149599D0E327BA500E49C83 /* MHKErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKErrors.h; sourceTree = "<group>"; };
+		3149599E0E327BA500E49C83 /* MHKKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKKit.h; sourceTree = "<group>"; };
+		314959A00E327BA500E49C83 /* MHKFileHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKFileHandle.h; sourceTree = "<group>"; };
+		314959A10E327BA500E49C83 /* mohawk_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mohawk_bitmap.h; sourceTree = "<group>"; };
+		314959A20E327BA500E49C83 /* MHKErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKErrors.m; sourceTree = "<group>"; };
+		314959A30E327BA500E49C83 /* MHKAudioDecompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKAudioDecompression.h; sourceTree = "<group>"; };
+		314959A40E327BA500E49C83 /* mohawk_wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mohawk_wave.h; sourceTree = "<group>"; };
+		314959A50E327BA500E49C83 /* MHKMP2Decompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKMP2Decompressor.h; sourceTree = "<group>"; };
+		314959A60E327BA500E49C83 /* MHKADPCMDecompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKADPCMDecompressor.m; sourceTree = "<group>"; };
+		314959A70E327BA500E49C83 /* MHKArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKArchive.h; sourceTree = "<group>"; };
+		314959A80E327BA500E49C83 /* MHKArchiveQuickTimeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKArchiveQuickTimeAdditions.m; sourceTree = "<group>"; };
+		314959A90E327BA500E49C83 /* mohawk_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mohawk_core.h; sourceTree = "<group>"; };
 		314C36F308EE431D00ACC172 /* RXWorldProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXWorldProtocol.h; sourceTree = "<group>"; };
 		315017970CC0533D001BA929 /* RXCardAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXCardAudioSource.h; sourceTree = "<group>"; };
 		315017980CC0533D001BA929 /* RXCardAudioSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RXCardAudioSource.mm; sourceTree = "<group>"; };
@@ -843,6 +843,7 @@
 				314959A40E327BA500E49C83 /* mohawk_wave.h */,
 			);
 			name = MHKKit;
+			path = mhk;
 			sourceTree = "<group>";
 		};
 		3153ED6109A3ED12002E1149 /* Audio */ = {
@@ -2098,6 +2099,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2191,6 +2193,7 @@
 					"-Wno-zero-as-null-pointer-constant",
 					"-Wno-shift-sign-overflow",
 					"-Wno-objc-interface-ivars",
+					"-Wno-auto-import",
 				);
 			};
 			name = Debug;
@@ -2203,6 +2206,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2289,6 +2293,7 @@
 					"-Wno-zero-as-null-pointer-constant",
 					"-Wno-shift-sign-overflow",
 					"-Wno-objc-interface-ivars",
+					"-Wno-auto-import",
 				);
 			};
 			name = Release;
@@ -2488,6 +2493,7 @@
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -2577,6 +2583,7 @@
 					"-Wno-zero-as-null-pointer-constant",
 					"-Wno-shift-sign-overflow",
 					"-Wno-objc-interface-ivars",
+					"-Wno-auto-import",
 				);
 			};
 			name = "Beta Release";

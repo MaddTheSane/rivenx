@@ -70,7 +70,7 @@
 // Empties the buffer. It is NOT safe to do this while anyone is reading from or writing to the buffer.
 - (void)empty;
 // Checks if the buffer is empty or not. This is safe in any thread.
-- (BOOL)isEmpty;
+@property (atomic, readonly) BOOL isEmpty;
 
 // Read operations:
 

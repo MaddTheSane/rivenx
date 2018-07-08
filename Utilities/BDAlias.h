@@ -38,16 +38,19 @@
 #import "Base/RXBase.h"
 #import <CoreServices/CoreServices.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface BDAlias : NSObject {
   AliasHandle _alias;
 }
 
-- (id)initWithAliasHandle:(AliasHandle)alias; // designated initializer
-- (id)initWithData:(NSData*)data;
-- (id)initWithPath:(NSString*)fullPath;
-- (id)initWithPath:(NSString*)path relativeToPath:(NSString*)relPath;
-- (id)initWithFSRef:(FSRef*)ref;
-- (id)initWithFSRef:(FSRef*)ref relativeToFSRef:(FSRef*)relRef;
+- (instancetype)init;
+- (instancetype)initWithAliasHandle:(_Nullable AliasHandle)alias NS_DESIGNATED_INITIALIZER; // designated initializer
+- (instancetype)initWithData:(NSData*)data;
+- (nullable instancetype)initWithPath:(NSString*)fullPath;
+- (nullable instancetype)initWithPath:(NSString*)path relativeToPath:(NSString*)relPath;
+- (instancetype)initWithFSRef:(FSRef*)ref;
+- (instancetype)initWithFSRef:(FSRef*)ref relativeToFSRef:(nullable FSRef*)relRef;
 
 - (void)dealloc;
 
@@ -57,14 +60,16 @@
 - (NSData*)aliasData;
 - (void)setAliasData:(NSData*)newAliasData;
 
-- (NSString*)fullPath;
-- (NSString*)fullPathRelativeToPath:(NSString*)relPath;
+- (nullable NSString*)fullPath;
+- (nullable NSString*)fullPathRelativeToPath:(nullable NSString*)relPath;
 
-+ (BDAlias*)aliasWithAliasHandle:(AliasHandle)alias;
-+ (BDAlias*)aliasWithData:(NSData*)data;
-+ (BDAlias*)aliasWithPath:(NSString*)fullPath;
-+ (BDAlias*)aliasWithPath:(NSString*)path relativeToPath:(NSString*)relPath;
-+ (BDAlias*)aliasWithFSRef:(FSRef*)ref;
-+ (BDAlias*)aliasWithFSRef:(FSRef*)ref relativeToFSRef:(FSRef*)relRef;
++ (instancetype)aliasWithAliasHandle:(_Nullable AliasHandle)alias;
++ (instancetype)aliasWithData:(NSData*)data;
++ (nullable instancetype)aliasWithPath:(NSString*)fullPath;
++ (nullable instancetype)aliasWithPath:(NSString*)path relativeToPath:(NSString*)relPath;
++ (instancetype)aliasWithFSRef:(FSRef*)ref;
++ (instancetype)aliasWithFSRef:(FSRef*)ref relativeToFSRef:(FSRef*)relRef;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -10,8 +10,8 @@
 #import <Foundation/NSObject.h>
 
 @protocol MHKAudioDecompression <NSObject>
-- (AudioStreamBasicDescription)outputFormat;
-- (SInt64)frameCount;
+@property (readonly) AudioStreamBasicDescription outputFormat;
+@property (readonly) SInt64 frameCount;
 
 - (void)reset;
 - (void)fillAudioBufferList:(AudioBufferList*)abl;

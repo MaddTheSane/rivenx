@@ -101,9 +101,8 @@ MHK_INLINE float _MHK_sample_convert_to_float(int32_t sample)
   [super dealloc];
 }
 
-- (AudioStreamBasicDescription)outputFormat { return output_asbd; }
-
-- (SInt64)frameCount { return frame_count; }
+@synthesize outputFormat=output_asbd;
+@synthesize frameCount=frame_count;
 
 - (void)reset
 {
