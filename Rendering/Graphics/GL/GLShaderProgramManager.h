@@ -11,8 +11,8 @@
 
 #import "Rendering/RXRendering.h"
 
-extern NSString* const GLShaderCompileErrorDomain;
-extern NSString* const GLShaderLinkErrorDomain;
+extern NSErrorDomain const GLShaderCompileErrorDomain;
+extern NSErrorDomain const GLShaderLinkErrorDomain;
 
 @interface GLShaderProgramManager : NSObject {
   NSURL* _shaders_root;

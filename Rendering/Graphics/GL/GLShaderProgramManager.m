@@ -51,7 +51,7 @@ NSString* const GLShaderLinkErrorDomain = @"GLShaderLinkErrorDomain";
 
   // cache the URL to the shaders directory
   _shaders_root =
-      (NSURL*)CFURLCreateWithFileSystemPath(NULL, (CFStringRef)[[NSBundle mainBundle] pathForResource : @"Shaders" ofType : nil], kCFURLPOSIXPathStyle, true);
+      [[[NSBundle mainBundle] URLForResource : @"Shaders" withExtension : nil] retain];
 
   // get the source of the standard one texture coordinates vertex shader
   NSURL* source_url = [NSURL URLWithString:[@"1texcoord" stringByAppendingPathExtension:@"vsh"] relativeToURL:_shaders_root];
