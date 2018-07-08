@@ -54,7 +54,7 @@ NSString* const GLShaderLinkErrorDomain = @"GLShaderLinkErrorDomain";
       [[[NSBundle mainBundle] URLForResource : @"Shaders" withExtension : nil] retain];
 
   // get the source of the standard one texture coordinates vertex shader
-  NSURL* source_url = [NSURL URLWithString:[@"1texcoord" stringByAppendingPathExtension:@"vsh"] relativeToURL:_shaders_root];
+  NSURL* source_url = [[NSBundle mainBundle] URLForResource:@"1texcoord" withExtension:@"vsh" subdirectory:@"Shaders"];
   NSString* source = [NSString stringWithContentsOfURL:source_url encoding:NSASCIIStringEncoding error:NULL];
   if (!source)
     @throw
@@ -135,7 +135,7 @@ NSString* const GLShaderLinkErrorDomain = @"GLShaderLinkErrorDomain";
   epilogueIndex++;
 
   // shader source URLs
-  NSURL* fs_url = [NSURL URLWithString:[name stringByAppendingPathExtension:@"fsh"] relativeToURL:_shaders_root];
+  NSURL* fs_url = [[NSBundle mainBundle] URLForResource:name withExtension:@"fsh" subdirectory:@"Shaders"];
 
   // read the shader sources
   NSString* fshader_source = [NSString stringWithContentsOfURL:fs_url encoding:NSASCIIStringEncoding error:error];
