@@ -8,6 +8,7 @@
 
 #import "Rendering/Graphics/RXMovieProxy.h"
 #import "Engine/RXWorldProtocol.h"
+#include <pthread.h>
 
 @implementation RXMovieProxy
 
@@ -154,13 +155,13 @@
   return _owner;
 }
 
-- (QTTime)duration
+- (CMTime)duration
 {
   // if the movie has not been loaded yet, do that on the main thread
   if (!_movie)
     [self performSelectorOnMainThread:@selector(_loadMovie) withObject:nil waitUntilDone:YES];
   if (!_movie)
-    return QTZeroTime;
+    return kCMTimeZero;
   return [_movie duration];
 }
 
@@ -200,13 +201,13 @@
   [_movie setRate:rate];
 }
 
-- (QTTime)_noLockCurrentTime
+- (CMTime)_noLockCurrentTime
 {
   // if the movie has not been loaded yet, do that on the main thread
   if (!_movie)
     [self performSelectorOnMainThread:@selector(_loadMovie) withObject:nil waitUntilDone:YES];
   if (!_movie)
-    return QTZeroTime;
+    return kCMTimeZero;
   return [_movie _noLockCurrentTime];
 }
 

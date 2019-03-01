@@ -326,11 +326,11 @@ enum {
 
 - (CGSize)currentSize { return _current_size; }
 
-- (QTTime)duration { return _original_duration; }
+- (CMTime)duration { return _original_duration; }
 
-- (QTTime)videoDuration
+- (CMTime)videoDuration
 {
-  QTTimeRange track_range = [[[[_movie tracksOfMediaType:QTMediaTypeVideo] objectAtIndex:0] attributeForKey:QTTrackRangeAttribute] QTTimeRangeValue];
+  CMTimeRange track_range = [[[[_movie tracksOfMediaType:QTMediaTypeVideo] objectAtIndex:0] attributeForKey:QTTrackRangeAttribute] QTTimeRangeValue];
   return track_range.duration;
 }
 
@@ -345,7 +345,7 @@ enum {
     // seamless movie hack
 
     // get the movie's duration
-    QTTime duration = [_movie duration];
+    CMTime duration = [_movie duration];
 
     // find the video and audio tracks; bail out if the movie doesn't have
     // exactly one of each or only one video track
@@ -366,25 +366,25 @@ enum {
     debug_assert(GetMoviesError() == noErr);
 
     // find the beginning time of the video track's last sample
-    QTTimeRange track_range = [[video_track attributeForKey:QTTrackRangeAttribute] QTTimeRangeValue];
+    CMTimeRange track_range = [[video_track attributeForKey:QTTrackRangeAttribute] QTTimeRangeValue];
     GetTrackNextInterestingTime([video_track quickTimeTrack], nextTimeStep | nextTimeEdgeOK, (TimeValue)track_range.duration.timeValue, -1, &tv, NULL);
     debug_assert(GetMoviesError() == noErr);
-    QTTime video_last_sample_time = QTMakeTime(tv, duration.timeScale);
+    CMTime video_last_sample_time = CMTimeMake(tv, duration.timeScale);
 
     GetTrackNextInterestingTime([video_track quickTimeTrack], nextTimeStep, tv, -1, &tv, NULL);
     debug_assert(GetMoviesError() == noErr);
-    QTTime video_second_last_sample_time = QTMakeTime(tv, duration.timeScale);
+    CMTime video_second_last_sample_time = CMTimeMake(tv, duration.timeScale);
 
     // make the movie editable
     [_movie setAttribute:[NSNumber numberWithBool:YES] forKey:QTMovieEditableAttribute];
 
-    QTTime last_sample_duration = QTTimeDecrement(duration, video_last_sample_time);
-    QTTime second_last_sample_duration = QTTimeDecrement(video_last_sample_time, video_second_last_sample_time);
+    CMTime last_sample_duration = QTTimeDecrement(duration, video_last_sample_time);
+    CMTime second_last_sample_duration = QTTimeDecrement(video_last_sample_time, video_second_last_sample_time);
 
     // loop the video samples using the *last video sample time plus half the last video sample duration* as the duration
     if (QTTimeCompare(last_sample_duration, second_last_sample_duration) == NSOrderedDescending)
-      track_range = QTMakeTimeRange(
-          QTZeroTime, QTTimeIncrement(video_last_sample_time, QTMakeTime((duration.timeValue - video_last_sample_time.timeValue) / 2, duration.timeScale)));
+      track_range = CMTimeRangeMake(
+          QTZeroTime, QTTimeIncrement(video_last_sample_time, CMTimeMake((duration.timeValue - video_last_sample_time.timeValue) / 2, duration.timeScale)));
     for (int i = 0; i < 300; i++)
       [video_track insertSegmentOfTrack:video_track timeRange:track_range atTime:track_range.duration];
 
@@ -393,7 +393,7 @@ enum {
 
     // loop the audio samples using the *last video sample time* as the duration
     if (audio_track) {
-      track_range = QTMakeTimeRange(QTZeroTime, video_last_sample_time);
+      track_range = CMTimeRangeMake(QTZeroTime, video_last_sample_time);
       for (int i = 0; i < 300; i++)
         [audio_track insertSegmentOfTrack:audio_track timeRange:track_range atTime:track_range.duration];
     }
@@ -433,7 +433,7 @@ enum {
 
 - (BOOL)isPlayingSelection { return _playing_selection; }
 
-- (void)setPlaybackSelection:(QTTimeRange)selection
+- (void)setPlaybackSelection:(CMTimeRange)selection
 {
   OSSpinLockLock(&_render_lock);
 
@@ -576,10 +576,10 @@ enum {
   OSSpinLockUnlock(&_render_lock);
 }
 
-- (QTTime)_noLockCurrentTime
+- (CMTime)_noLockCurrentTime
 {
   OSSpinLockLock(&_current_time_lock);
-  QTTime t = _current_time;
+  CMTime t = _current_time;
   OSSpinLockUnlock(&_current_time_lock);
 
   t.timeValue = t.timeValue % _original_duration.timeValue;

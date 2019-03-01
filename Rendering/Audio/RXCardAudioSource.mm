@@ -24,7 +24,7 @@ CardAudioSource::CardAudioSource(id<MHKAudioDecompression> decompressor, float g
   // we don't have to reset the decompressor here -- we can do it in HandleAttach
 
   // set our format to the decompressor's format
-  format = CAStreamBasicDescription([_decompressor outputFormat]);
+  format = CAStreamBasicDescription(*[_decompressor outputFormat]);
 
   // CardAudioSource only handles interleaved formats
   debug_assert(format.IsInterleaved());

@@ -13,7 +13,7 @@
 
 #import "Rendering/RXRendering.h"
 
-extern NSString* const RXMoviePlaybackDidEndNotification;
+extern NSNotificationName const RXMoviePlaybackDidEndNotification;
 
 @class RXMovie;
 

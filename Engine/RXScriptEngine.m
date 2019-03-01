@@ -1155,7 +1155,7 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
 {
   // get the resource descriptor for the tBMP resource
   NSError* error;
-  NSDictionary* picture_descriptor = [archive bitmapDescriptorWithID:tbmp_id error:&error];
+  MHKBitmapDescriptor* picture_descriptor = [archive bitmapDescriptorWithID:tbmp_id error:&error];
   if (!picture_descriptor)
     @throw [NSException exceptionWithName:@"RXPictureLoadException"
                                    reason:@"Could not get a picture resource's picture descriptor."
@@ -1257,10 +1257,10 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
 
   // get its duration and video duration
   NSTimeInterval duration;
-  QTGetTimeInterval([movie duration], &duration);
+  duration = CMTimeGetSeconds([movie duration]);
 
   NSTimeInterval video_duration;
-  QTGetTimeInterval([movie videoDuration], &video_duration);
+  video_duration = CMTimeGetSeconds([movie videoDuration]);
 
   // sleep for the duration of the video track (the ending movies also include the credit music) plus the specified delay
   usleep((video_duration - (CFAbsoluteTimeGetCurrent() - movie_start_ts) + delay) * 1E6);
@@ -1970,13 +1970,13 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
     release_assert(archive);
 
     NSError* error;
-    NSDictionary* picture_descriptor = [archive bitmapDescriptorWithID:picture_record->bitmap_id error:&error];
+    MHKBitmapDescriptor* picture_descriptor = [archive bitmapDescriptorWithID:picture_record->bitmap_id error:&error];
     if (!picture_descriptor)
       @throw [NSException exceptionWithName:@"RXPictureLoadException"
                                      reason:@"Could not get a picture resource's picture descriptor."
                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error, NSUnderlyingErrorKey, nil]];
 
-    rx_size_t picture_size = RXSizeMake([[picture_descriptor objectForKey:@"Width"] intValue], [[picture_descriptor objectForKey:@"Height"] intValue]);
+    rx_size_t picture_size = RXSizeMake(picture_descriptor.width, picture_descriptor.height);
     RXTexture* picture_texture = [[RXTextureBroker sharedTextureBroker] newTextureWithSize:picture_size];
 
     // update the texture with the content of the picture
@@ -2828,11 +2828,11 @@ DEFINE_COMMAND(xhandlecontrolup)
   [controller setMouseCursor:RX_CURSOR_CLOSED_HAND];
 
   NSRect scale_rect = RXRenderScaleRect();
-  float trigger_mag = k_jungle_elevator_trigger_magnitude * scale_rect.size.height;
+  CGFloat trigger_mag = k_jungle_elevator_trigger_magnitude * scale_rect.size.height;
 
   // track the mouse until the mouse button is released
   while (isfinite(mouse_vector.size.width)) {
-    if (mouse_vector.size.height < 0.0f && fabsf(mouse_vector.size.height) >= trigger_mag) {
+    if (mouse_vector.size.height < 0.0f && fabs(mouse_vector.size.height) >= trigger_mag) {
       // play the switch down movie
       DISPATCH_COMMAND1(RX_COMMAND_START_MOVIE_BLOCKING, 1);
 
@@ -3189,8 +3189,8 @@ DEFINE_COMMAND(xjschool280_resetright) { [[g_world gameState] setUnsignedShort:0
   duration.value /= 19;
 
   // set the movie's playback range
-  CMTimeRange movie_range = QTMakeTimeRange(QTMakeTime(duration.timeValue * level_of_doom, duration.timescale),
-                                            QTMakeTime(duration.timeValue * [stepsNumber unsignedShortValue], duration.timescale));
+  CMTimeRange movie_range = CMTimeRangeMake(CMTimeMake(duration.value * level_of_doom, duration.timescale),
+                                            CMTimeMake(duration.value * [stepsNumber unsignedShortValue], duration.timescale));
   [movie setPlaybackSelection:movie_range];
 }
 
@@ -4317,8 +4317,8 @@ static int64_t const left_viewer_spin_timevals[] = {0LL, 816LL, 1617LL, 2416LL, 
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)(uintptr_t)1);
   CMTime duration = [movie duration];
 
-  CMTime start_time = QTMakeTime(left_viewer_spin_timevals[old_pos], duration.timeScale);
-  CMTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(left_viewer_spin_timevals[new_pos] - start_time.timeValue, duration.timeScale));
+  CMTime start_time = CMTimeMake(left_viewer_spin_timevals[old_pos], duration.timescale);
+  CMTimeRange movie_range = CMTimeRangeMake(start_time, CMTimeMake(left_viewer_spin_timevals[new_pos] - start_time.value, duration.timescale));
   [movie setPlaybackSelection:movie_range];
 
   // update the position variable
@@ -4356,8 +4356,8 @@ static int64_t const right_viewer_spin_timevals[] = {0LL, 816LL, 1617LL, 2416LL,
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)(uintptr_t)1);
   CMTime duration = [movie duration];
 
-  CMTime start_time = QTMakeTime(right_viewer_spin_timevals[old_pos], duration.timeScale);
- CMTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(right_viewer_spin_timevals[new_pos] - start_time.timeValue, duration.timeScale));
+  CMTime start_time = CMTimeMake(right_viewer_spin_timevals[old_pos], duration.timescale);
+ CMTimeRange movie_range = CMTimeRangeMake(start_time, CMTimeMake(right_viewer_spin_timevals[new_pos] - start_time.value, duration.timescale));
   [movie setPlaybackSelection:movie_range];
 
   // update the position variable
@@ -4698,8 +4698,8 @@ static int16_t const pin_movie_codes[] = {1, 2, 1, 2, 1, 3, 4, 3, 4, 5, 1, 1, 2,
   if (!movie)
     return;
 
-  QTTime start_time = QTMakeTime((old_pos - 1) * 1200, 600);
-  QTTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(1215, 600));
+  CMTime start_time = CMTimeMake((old_pos - 1) * 1200, 600);
+  CMTimeRange movie_range = CMTimeRangeMake(start_time, CMTimeMake(1215, 600));
   [movie setPlaybackSelection:movie_range];
 }
 
@@ -4715,8 +4715,8 @@ static int16_t const pin_movie_codes[] = {1, 2, 1, 2, 1, 3, 4, 3, 4, 5, 1, 1, 2,
   if (!movie)
     return;
 
-  QTTime start_time = QTMakeTime(9600 - pin_pos * 600 + 30, 600);
-  QTTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(580 - 30, 600));
+  CMTime start_time = CMTimeMake(9600 - pin_pos * 600 + 30, 600);
+  CMTimeRange movie_range = CMTimeRangeMake(start_time, CMTimeMake(580 - 30, 600));
   [movie setPlaybackSelection:movie_range];
 }
 
@@ -4732,8 +4732,8 @@ static int16_t const pin_movie_codes[] = {1, 2, 1, 2, 1, 3, 4, 3, 4, 5, 1, 1, 2,
   if (!movie)
     return;
 
-  QTTime start_time = QTMakeTime(4800 + (pin_pos - 1) * 600 + 30, 600);
-  QTTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(580 - 30, 600));
+  CMTime start_time = CMTimeMake(4800 + (pin_pos - 1) * 600 + 30, 600);
+  CMTimeRange movie_range = CMTimeRangeMake(start_time, CMTimeMake(580 - 30, 600));
   [movie setPlaybackSelection:movie_range];
 }
 
@@ -5061,10 +5061,10 @@ static int64_t const telescope_lower_timevals[] = {4320LL, 3440LL, 2660LL, 1760L
   // determine the playback selection for the telescope raise movie
   uintptr_t movie_code = ([gs unsignedShortForKey:@"ttelecover"] == 1) ? 4 : 5;
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)movie_code);
-  QTTime duration = [movie duration];
+  CMTime duration = [movie duration];
 
-  QTTime start_time = QTMakeTime(telescope_raise_timevals[tele_position - 1], duration.timeScale);
-  QTTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(telescope_raise_timevals[tele_position] - start_time.timeValue + 7, duration.timeScale));
+  CMTime start_time = CMTimeMake(telescope_raise_timevals[tele_position - 1], duration.timescale);
+  CMTimeRange movie_range = CMTimeRangeMake(start_time, CMTimeMake(telescope_raise_timevals[tele_position] - start_time.value + 7, duration.timescale));
   [movie setPlaybackSelection:movie_range];
 
   // update the telescope position
@@ -5081,10 +5081,10 @@ static int64_t const telescope_lower_timevals[] = {4320LL, 3440LL, 2660LL, 1760L
   // determine the playback selection for the telescope lower movie
   uintptr_t movie_code = ([gs unsignedShortForKey:@"ttelecover"] == 1) ? 1 : 2;
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)movie_code);
-  QTTime duration = [movie duration];
+  CMTime duration = [movie duration];
 
-  QTTime start_time = QTMakeTime(telescope_lower_timevals[tele_position], duration.timeScale);
-  QTTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(telescope_lower_timevals[tele_position - 1] - start_time.timeValue + 7, duration.timeScale));
+  CMTime start_time = CMTimeMake(telescope_lower_timevals[tele_position], duration.timescale);
+  CMTimeRange movie_range = CMTimeRangeMake(start_time, CMTimeMake(telescope_lower_timevals[tele_position - 1] - start_time.value + 7, duration.timescale));
   [movie setPlaybackSelection:movie_range];
 
   // update the telescope position
@@ -5257,7 +5257,7 @@ DEFINE_COMMAND(xtisland390_covercombo)
   NSTimeInterval delay = 0.0;
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)mlst_index);
   if (movie)
-    QTGetTimeInterval([movie duration], &delay);
+    delay = CMTimeGetSeconds([movie duration]);
   delay += 38 + rx_rnd_range(0, 20);
 
   // store the delay rvillagetime as µseconds
@@ -5368,16 +5368,16 @@ DEFINE_COMMAND(xbookclick)
   // busy-wait until we reach the start timestamp
   while (1) {
     // get the current movie time
-    QTTime movie_time = [movie _noLockCurrentTime];
+    CMTime movie_time = [movie _noLockCurrentTime];
 
     // if we have reached the point where Gehn takes the trap book, set atrapbook to 0
-    if (remove_trap_book_time && movie_time.timeValue > remove_trap_book_time) {
+    if (remove_trap_book_time && movie_time.value > remove_trap_book_time) {
       [gs setUnsigned32:0 forKey:@"atrapbook"];
       remove_trap_book_time = 0;
     }
 
     // if we have gone beyond the link window, exit the mouse tracking loop
-    if (movie_time.timeValue > start_timeval)
+    if (movie_time.value > start_timeval)
       break;
 
     usleep(kRunloopPeriodMicroseconds);
@@ -5405,10 +5405,10 @@ DEFINE_COMMAND(xbookclick)
   BOOL mouse_was_pressed = NO;
   while (1) {
     // get the current movie time
-    QTTime movie_time = [movie _noLockCurrentTime];
+    CMTime movie_time = [movie _noLockCurrentTime];
 
     // if we have gone beyond the link window, exit the mouse tracking loop
-    if (movie_time.timeValue > end_timeval)
+    if (movie_time.value > end_timeval)
       break;
 
     // if the mouse has been pressed, update the mouse down event
@@ -5419,7 +5419,7 @@ DEFINE_COMMAND(xbookclick)
       // check where the mouse was pressed, and if it is inside the
       // link region and within the link window, set mouse_was_pressed to
       // YES and exit the loop
-      if (NSMouseInRect(mouse_down_event.location, [touchbook_hotspot worldFrame], NO) && movie_time.timeValue > start_timeval) {
+      if (NSMouseInRect(mouse_down_event.location, [touchbook_hotspot worldFrame], NO) && movie_time.value > start_timeval) {
         mouse_was_pressed = YES;
         break;
       }
@@ -5664,7 +5664,7 @@ static const uint16_t cath_prison_movie_mlsts2[] = {9, 10, 12, 13};
   uintptr_t movie_code = [_card movieCodes][movie_mlst - 1];
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)movie_code);
   if (movie)
-    QTGetTimeInterval([movie duration], &delay);
+    delay = CMTimeGetSeconds([movie duration]);
   delay += rx_rnd_range(0, 120); // maybe make this a normal distribution
 
   // store the delay pcathtime as µseconds
