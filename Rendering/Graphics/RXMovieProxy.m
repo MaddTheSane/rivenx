@@ -70,7 +70,7 @@
     return;
 
   NSError* error = nil;
-  Movie movie = [_archive movieWithID:_ID error:&error];
+  void *movie = [_archive movieWithID:_ID error:&error];
   if (!movie)
     @throw [NSException exceptionWithName:@"RXMovieException"
                                    reason:@"[RXMovieProxy _loadMovie] failed to get movie from archive."

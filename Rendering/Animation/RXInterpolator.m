@@ -36,7 +36,7 @@
 
 - (RXAnimation*)animation { return [[_animation retain] autorelease]; }
 
-- (float)value { return [_animation valueAt:[_animation progress]]; }
+- (CGFloat)value { return [_animation valueAt:[_animation progress]]; }
 
 - (BOOL)isDone
 {
@@ -48,7 +48,7 @@
 
 @implementation RXLinearInterpolator
 
-- (id)initWithAnimation:(RXAnimation*)a start:(float)p0 end:(float)p1
+- (id)initWithAnimation:(RXAnimation*)a start:(CGFloat)p0 end:(CGFloat)p1
 {
   self = [super initWithAnimation:a];
   if (!self)
@@ -60,7 +60,7 @@
   return self;
 }
 
-- (float)value
+- (CGFloat)value
 {
   float t = [_animation valueAt:[_animation progress]];
   return (end * t) + ((1.0f - t) * start);
@@ -116,7 +116,7 @@
   return [[[_current animation] retain] autorelease];
 }
 
-- (float)value
+- (CGFloat)value
 {
   if (!_current || [_current isDone])
     [self _updateCurrent];

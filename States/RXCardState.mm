@@ -1049,7 +1049,7 @@ init_failure:
 
 - (void)queuePicture:(RXPicture*)picture
 {
-  uint32_t index = [_back_render_state->pictures indexOfObject:picture];
+  NSInteger index = [_back_render_state->pictures indexOfObject:picture];
   if (index != NSNotFound)
     [_back_render_state->pictures removeObjectAtIndex:index];
 
@@ -1067,7 +1067,7 @@ init_failure:
 {
   OSSpinLockLock(&_render_lock);
 
-  uint32_t index;
+  NSInteger index;
 
   if (_movies_to_disable_on_next_update) {
     index = [_movies_to_disable_on_next_update indexOfObject:movie];
@@ -1087,7 +1087,7 @@ init_failure:
   OSSpinLockUnlock(&_render_lock);
 
 #if defined(DEBUG)
-  RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"enabled movie %@ [%d active movies]", movie, [_active_movies count]);
+  RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"enabled movie %@ [%lu active movies]", movie, (unsigned long)[_active_movies count]);
 #endif
 }
 
@@ -1095,7 +1095,7 @@ init_failure:
 {
   OSSpinLockLock(&_render_lock);
 
-  uint32_t index = [_active_movies indexOfObject:movie];
+  NSInteger index = [_active_movies indexOfObject:movie];
   if (index != NSNotFound) {
     [[movie owner] release];
     [_active_movies removeObjectAtIndex:index];
@@ -1104,7 +1104,7 @@ init_failure:
   OSSpinLockUnlock(&_render_lock);
 
 #if defined(DEBUG)
-  RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"disabled movie %@ [%d active movies]", movie, [_active_movies count]);
+  RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"disabled movie %@ [%lu active movies]", movie, (unsigned long)[_active_movies count]);
 #endif
 }
 
@@ -1128,7 +1128,7 @@ init_failure:
   _movies_to_disable_on_next_update = nil;
 
 #if defined(DEBUG)
-  RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"disabled movies to disable on next update [%d active movies]", [_active_movies count]);
+  RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"disabled movies to disable on next update [%lu active movies]", (unsigned long)[_active_movies count]);
 #endif
 }
 
@@ -1172,7 +1172,7 @@ init_failure:
   // queue the transition
   [_transitionQueue addObject:transition];
 #if defined(DEBUG)
-  RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"queued transition %@ [queue depth=%u]", transition, [_transitionQueue count]);
+  RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"queued transition %@ [queue depth=%lu]", transition, (unsigned long)[_transitionQueue count]);
 #endif
 }
 
@@ -1202,7 +1202,7 @@ init_failure:
     [_transitionQueue removeAllObjects];
 
 #if defined(DEBUG)
-    RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"dequeued transition %@ [queue depth=%u]", _back_render_state->transition, [_transitionQueue count]);
+    RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"dequeued transition %@ [queue depth=%lu]", _back_render_state->transition, (unsigned long)[_transitionQueue count]);
 #endif
   }
 
@@ -1536,15 +1536,15 @@ init_failure:
         uint16_t* p_int16;
         void* p_void;
       } mp;
-      mp.p_void = BUFFER_OFFSET(r->water_fx.sfxe->record, r->water_fx.sfxe->offsets[r->water_fx.current_frame]);
+      mp.p_void = rx::BUFFER_OFFSET(r->water_fx.sfxe->record, r->water_fx.sfxe->offsets[r->water_fx.current_frame]);
 
       uint16_t draw_row = r->water_fx.sfxe->record->rect.top;
       while (*mp.p_int16 != 4) {
         if (*mp.p_int16 == 1) {
           draw_row++;
         } else if (*mp.p_int16 == 3) {
-          memcpy(BUFFER_OFFSET(_water_draw_buffer, (draw_row * kRXCardViewportSize.width + mp.p_int16[1]) << 2),
-                 BUFFER_OFFSET(_water_readback_buffer, (mp.p_int16[3] * kRXCardViewportSize.width + mp.p_int16[2]) << 2), mp.p_int16[4] << 2);
+          memcpy(rx::BUFFER_OFFSET(_water_draw_buffer, (draw_row * kRXCardViewportSize.width + mp.p_int16[1]) << 2),
+                 rx::BUFFER_OFFSET(_water_readback_buffer, (mp.p_int16[3] * kRXCardViewportSize.width + mp.p_int16[2]) << 2), mp.p_int16[4] << 2);
           mp.p_int16 += 4;
         } else {
           abort();
@@ -1623,7 +1623,7 @@ init_failure:
   }
 
   // compute the initial inventory x offset
-  float x_offset = (_inventory_max_width / 2.0f) - (total_inventory_width / 2.0f);
+  CGFloat x_offset = (_inventory_max_width / 2.0f) - (total_inventory_width / 2.0f);
 
   // compute the x position of every active inventory item
   for (GLuint inventory_i = 0; inventory_i < RX_MAX_INVENTORY_ITEMS; inventory_i++) {
@@ -1654,7 +1654,7 @@ init_failure:
   OSSpinLockUnlock(&_inventory_update_lock);
 
   // get the active state of the entire inventory HUD
-  BOOL inv_active = [gs unsigned32ForKey:@"ainventory"];
+  BOOL inv_active = [gs unsigned32ForKey:@"ainventory"] != 0;
   BOOL active_interpolators = (_inventory_alpha_interpolators[0] || _inventory_alpha_interpolators[1] || _inventory_alpha_interpolators[2]) ? YES : NO;
   BOOL visible_items = (_inventory_alpha[0] > 0.0f || _inventory_alpha[1] > 0.0f || _inventory_alpha[2] > 0.0f) ? YES : NO;
   BOOL render_inv = (inv_active || active_interpolators || visible_items) ? YES : NO;
@@ -1693,10 +1693,10 @@ init_failure:
     RXLinearInterpolator* alpha_interpolator = (RXLinearInterpolator*)_inventory_alpha_interpolators[inv_i];
 
     // get the current x position of the item and subtract from it the base inventory x offset
-    float pos_x = positions[inv_i * 16] - _inventory_base_x_offset;
+    CGFloat pos_x = positions[inv_i * 16] - _inventory_base_x_offset;
 
     // if the position has changed, setup a position interpolator
-    float final_position = _inventory_frames[inv_i].origin.x;
+    CGFloat final_position = _inventory_frames[inv_i].origin.x;
     if ((pos_interpolator && fnotequal(pos_interpolator->end, final_position)) || (!pos_interpolator && fnotequal(pos_x, final_position))) {
       duration = (pos_interpolator) ? [[pos_interpolator animation] progress] : 1.0;
       [pos_interpolator release];
@@ -1717,12 +1717,12 @@ init_failure:
   }
 
   // determine the desired global alpha value based on the inventory focus state
-  float global_alpha = (_inventory_has_focus) ? 1.0f : RX_INVENTORY_UNFOCUSED_ALPHA;
+  CGFloat global_alpha = (_inventory_has_focus) ? 1.0f : RX_INVENTORY_UNFOCUSED_ALPHA;
 
   // update alpha animations; new animations have UINT64_MAX as their start time
   for (uint32_t inv_i = 0; inv_i < RX_MAX_INVENTORY_ITEMS; inv_i++) {
-    float start;
-    double duration;
+    CGFloat start;
+    NSTimeInterval duration;
     RXAnimation* animation;
 
     // inventory bit
@@ -1846,23 +1846,23 @@ init_failure:
       [[alpha_interpolator animation] startAt:anim_start_time];
 
     // get the base X position of the item
-    float base_x = _inventory_base_x_offset + ((pos_interpolator) ? [pos_interpolator value] : _inventory_frames[inv_i].origin.x);
+    CGFloat base_x = _inventory_base_x_offset + ((pos_interpolator) ? [pos_interpolator value] : _inventory_frames[inv_i].origin.x);
 
     // update the current position of the item based on the base X position
-    positions[0] = base_x;
-    positions[1] = _inventory_frames[inv_i].origin.y;
+    positions[0] = (GLfloat)base_x;
+    positions[1] = (GLfloat)_inventory_frames[inv_i].origin.y;
     positions += 4;
 
-    positions[0] = base_x + _inventory_frames[inv_i].size.width;
-    positions[1] = _inventory_frames[inv_i].origin.y;
+    positions[0] = (GLfloat)(base_x + _inventory_frames[inv_i].size.width);
+    positions[1] = (GLfloat)(_inventory_frames[inv_i].origin.y);
     positions += 4;
 
-    positions[0] = base_x;
-    positions[1] = _inventory_frames[inv_i].origin.y + _inventory_frames[inv_i].size.height;
+    positions[0] = (GLfloat)base_x;
+    positions[1] = (GLfloat)(_inventory_frames[inv_i].origin.y + _inventory_frames[inv_i].size.height);
     positions += 4;
 
-    positions[0] = base_x + _inventory_frames[inv_i].size.width;
-    positions[1] = _inventory_frames[inv_i].origin.y + _inventory_frames[inv_i].size.height;
+    positions[0] = (GLfloat)(base_x + _inventory_frames[inv_i].size.width);
+    positions[1] = (GLfloat)(_inventory_frames[inv_i].origin.y + _inventory_frames[inv_i].size.height);
     positions += 4;
 
     // tex coords are always the same
@@ -2030,7 +2030,7 @@ init_failure:
       // load 304 and 305
       MHKArchive* archive = [[RXArchiveManager sharedArchiveManager] extrasArchive:NULL];
       [archive loadBitmapWithID:304 bgraBuffer:_credits_texture_buffer error:NULL];
-      [archive loadBitmapWithID:305 bgraBuffer:BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4) error:NULL];
+      [archive loadBitmapWithID:305 bgraBuffer:rx::BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4) error:NULL];
 
       glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, 360, 784, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _credits_texture_buffer);
       glReportError();
@@ -2045,13 +2045,13 @@ init_failure:
       t = 0.5f;
 
       // copy the previous bottom page to the top page
-      memcpy(_credits_texture_buffer, BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4), 360 * 392 * 4);
+      memcpy(_credits_texture_buffer, rx::BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4), 360 * 392 * 4);
 
       // load the new bottom page
       if (_credits_state < 22) {
         MHKArchive* archive = [[RXArchiveManager sharedArchiveManager] extrasArchive:NULL];
         [archive loadBitmapWithID:299 + _credits_state
-                       bgraBuffer:BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4)
+                       bgraBuffer:rx::BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4)
                             error:NULL];
       } else {
         memset(BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4), 0, 360 * 392 * 4);
@@ -2435,7 +2435,7 @@ exit_render:
 
     glEnableClientState(GL_COLOR_ARRAY);
     glReportError();
-    glColorPointer(4, GL_FLOAT, 6 * sizeof(GLfloat), (void*)BUFFER_OFFSET(NULL, 2 * sizeof(GLfloat)));
+    glColorPointer(4, GL_FLOAT, 6 * sizeof(GLfloat), (void*)rx::BUFFER_OFFSET(NULL, 2 * sizeof(GLfloat)));
     glReportError();
 
     glMultiDrawArrays(GL_LINE_LOOP, _hotspotDebugRenderFirstElementArray, _hotspotDebugRenderElementCountArray, [activeHotspots count] + inv_count);
@@ -2450,8 +2450,8 @@ exit_render:
 
   // VA for the background strip we'll paint before a debug string
   NSPoint background_origin = NSMakePoint(9.5, 19.5);
-  GLfloat background_strip[12] = {background_origin.x, background_origin.y,         0.0f, background_origin.x, background_origin.y,         0.0f,
-                                  background_origin.x, background_origin.y + 13.0f, 0.0f, background_origin.x, background_origin.y + 13.0f, 0.0f};
+  GLfloat background_strip[12] = {static_cast<GLfloat>(background_origin.x), static_cast<GLfloat>(background_origin.y),         0.0f, static_cast<GLfloat>(background_origin.x), static_cast<GLfloat>(background_origin.y),         0.0f,
+                                  static_cast<GLfloat>(background_origin.x), static_cast<GLfloat>(background_origin.y) + 13.0f, 0.0f, static_cast<GLfloat>(background_origin.x), static_cast<GLfloat>(background_origin.y) + 13.0f, 0.0f};
 
   // setup the pipeline to use the client memory VA we defined above
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -2495,8 +2495,8 @@ exit_render:
   if (render_mouseinfo) {
     NSRect mouse = [self mouseVector];
 
-    float theta = 180.0f * atan2f(mouse.size.height, mouse.size.width) * M_1_PI;
-    float r = sqrtf((mouse.size.height * mouse.size.height) + (mouse.size.width * mouse.size.width));
+    CGFloat theta = 180.0f * atan2(mouse.size.height, mouse.size.width) * M_1_PI;
+    CGFloat r = sqrt((mouse.size.height * mouse.size.height) + (mouse.size.width * mouse.size.width));
 
     snprintf(debug_buffer, 100, "mouse vector: (%d, %d) (%.3f, %.3f) (%.3f, %.3f)", (int)mouse.origin.x, (int)mouse.origin.y, mouse.size.width,
              mouse.size.height, theta, r);
@@ -2562,10 +2562,10 @@ exit_render:
     if ([_active_movies count]) {
       RXMovie* movie = [_active_movies objectAtIndex:0];
       NSTimeInterval ct;
-      QTGetTimeInterval([movie _noLockCurrentTime], &ct);
+      ct = CMTimeGetSeconds([movie _noLockCurrentTime]);
 
       NSTimeInterval duration;
-      QTGetTimeInterval([movie duration], &duration);
+      duration = CMTimeGetSeconds([movie _noLockCurrentTime]);
 
       snprintf(debug_buffer, 100, "movie display position: %f/%f", ct, duration);
     } else {
@@ -2738,7 +2738,7 @@ exit_flush_tasks:
     if (_hotspot_handling_disable_counter > 0)
       [g_worldView setCursor:_hidden_cursor];
 
-    [_hidden_cursor release], _hidden_cursor = nil;
+    [_hidden_cursor release]; _hidden_cursor = nil;
   }
 }
 
@@ -3171,7 +3171,7 @@ exit_flush_tasks:
 
   NSRect previous_mouse_vector;
   {
-    rx::OSSpinlockGuard lock_guard(&_mouse_state_lock);
+    rx::OSSpinlockGuard lock_guard2(&_mouse_state_lock);
 
     // we need to copy the current mouse vector to restore it after the swipe
     previous_mouse_vector = _mouse_vector;
@@ -3191,7 +3191,7 @@ exit_flush_tasks:
 
   // we can now finally generate a mouse down event; we do this by changing the mouse vector's size from INFINITY to zero
   {
-    rx::OSSpinlockGuard lock_guard(&_mouse_state_lock);
+    rx::OSSpinlockGuard lock_guard2(&_mouse_state_lock);
     _mouse_vector.size = NSZeroSize;
   }
 
@@ -3200,7 +3200,7 @@ exit_flush_tasks:
 
   // restore the mouse's position
   {
-    rx::OSSpinlockGuard lock_guard(&_mouse_state_lock);
+    rx::OSSpinlockGuard lock_guard2(&_mouse_state_lock);
     _mouse_vector = previous_mouse_vector;
   }
 

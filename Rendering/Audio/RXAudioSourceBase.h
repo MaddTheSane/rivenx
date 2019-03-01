@@ -18,7 +18,7 @@
 namespace RX {
 
 class AudioSourceBase {
-  friend class AudioRenderer;
+  friend class rx::AudioRenderer;
 
 private:
   // WARNING: sub-classes are responsible for checking this variable and should output silence without updating their rendering state if it is true

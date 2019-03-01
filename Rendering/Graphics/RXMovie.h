@@ -46,7 +46,7 @@ extern NSNotificationName const RXMoviePlaybackDidEndNotification;
   OSSpinLock _render_lock;
 }
 
-//- (id)initWithMovie:(Movie)movie disposeWhenDone:(BOOL)disposeWhenDone owner:(id)owner;
+- (id)initWithMovie:(void*)movie disposeWhenDone:(BOOL)disposeWhenDone owner:(id)owner;
 - (id)initWithURL:(NSURL*)movieURL owner:(id)owner;
 
 - (id)owner;
