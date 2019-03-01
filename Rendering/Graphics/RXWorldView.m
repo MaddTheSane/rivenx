@@ -544,7 +544,6 @@ static NSString* required_extensions[] = {@"GL_APPLE_vertex_array_object", @"GL_
   // configure our new window
   if ([w respondsToSelector:@selector(setPreferredBackingLocation:)])
     [w setPreferredBackingLocation:NSWindowBackingLocationVideoMemory];
-  [w useOptimizedDrawing:YES];
 
   // register for color profile changes and trigger one artificially
   [center addObserver:self selector:@selector(_handleColorProfileChange:) name:NSWindowDidChangeScreenProfileNotification object:w];

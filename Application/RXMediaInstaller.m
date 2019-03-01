@@ -388,7 +388,7 @@ static NSString* const gStacks[] = {@"aspit", @"bspit", @"gspit", @"jspit", @"os
   // if we're cancelled, call the completion block and bail out
   if (_cancelled) {
     _completionBlock(NO, [RXError errorWithDomain:RXErrorDomain code:kRXErrInstallerCancelled userInfo:nil]);
-    [_completionBlock release], _completionBlock = nil;
+    [_completionBlock release]; _completionBlock = nil;
     return;
   }
 
@@ -396,7 +396,7 @@ static NSString* const gStacks[] = {@"aspit", @"bspit", @"gspit", @"jspit", @"os
   if (!ok) {
     debug_assert(error);
     _completionBlock(NO, error);
-    [_completionBlock release], _completionBlock = nil;
+    [_completionBlock release]; _completionBlock = nil;
     return;
   }
 

@@ -83,7 +83,7 @@ static CFArrayCallBacks g_deleteOnReleaseAudioSourceArrayCallbacks = {
 
 static void RXCardAudioSourceFadeInApplier(const void* value, void* context)
 {
-  RX::AudioRenderer* renderer = reinterpret_cast<RX::AudioRenderer*>(context);
+  rx::AudioRenderer* renderer = reinterpret_cast<rx::AudioRenderer*>(context);
   RX::CardAudioSource* source = const_cast<RX::CardAudioSource*>(reinterpret_cast<const RX::CardAudioSource*>(value));
   renderer->SetSourceGain(*source, 0.0f);
   renderer->RampSourceGain(*source, source->NominalGain(), RX_AUDIO_GAIN_RAMP_DURATION);
@@ -175,8 +175,8 @@ static SEL post_flush_card_sel = @selector(_postFlushCard:);
   _render_states_buffer = malloc(states_buffer_size);
 
   // point each render state pointer at the beginning of a cache line
-  _front_render_state = (struct rx_card_state_render_state*)BUFFER_OFFSET((uintptr_t)_render_states_buffer & ~(cache_line_size - 1), cache_line_size);
-  _back_render_state = BUFFER_OFFSET(_front_render_state, render_state_cache_line_count * cache_line_size);
+  _front_render_state = (struct rx_card_state_render_state*)rx::BUFFER_OFFSET((uintptr_t)_render_states_buffer & ~(cache_line_size - 1), cache_line_size);
+  _back_render_state = rx::BUFFER_OFFSET(_front_render_state, render_state_cache_line_count * cache_line_size);
 
   // zero-fill the render states to be extra-safe
   bzero((void*)_front_render_state, sizeof(struct rx_card_state_render_state));
@@ -357,7 +357,7 @@ init_failure:
 
   // create the water draw and readback buffers
   _water_draw_buffer = malloc((kRXCardViewportSize.width * kRXCardViewportSize.height) << 3);
-  _water_readback_buffer = BUFFER_OFFSET(_water_draw_buffer, (kRXCardViewportSize.width * kRXCardViewportSize.height) << 2);
+  _water_readback_buffer = rx::BUFFER_OFFSET(_water_draw_buffer, (kRXCardViewportSize.width * kRXCardViewportSize.height) << 2);
 
   // inventory textures and interpolators
 
@@ -371,7 +371,7 @@ init_failure:
 
   // get the texture descriptors for the inventory textures and compute the total byte size of those textures (packed BGRA format)
   // also compute the maximum inventory width
-  NSDictionary* inventoryTextureDescriptors[3];
+  MHKBitmapDescriptor* inventoryTextureDescriptors[3];
   uint32_t inventoryTotalTextureSize = 0;
   _inventory_max_width = 0.0f;
   for (GLuint inventory_i = 0; inventory_i < RX_MAX_INVENTORY_ITEMS; inventory_i++) {
@@ -383,8 +383,8 @@ init_failure:
       continue;
     }
 
-    _inventory_sizes[inventory_i] = RXSizeMake([[inventoryTextureDescriptors[inventory_i] objectForKey:@"Width"] unsignedIntValue],
-                                               [[inventoryTextureDescriptors[inventory_i] objectForKey:@"Height"] unsignedIntValue]);
+    _inventory_sizes[inventory_i] = RXSizeMake(inventoryTextureDescriptors[inventory_i].width,
+                                               inventoryTextureDescriptors[inventory_i].height);
 
     _inventory_max_width += _inventory_sizes[inventory_i].width;
     inventoryTotalTextureSize += (_inventory_sizes[inventory_i].width * _inventory_sizes[inventory_i].height) << 2;
@@ -409,12 +409,12 @@ init_failure:
   // decompress the textures into the buffer
   for (GLuint inventory_i = 0; inventory_i < RX_MAX_INVENTORY_ITEMS; inventory_i++) {
     uint16_t bitmapID = [[journal_descriptors objectForKey:RX_INVENTORY_KEYS[inventory_i]] unsignedShortValue];
-    if (![extras_archive loadBitmapWithID:bitmapID buffer:inventoryBuffer format:MHK_BGRA_UNSIGNED_INT_8_8_8_8_REV_PACKED error:&error]) {
+    if (![extras_archive loadBitmapWithID:bitmapID bgraBuffer:inventoryBuffer error:&error]) {
       RXOLog2(kRXLoggingGraphics, kRXLoggingLevelError, @"failed to load inventory texture for item \"%@\": %@", RX_INVENTORY_KEYS[inventory_i], error);
       continue;
     }
 
-    inventoryBuffer = BUFFER_OFFSET(inventoryBuffer, (uint32_t)(_inventory_sizes[inventory_i].width * _inventory_sizes[inventory_i].height) << 2);
+    inventoryBuffer = rx::BUFFER_OFFSET(inventoryBuffer, (uint32_t)(_inventory_sizes[inventory_i].width * _inventory_sizes[inventory_i].height) << 2);
   }
 
   // unmap the pixel unpack buffer to begin the DMA transfer
@@ -511,7 +511,7 @@ init_failure:
   glReportError();
 
   glEnableVertexAttribArray(RX_ATTRIB_TEXCOORD0);
-  glVertexAttribPointer(RX_ATTRIB_TEXCOORD0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), BUFFER_OFFSET(_card_composite_va, 2 * sizeof(GLfloat)));
+  glVertexAttribPointer(RX_ATTRIB_TEXCOORD0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), rx::BUFFER_OFFSET(_card_composite_va, 2 * sizeof(GLfloat)));
   glReportError();
 
   // transitions
@@ -620,7 +620,7 @@ init_failure:
                  GL_UNSIGNED_INT_8_8_8_8_REV, inventoryBuffer);
     glReportError();
 
-    inventoryBuffer = BUFFER_OFFSET(inventoryBuffer, (uint32_t)(_inventory_sizes[inventory_i].width * _inventory_sizes[inventory_i].height) << 2);
+    inventoryBuffer = rx::BUFFER_OFFSET(inventoryBuffer, (uint32_t)(_inventory_sizes[inventory_i].width * _inventory_sizes[inventory_i].height) << 2);
   }
 
   // restore state to Riven X assumptions
@@ -759,7 +759,7 @@ init_failure:
     return;
 
   // cache a pointer to the audio renderer
-  RX::AudioRenderer* renderer = (reinterpret_cast<RX::AudioRenderer*>([g_world audioRenderer]));
+  rx::AudioRenderer* renderer = (reinterpret_cast<rx::AudioRenderer*>([g_world audioRenderer]));
 
   // cache the sound group's sound set
   NSSet* soundGroupSounds = [soundGroup sounds];
@@ -923,7 +923,7 @@ init_failure:
     @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"playDataSound: MUST RUN ON SCRIPT THREAD" userInfo:nil];
 
   // cache a pointer to the audio renderer
-  RX::AudioRenderer* renderer = (reinterpret_cast<RX::AudioRenderer*>([g_world audioRenderer]));
+  rx::AudioRenderer* renderer = (reinterpret_cast<rx::AudioRenderer*>([g_world audioRenderer]));
 
   RXSound* active_sound = [_activeDataSounds member:sound];
 
@@ -1934,7 +1934,7 @@ init_failure:
 
     // create the credits texture and load the first credits picture in it
     MHKArchive* archive = [[RXArchiveManager sharedArchiveManager] extrasArchive:NULL];
-    [archive loadBitmapWithID:302 buffer:_credits_texture_buffer format:MHK_BGRA_UNSIGNED_INT_8_8_8_8_REV_PACKED error:NULL];
+    [archive loadBitmapWithID:302 bgraBuffer:_credits_texture_buffer error:NULL];
 
     glGenTextures(1, &_credits_texture);
 
@@ -2012,7 +2012,7 @@ init_failure:
 
       // load 303
       MHKArchive* archive = [[RXArchiveManager sharedArchiveManager] extrasArchive:NULL];
-      [archive loadBitmapWithID:303 buffer:_credits_texture_buffer format:MHK_BGRA_UNSIGNED_INT_8_8_8_8_REV_PACKED error:NULL];
+      [archive loadBitmapWithID:303 bgraBuffer:_credits_texture_buffer error:NULL];
 
       glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, 360, 392, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _credits_texture_buffer);
       glReportError();
@@ -2029,8 +2029,8 @@ init_failure:
 
       // load 304 and 305
       MHKArchive* archive = [[RXArchiveManager sharedArchiveManager] extrasArchive:NULL];
-      [archive loadBitmapWithID:304 buffer:_credits_texture_buffer format:MHK_BGRA_UNSIGNED_INT_8_8_8_8_REV_PACKED error:NULL];
-      [archive loadBitmapWithID:305 buffer:BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4) format:MHK_BGRA_UNSIGNED_INT_8_8_8_8_REV_PACKED error:NULL];
+      [archive loadBitmapWithID:304 bgraBuffer:_credits_texture_buffer error:NULL];
+      [archive loadBitmapWithID:305 bgraBuffer:BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4) error:NULL];
 
       glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, 360, 784, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _credits_texture_buffer);
       glReportError();
@@ -2051,8 +2051,7 @@ init_failure:
       if (_credits_state < 22) {
         MHKArchive* archive = [[RXArchiveManager sharedArchiveManager] extrasArchive:NULL];
         [archive loadBitmapWithID:299 + _credits_state
-                           buffer:BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4)
-                           format:MHK_BGRA_UNSIGNED_INT_8_8_8_8_REV_PACKED
+                       bgraBuffer:BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4)
                             error:NULL];
       } else {
         memset(BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4), 0, 360 * 392 * 4);

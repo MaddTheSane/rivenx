@@ -287,7 +287,7 @@ completionHandler:
   bool preLion = true;
 
   // initialize the audio renderer
-  RX::AudioRenderer* audioRenderer = new RX::AudioRenderer();
+  rx::AudioRenderer* audioRenderer = new rx::AudioRenderer();
   _audioRenderer = reinterpret_cast<void*>(audioRenderer);
   audioRenderer->Initialize();
 

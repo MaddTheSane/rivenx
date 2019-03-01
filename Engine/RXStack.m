@@ -276,9 +276,9 @@ static NSArray* _loadNAMEResourceWithID(MHKArchive* archive, uint16_t resourceID
 - (uint16_t)soundIDForName:(NSString*)sound_name
 {
   for (MHKArchive* archive in _soundArchives) {
-    NSDictionary* desc = [archive resourceDescriptorWithResourceType:@"tWAV" name:sound_name];
+    MHKResourceDescriptor* desc = [archive resourceDescriptorWithResourceType:@"tWAV" name:sound_name];
     if (desc)
-      return [[desc objectForKey:@"ID"] unsignedShortValue];
+      return desc.ID;
   }
   return 0;
 }
@@ -286,9 +286,9 @@ static NSArray* _loadNAMEResourceWithID(MHKArchive* archive, uint16_t resourceID
 - (uint16_t)dataSoundIDForName:(NSString*)sound_name
 {
   for (MHKArchive* archive in _dataArchives) {
-    NSDictionary* desc = [archive resourceDescriptorWithResourceType:@"tWAV" name:sound_name];
+    MHKResourceDescriptor* desc = [archive resourceDescriptorWithResourceType:@"tWAV" name:sound_name];
     if (desc)
-      return [[desc objectForKey:@"ID"] unsignedShortValue];
+      return desc.ID;
   }
   return 0;
 }
@@ -296,9 +296,9 @@ static NSArray* _loadNAMEResourceWithID(MHKArchive* archive, uint16_t resourceID
 - (uint16_t)bitmapIDForName:(NSString*)bitmap_name
 {
   for (MHKArchive* archive in _dataArchives) {
-    NSDictionary* desc = [archive resourceDescriptorWithResourceType:@"tBMP" name:bitmap_name];
+    MHKResourceDescriptor* desc = [archive resourceDescriptorWithResourceType:@"tBMP" name:bitmap_name];
     if (desc)
-      return [[desc objectForKey:@"ID"] unsignedShortValue];
+      return desc.ID;
   }
   return 0;
 }

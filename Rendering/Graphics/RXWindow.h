@@ -12,6 +12,6 @@
   BOOL constrainingToScreenSuspended;
 }
 
-@property BOOL constrainingToScreenSuspended;
+@property (atomic) BOOL constrainingToScreenSuspended;
 
 @end

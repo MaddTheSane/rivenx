@@ -129,7 +129,7 @@ NSObject<RXWorldProtocol>* g_world = nil;
 {
   if (context == [_engineVariables objectForKey:@"rendering"]) {
     if ([keyPath isEqualToString:@"volume"])
-      reinterpret_cast<RX::AudioRenderer*>(_audioRenderer)->SetGain([[change objectForKey:NSKeyValueChangeNewKey] floatValue]);
+      reinterpret_cast<rx::AudioRenderer*>(_audioRenderer)->set_gain([[change objectForKey:NSKeyValueChangeNewKey] floatValue]);
   } else {
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
   }
@@ -276,8 +276,8 @@ NSObject<RXWorldProtocol>* g_world = nil;
   [g_worldView tearDown];
 
   if (_audioRenderer) {
-    reinterpret_cast<RX::AudioRenderer*>(_audioRenderer)->Stop();
-    delete reinterpret_cast<RX::AudioRenderer*>(_audioRenderer);
+    reinterpret_cast<rx::AudioRenderer*>(_audioRenderer)->Stop();
+    delete reinterpret_cast<rx::AudioRenderer*>(_audioRenderer);
     _audioRenderer = 0;
   }
 

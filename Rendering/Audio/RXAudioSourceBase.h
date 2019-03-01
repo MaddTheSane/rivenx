@@ -55,7 +55,7 @@ protected:
   AudioUnitElement bus;
 
   // WARNING: a NULL renderer is the convention for indicating a source is not attached
-  AudioRenderer* rendererPtr;
+  rx::AudioRenderer* rendererPtr;
 
 private:
   AudioSourceBase(const AudioSourceBase& c) {}

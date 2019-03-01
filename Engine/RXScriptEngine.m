@@ -305,12 +305,12 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
 {
   RXGameState* gs = [g_world gameState];
 
-  played_one_whark_solo = [gs unsigned32ForKey:@"played_one_whark_solo"];
+  played_one_whark_solo = [gs unsigned32ForKey:@"played_one_whark_solo"] != 0;
 
-  intro_scheduled_atrus_give_books = [gs unsigned32ForKey:@"intro_scheduled_atrus_give_books"];
-  intro_atrus_gave_books = [gs unsigned32ForKey:@"intro_atrus_gave_books"];
-  intro_scheduled_cho_take_book = [gs unsigned32ForKey:@"intro_scheduled_cho_take_book"];
-  intro_cho_took_book = [gs unsigned32ForKey:@"intro_cho_took_book"];
+  intro_scheduled_atrus_give_books = [gs unsigned32ForKey:@"intro_scheduled_atrus_give_books"] != 0;
+  intro_atrus_gave_books = [gs unsigned32ForKey:@"intro_atrus_gave_books"] != 0;
+  intro_scheduled_cho_take_book = [gs unsigned32ForKey:@"intro_scheduled_cho_take_book"] != 0;
+  intro_cho_took_book = [gs unsigned32ForKey:@"intro_cho_took_book"] != 0;
 }
 
 #pragma mark -
@@ -1160,8 +1160,8 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
     @throw [NSException exceptionWithName:@"RXPictureLoadException"
                                    reason:@"Could not get a picture resource's picture descriptor."
                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error, NSUnderlyingErrorKey, nil]];
-  GLsizei picture_width = [[picture_descriptor objectForKey:@"Width"] intValue];
-  GLsizei picture_height = [[picture_descriptor objectForKey:@"Height"] intValue];
+  GLsizei picture_width = picture_descriptor.width;
+  GLsizei picture_height = picture_descriptor.height;
 
   // if the sampling rect is empty, use the picture's full resolution
   if (NSIsEmptyRect(sampling_rect))

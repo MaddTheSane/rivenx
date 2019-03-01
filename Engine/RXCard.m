@@ -246,14 +246,14 @@
 #endif
 
     MHKArchive* archive = [[_parent fileWithResourceType:@"tBMP" ID:picture_record->bitmap_id] archive];
-    NSDictionary* picture_descriptor = [archive bitmapDescriptorWithID:picture_record->bitmap_id error:&error];
+    MHKBitmapDescriptor* picture_descriptor = [archive bitmapDescriptorWithID:picture_record->bitmap_id error:&error];
     if (!picture_descriptor)
       @throw [NSException exceptionWithName:@"RXPictureLoadException"
                                      reason:@"Could not get a picture resource's picture descriptor."
                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error, NSUnderlyingErrorKey, nil]];
 
-    GLsizei width = [[picture_descriptor objectForKey:@"Width"] intValue];
-    GLsizei height = [[picture_descriptor objectForKey:@"Height"] intValue];
+    GLsizei width = picture_descriptor.width;
+    GLsizei height = picture_descriptor.height;
 
 #if defined(DEBUG) && DEBUG > 1
     NSRect original_rect = RXMakeCompositeDisplayRectFromCoreRect(picture_record->rect);

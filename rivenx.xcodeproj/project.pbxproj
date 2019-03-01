@@ -91,7 +91,6 @@
 		315DA3CF118FED0F003E21BC /* patches in Resources */ = {isa = PBXBuildFile; fileRef = 315DA3CB118FED0F003E21BC /* patches */; };
 		316038FA100EE54600052849 /* RXScriptOpcodeStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 316038F9100EE54600052849 /* RXScriptOpcodeStream.m */; };
 		3160E1820FD3075300F18E86 /* tiny_marbles.png in Resources */ = {isa = PBXBuildFile; fileRef = 3160E1810FD3075300F18E86 /* tiny_marbles.png */; };
-		3167216C19860E34004F64E3 /* AAPLTransforms.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3167216A19860E34004F64E3 /* AAPLTransforms.cc */; };
 		3167216D19887C87004F64E3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3167216F19887C87004F64E3 /* MainMenu.xib */; };
 		316721DA0D27FB3200FB2C0E /* integer_pair_hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 316721D90D27FB3200FB2C0E /* integer_pair_hash.c */; };
 		3167EF021115057C002DDE6D /* RXWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3167EF011115057C002DDE6D /* RXWindow.m */; };
@@ -353,8 +352,6 @@
 		316038F8100EE54600052849 /* RXScriptOpcodeStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXScriptOpcodeStream.h; sourceTree = "<group>"; };
 		316038F9100EE54600052849 /* RXScriptOpcodeStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXScriptOpcodeStream.m; sourceTree = "<group>"; };
 		3160E1810FD3075300F18E86 /* tiny_marbles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiny_marbles.png; sourceTree = "<group>"; };
-		3167216A19860E34004F64E3 /* AAPLTransforms.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AAPLTransforms.cc; sourceTree = "<group>"; };
-		3167216B19860E34004F64E3 /* AAPLTransforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLTransforms.h; sourceTree = "<group>"; };
 		3167216E19887C87004F64E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3167217019887D53004F64E3 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		316721D80D27FB3200FB2C0E /* integer_pair_hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = integer_pair_hash.h; sourceTree = "<group>"; };
@@ -578,7 +575,6 @@
 				08FB7795FE84155DC02AAC07 /* Tools */,
 				31ADC95414ADA128004FB4AD /* unpackgogsetup */,
 				31BAE6250A98D3110079DD0F /* Utilities */,
-				6B5BFF201ADECF6700AEF66B /* atomictests */,
 				6BE3ED4D179083F800B1732D /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
@@ -782,8 +778,6 @@
 		31BAE6250A98D3110079DD0F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				3167216A19860E34004F64E3 /* AAPLTransforms.cc */,
-				3167216B19860E34004F64E3 /* AAPLTransforms.h */,
 				3114FF3A0D58DF0A0099AF69 /* BZFSUtilities.h */,
 				3114FF3B0D58DF0A0099AF69 /* BZFSUtilities.m */,
 				316721D90D27FB3200FB2C0E /* integer_pair_hash.c */,
@@ -938,13 +932,6 @@
 				6B3972DE1BD8274200BE7275 /* pc_queue_tests.cc */,
 			);
 			path = atomic;
-			sourceTree = "<group>";
-		};
-		6B5BFF201ADECF6700AEF66B /* atomictests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = atomictests;
 			sourceTree = "<group>";
 		};
 		6BE3ED4D179083F800B1732D /* Frameworks */ = {
@@ -1327,7 +1314,6 @@
 				315017FA0CC06872001BA929 /* RXThreadUtilities.m in Sources */,
 				317403940CDC1A67006F3523 /* RXGameState.m in Sources */,
 				316721DA0D27FB3200FB2C0E /* integer_pair_hash.c in Sources */,
-				3167216C19860E34004F64E3 /* AAPLTransforms.cc in Sources */,
 				312A89660D57B25600FCDF91 /* RXArchiveManager.m in Sources */,
 				3114FF3C0D58DF0A0099AF69 /* BZFSUtilities.m in Sources */,
 				3133D9AF0D5CDDC1004DAD5E /* RXFSCopyOperation.m in Sources */,

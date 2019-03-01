@@ -8,6 +8,7 @@
 
 #import "Rendering/Graphics/RXTexture.h"
 #import "Rendering/Graphics/RXDynamicPicture.h"
+#import <MHKKit/MHKArchiveMediaInterface.h>
 
 @implementation RXTexture
 
@@ -104,14 +105,14 @@
 {
   // get the resource descriptor for the tBMP resource
   NSError* error;
-  NSDictionary* picture_descriptor = [archive bitmapDescriptorWithID:tbmp_id error:&error];
+  MHKBitmapDescriptor* picture_descriptor = [archive bitmapDescriptorWithID:tbmp_id error:&error];
   if (!picture_descriptor)
     @throw [NSException exceptionWithName:@"RXPictureLoadException"
                                    reason:@"Could not get a picture resource's picture descriptor."
                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error, NSUnderlyingErrorKey, nil]];
 
-  GLsizei picture_width = [[picture_descriptor objectForKey:@"Width"] intValue];
-  GLsizei picture_height = [[picture_descriptor objectForKey:@"Height"] intValue];
+  GLsizei picture_width = picture_descriptor.width;
+  GLsizei picture_height = picture_descriptor.height;
 
   // compute the size of the buffer needed to store the texture; we'll be using
   // MHK_BGRA_UNSIGNED_INT_8_8_8_8_REV_PACKED as the texture format, which is 4 bytes per pixel
@@ -133,7 +134,7 @@
   glReportError();
 
   // load the picture
-  if (![archive loadBitmapWithID:tbmp_id buffer:picture_buffer format:MHK_BGRA_UNSIGNED_INT_8_8_8_8_REV_PACKED error:&error])
+  if (![archive loadBitmapWithID:tbmp_id bgraBuffer:picture_buffer error:&error])
     @throw [NSException exceptionWithName:@"RXPictureLoadException"
                                    reason:@"Could not load a picture resource."
                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:error, NSUnderlyingErrorKey, nil]];
