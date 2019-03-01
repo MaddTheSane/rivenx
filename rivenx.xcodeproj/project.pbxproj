@@ -140,12 +140,10 @@
 		31D462641968C6A500A5C4B6 /* unpackgogsetup in Copy Binaries */ = {isa = PBXBuildFile; fileRef = 31ADC95214ADA128004FB4AD /* unpackgogsetup */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		31D4E8CE1144635D00D70E28 /* Stacks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31D4E8CD1144635D00D70E28 /* Stacks.plist */; };
 		31DAAF0B0DDE21BB00D06D0C /* Cursors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31DAAF0A0DDE21BB00D06D0C /* Cursors.plist */; };
-		31DAAF260DDE21EF00D06D0C /* cursors in Resources */ = {isa = PBXBuildFile; fileRef = 31DAAF0C0DDE21EF00D06D0C /* cursors */; };
 		31DAAF270DDE21EF00D06D0C /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 31DAAF210DDE21EF00D06D0C /* sounds */; };
 		31E9334A1127B0CE00188488 /* RXWelcomeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E933491127B0CE00188488 /* RXWelcomeWindowController.m */; };
 		31EE15E010745FA3006E196D /* RXScriptCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EE15DF10745FA3006E196D /* RXScriptCompiler.m */; };
 		31F0DD4B0D3A7682000FBB5F /* EngineVariables.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31F0DD4A0D3A7682000FBB5F /* EngineVariables.plist */; };
-		31F1BEA60D3B03D000CFE301 /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = 31F1BEA50D3B03D000CFE301 /* about.png */; };
 		31F1BED60D3B1E6E00CFE301 /* Riven X Acknowledgments.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 31F1BED50D3B1E6E00CFE301 /* Riven X Acknowledgments.pdf */; };
 		31F3095708BE5FA200417394 /* RXWorld.mm in Sources */ = {isa = PBXBuildFile; fileRef = 31F3095608BE5FA200417394 /* RXWorld.mm */; };
 		31F32F5D14AE6DBF00E53DF3 /* RXGOGSetupInstaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F32F5C14AE6DBF00E53DF3 /* RXGOGSetupInstaller.m */; };
@@ -426,14 +424,12 @@
 		31D6AD8D0D4197E600629AEB /* dump_save */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dump_save; sourceTree = BUILT_PRODUCTS_DIR; };
 		31DAA10E09D8892000F63F20 /* RXCardAudioSource_test.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = RXCardAudioSource_test.mm; sourceTree = "<group>"; };
 		31DAAF0A0DDE21BB00D06D0C /* Cursors.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Cursors.plist; sourceTree = "<group>"; };
-		31DAAF0C0DDE21EF00D06D0C /* cursors */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cursors; sourceTree = "<group>"; };
 		31DAAF210DDE21EF00D06D0C /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		31E933481127B0CE00188488 /* RXWelcomeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXWelcomeWindowController.h; sourceTree = "<group>"; };
 		31E933491127B0CE00188488 /* RXWelcomeWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXWelcomeWindowController.m; sourceTree = "<group>"; };
 		31EE15DE10745FA3006E196D /* RXScriptCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXScriptCompiler.h; sourceTree = "<group>"; };
 		31EE15DF10745FA3006E196D /* RXScriptCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXScriptCompiler.m; sourceTree = "<group>"; };
 		31F0DD4A0D3A7682000FBB5F /* EngineVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EngineVariables.plist; sourceTree = "<group>"; };
-		31F1BEA50D3B03D000CFE301 /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about.png; sourceTree = "<group>"; };
 		31F1BED50D3B1E6E00CFE301 /* Riven X Acknowledgments.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Riven X Acknowledgments.pdf"; sourceTree = "<group>"; };
 		31F3093308BE43C100417394 /* Riven X.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Riven X.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31F3093508BE43C100417394 /* Riven X-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; path = "Riven X-Info.plist"; sourceTree = "<group>"; };
@@ -862,9 +858,7 @@
 		31F3093C08BE43D500417394 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				31F1BEA50D3B03D000CFE301 /* about.png */,
 				31334D971968A624006470FC /* About.strings */,
-				31DAAF0C0DDE21EF00D06D0C /* cursors */,
 				31DAAF0A0DDE21BB00D06D0C /* Cursors.plist */,
 				31F0DD4A0D3A7682000FBB5F /* EngineVariables.plist */,
 				31472CED114C2F66008B6CF7 /* Extras.MHK */,
@@ -1198,7 +1192,6 @@
 				31F0DD4B0D3A7682000FBB5F /* EngineVariables.plist in Resources */,
 				31FF29D50D425BFE00E3B5FF /* GameVariables.plist in Resources */,
 				31D4E8CE1144635D00D70E28 /* Stacks.plist in Resources */,
-				31F1BEA60D3B03D000CFE301 /* about.png in Resources */,
 				3160E1820FD3075300F18E86 /* tiny_marbles.png in Resources */,
 				31F1BED60D3B1E6E00CFE301 /* Riven X Acknowledgments.pdf in Resources */,
 				313C7EFD08CD057500950A70 /* Riven301.ttf in Resources */,
@@ -1212,7 +1205,6 @@
 				31334DA61968A624006470FC /* Localizable.strings in Resources */,
 				31334DA71968A624006470FC /* Rendering.strings in Resources */,
 				316A363D197B5FC200984D19 /* Welcome.txt in Resources */,
-				31DAAF260DDE21EF00D06D0C /* cursors in Resources */,
 				315DA3CF118FED0F003E21BC /* patches in Resources */,
 				31334D951968A222006470FC /* Shaders in Resources */,
 				31DAAF270DDE21EF00D06D0C /* sounds in Resources */,

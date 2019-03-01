@@ -211,7 +211,7 @@ NSObject<RXWorldProtocol>* g_world = nil;
     [cursorMetadata enumerateKeysAndObjectsUsingBlock:^(NSString* cursorKey, NSString* cursorHotspotPointString, BOOL* stop)
     {
       NSPoint cursorHotspot = NSPointFromString(cursorHotspotPointString);
-      NSImage* cursorImage = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:cursorKey ofType:@"png" inDirectory:@"cursors"]];
+      NSImage* cursorImage = [[[NSBundle bundleForClass:[self class]] imageForResource:[@"cursors" stringByAppendingPathComponent:cursorKey]] retain];
       if (!cursorImage)
         @throw [NSException exceptionWithName:@"RXMissingResourceException"
                                        reason:[NSString stringWithFormat:@"Unable to find cursor %@.", cursorKey]
