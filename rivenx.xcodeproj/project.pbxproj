@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3103D4DB0EF0D3D40025170A /* RXPicture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3103D4DA0EF0D3D40025170A /* RXPicture.mm */; };
+		3103D4DB0EF0D3D40025170A /* RXPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 3103D4DA0EF0D3D40025170A /* RXPicture.m */; };
 		3105EC610D74922500609273 /* RXLogging.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3105EC600D74922500609273 /* RXLogging.mm */; };
 		31074C7A0DCCA63C004A5D7C /* GLShaderProgramManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F4DA30DC263F400B3AF0D /* GLShaderProgramManager.m */; };
 		31091B8D1973052800B6A7A2 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31091B8F1973052800B6A7A2 /* Welcome.xib */; };
@@ -63,7 +63,7 @@
 		312A89660D57B25600FCDF91 /* RXArchiveManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 312A89610D57B25600FCDF91 /* RXArchiveManager.m */; };
 		312C8817199187C700B2F26D /* AUOutputBL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31A14B810F03F495006EFF93 /* AUOutputBL.cpp */; };
 		312EDC730A2E3B80005D26AF /* RXHotspot.m in Sources */ = {isa = PBXBuildFile; fileRef = 312EDC710A2E3B80005D26AF /* RXHotspot.m */; };
-		312F4D8F0DC2639C00B3AF0D /* RXRendering.mm in Sources */ = {isa = PBXBuildFile; fileRef = 312F4D8C0DC2639C00B3AF0D /* RXRendering.mm */; };
+		312F4D8F0DC2639C00B3AF0D /* RXRendering.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F4D8C0DC2639C00B3AF0D /* RXRendering.m */; };
 		312F4D900DC2639C00B3AF0D /* RXWorldRendering.mm in Sources */ = {isa = PBXBuildFile; fileRef = 312F4D8D0DC2639C00B3AF0D /* RXWorldRendering.mm */; };
 		312F4DB40DC263F600B3AF0D /* GL_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 312F4D960DC263F400B3AF0D /* GL_debug.c */; };
 		312F4DBF0DC263F600B3AF0D /* RXTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 312F4DAD0DC263F400B3AF0D /* RXTransition.m */; };
@@ -108,7 +108,7 @@
 		317403940CDC1A67006F3523 /* RXGameState.m in Sources */ = {isa = PBXBuildFile; fileRef = 317403930CDC1A67006F3523 /* RXGameState.m */; };
 		3175316E1933C84400565AF4 /* RXMovieProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F4F03B0F35461C00A68652 /* RXMovieProxy.m */; };
 		317DF4E9198AF0CB00937826 /* mhkdump.mm in Sources */ = {isa = PBXBuildFile; fileRef = 317DF4E8198AF0CB00937826 /* mhkdump.mm */; };
-		318161B2147C69C700623EF2 /* rx_abort.cc in Sources */ = {isa = PBXBuildFile; fileRef = 318161AE147C69C600623EF2 /* rx_abort.cc */; };
+		318161B2147C69C700623EF2 /* rx_abort.c in Sources */ = {isa = PBXBuildFile; fileRef = 318161AE147C69C600623EF2 /* rx_abort.c */; };
 		318384EF153BD91D008CC9DC /* platform_info.mm in Sources */ = {isa = PBXBuildFile; fileRef = 318384ED153BD91D008CC9DC /* platform_info.mm */; };
 		318384F3153BD9EE008CC9DC /* NSString+RXStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 318384F2153BD9EE008CC9DC /* NSString+RXStringAdditions.m */; };
 		318AFC2F13BFA4B5000402B7 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31200FBF0F3F8495006E6EF7 /* CAStreamBasicDescription.cpp */; };
@@ -131,11 +131,11 @@
 		31AA1122199C1E34004E32F0 /* RXThreadUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 315017F90CC06872001BA929 /* RXThreadUtilities.m */; };
 		31AA1123199C1EC3004E32F0 /* RXLogging.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3105EC600D74922500609273 /* RXLogging.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		31ADC95F14ADA17A004FB4AD /* unpackgogsetup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31ADC95E14ADA17A004FB4AD /* unpackgogsetup.cpp */; };
-		31BC739F09A57D4E001EC1E0 /* RXAudioSourceBase.cc in Sources */ = {isa = PBXBuildFile; fileRef = 31BC739D09A57D4E001EC1E0 /* RXAudioSourceBase.cc */; };
+		31BC739F09A57D4E001EC1E0 /* RXAudioSourceBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31BC739D09A57D4E001EC1E0 /* RXAudioSourceBase.cpp */; };
 		31C545530D5D50620024B486 /* RXMediaInstaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C545520D5D50620024B486 /* RXMediaInstaller.m */; };
 		31CE92961033D576008B7717 /* RXInterpolator.m in Sources */ = {isa = PBXBuildFile; fileRef = 31CE92951033D576008B7717 /* RXInterpolator.m */; };
-		31D1D5FE19E395B600E1D631 /* rx_abort.cc in Sources */ = {isa = PBXBuildFile; fileRef = 318161AE147C69C600623EF2 /* rx_abort.cc */; };
-		31D1D5FF19E397B300E1D631 /* rx_abort.cc in Sources */ = {isa = PBXBuildFile; fileRef = 318161AE147C69C600623EF2 /* rx_abort.cc */; };
+		31D1D5FE19E395B600E1D631 /* rx_abort.c in Sources */ = {isa = PBXBuildFile; fileRef = 318161AE147C69C600623EF2 /* rx_abort.c */; };
+		31D1D5FF19E397B300E1D631 /* rx_abort.c in Sources */ = {isa = PBXBuildFile; fileRef = 318161AE147C69C600623EF2 /* rx_abort.c */; };
 		31D462621968C4D100A5C4B6 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED641790850200B1732D /* QTKit.framework */; };
 		31D462641968C6A500A5C4B6 /* unpackgogsetup in Copy Binaries */ = {isa = PBXBuildFile; fileRef = 31ADC95214ADA128004FB4AD /* unpackgogsetup */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		31D4E8CE1144635D00D70E28 /* Stacks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31D4E8CD1144635D00D70E28 /* Stacks.plist */; };
@@ -154,13 +154,14 @@
 		31FA569F0C5AD15D005DE22F /* RXErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FA569E0C5AD15D005DE22F /* RXErrors.m */; };
 		31FF29680D41996E00E3B5FF /* dump_save.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FF29670D41996E00E3B5FF /* dump_save.m */; };
 		31FF29D50D425BFE00E3B5FF /* GameVariables.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31FF29D40D425BFE00E3B5FF /* GameVariables.plist */; };
+		5563F58922290CD4009B2E74 /* RXAtomic.h in Headers */ = {isa = PBXBuildFile; fileRef = 5563F58822290CD4009B2E74 /* RXAtomic.h */; };
 		6B3972E11BD86D6D00BE7275 /* atomic_tests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B3972DC1BD8274200BE7275 /* atomic_tests.cc */; };
 		6B3972E21BD86D6D00BE7275 /* link_stack_tests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B3972DD1BD8274200BE7275 /* link_stack_tests.cc */; };
 		6B3972E31BD999DD00BE7275 /* pc_queue_tests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B3972DE1BD8274200BE7275 /* pc_queue_tests.cc */; };
-		6B5AE45C1AE0C10D00FC3294 /* rx_abort.cc in Sources */ = {isa = PBXBuildFile; fileRef = 318161AE147C69C600623EF2 /* rx_abort.cc */; };
+		6B5AE45C1AE0C10D00FC3294 /* rx_abort.c in Sources */ = {isa = PBXBuildFile; fileRef = 318161AE147C69C600623EF2 /* rx_abort.c */; };
 		6BB2155A1BE2A01900F49B5F /* CAHostTimeBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316C38AB0F469FC700EFB7FB /* CAHostTimeBase.cpp */; };
 		6BB2155B1BE2A02600F49B5F /* CAMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 316C38A60F469FA800EFB7FB /* CAMutex.cpp */; };
-		6BC16516193945E900B45CB4 /* RXTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3186C9E4102E47F4004E81D2 /* RXTexture.mm */; };
+		6BC16516193945E900B45CB4 /* RXTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 3186C9E4102E47F4004E81D2 /* RXTexture.m */; };
 		6BE3ED511790842600B1732D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED4E1790842600B1732D /* Accelerate.framework */; };
 		6BE3ED521790842600B1732D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED4F1790842600B1732D /* Foundation.framework */; };
 		6BE3ED581790846800B1732D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BE3ED561790846800B1732D /* Cocoa.framework */; };
@@ -258,7 +259,7 @@
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* plistize_stacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = plistize_stacks.m; sourceTree = "<group>"; };
 		3103D4D90EF0D3D40025170A /* RXPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXPicture.h; sourceTree = "<group>"; };
-		3103D4DA0EF0D3D40025170A /* RXPicture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RXPicture.mm; sourceTree = "<group>"; };
+		3103D4DA0EF0D3D40025170A /* RXPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXPicture.m; sourceTree = "<group>"; };
 		3105EC5A0D748F2100609273 /* RXLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXLogging.h; sourceTree = "<group>"; };
 		3105EC600D74922500609273 /* RXLogging.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RXLogging.mm; sourceTree = "<group>"; };
 		31091B8E1973052800B6A7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Welcome.xib; sourceTree = "<group>"; };
@@ -311,7 +312,7 @@
 		312EDC700A2E3B80005D26AF /* RXHotspot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXHotspot.h; sourceTree = "<group>"; };
 		312EDC710A2E3B80005D26AF /* RXHotspot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXHotspot.m; sourceTree = "<group>"; };
 		312F4D8B0DC2639C00B3AF0D /* RXRendering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXRendering.h; sourceTree = "<group>"; };
-		312F4D8C0DC2639C00B3AF0D /* RXRendering.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RXRendering.mm; sourceTree = "<group>"; };
+		312F4D8C0DC2639C00B3AF0D /* RXRendering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXRendering.m; sourceTree = "<group>"; };
 		312F4D8D0DC2639C00B3AF0D /* RXWorldRendering.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RXWorldRendering.mm; sourceTree = "<group>"; };
 		312F4D960DC263F400B3AF0D /* GL_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GL_debug.c; sourceTree = "<group>"; };
 		312F4D970DC263F400B3AF0D /* GL_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GL_debug.h; sourceTree = "<group>"; };
@@ -376,7 +377,7 @@
 		317531721935B12300565AF4 /* CGLContextLockGuard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGLContextLockGuard.h; sourceTree = "<group>"; };
 		317DF4E8198AF0CB00937826 /* mhkdump.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mhkdump.mm; sourceTree = "<group>"; };
 		318161AD147C633100623EF2 /* Riven X.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Riven X.entitlements"; sourceTree = "<group>"; };
-		318161AE147C69C600623EF2 /* rx_abort.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rx_abort.cc; sourceTree = "<group>"; };
+		318161AE147C69C600623EF2 /* rx_abort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rx_abort.c; sourceTree = "<group>"; };
 		318161AF147C69C600623EF2 /* RXBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXBase.h; sourceTree = "<group>"; };
 		318161B0147C69C600623EF2 /* RXBufferMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXBufferMacros.h; sourceTree = "<group>"; };
 		318161B1147C69C600623EF2 /* RXErrorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXErrorMacros.h; sourceTree = "<group>"; };
@@ -386,7 +387,7 @@
 		318384F2153BD9EE008CC9DC /* NSString+RXStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RXStringAdditions.m"; sourceTree = "<group>"; };
 		31863C0509919F87001A4A42 /* RXCardProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXCardProtocols.h; sourceTree = "<group>"; };
 		3186C9E3102E47F4004E81D2 /* RXTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXTexture.h; sourceTree = "<group>"; };
-		3186C9E4102E47F4004E81D2 /* RXTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RXTexture.mm; sourceTree = "<group>"; };
+		3186C9E4102E47F4004E81D2 /* RXTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXTexture.m; sourceTree = "<group>"; };
 		319288DB0EF43C630043B15A /* RXCoreStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXCoreStructures.h; sourceTree = "<group>"; };
 		3195A6330EEC57860000CFB6 /* RXScriptCommandAliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXScriptCommandAliases.h; sourceTree = "<group>"; };
 		3196B9340D945CC100BC818E /* RXTiming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXTiming.h; sourceTree = "<group>"; };
@@ -414,7 +415,7 @@
 		31ADC95214ADA128004FB4AD /* unpackgogsetup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unpackgogsetup; sourceTree = BUILT_PRODUCTS_DIR; };
 		31ADC95E14ADA17A004FB4AD /* unpackgogsetup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = unpackgogsetup.cpp; sourceTree = "<group>"; };
 		31BC739C09A57D4E001EC1E0 /* RXAudioSourceBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXAudioSourceBase.h; sourceTree = "<group>"; };
-		31BC739D09A57D4E001EC1E0 /* RXAudioSourceBase.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RXAudioSourceBase.cc; sourceTree = "<group>"; };
+		31BC739D09A57D4E001EC1E0 /* RXAudioSourceBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RXAudioSourceBase.cpp; sourceTree = "<group>"; };
 		31C357290D92A72400EDEF81 /* RXSound_test.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RXSound_test.mm; sourceTree = "<group>"; };
 		31C545510D5D50620024B486 /* RXMediaInstaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXMediaInstaller.h; sourceTree = "<group>"; };
 		31C545520D5D50620024B486 /* RXMediaInstaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXMediaInstaller.m; sourceTree = "<group>"; };
@@ -454,6 +455,8 @@
 		31FCC1A11261160600EFEAA9 /* osspinlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osspinlock.h; sourceTree = "<group>"; };
 		31FF29670D41996E00E3B5FF /* dump_save.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dump_save.m; sourceTree = "<group>"; };
 		31FF29D40D425BFE00E3B5FF /* GameVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GameVariables.plist; sourceTree = "<group>"; };
+		5563F58722290B71009B2E74 /* RXBase.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RXBase.pch; sourceTree = "<group>"; };
+		5563F58822290CD4009B2E74 /* RXAtomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXAtomic.h; sourceTree = "<group>"; };
 		6B3537AA1AED56100069E16B /* ref_counted.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ref_counted.h; sourceTree = "<group>"; };
 		6B3972DC1BD8274200BE7275 /* atomic_tests.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = atomic_tests.cc; sourceTree = "<group>"; };
 		6B3972DD1BD8274200BE7275 /* link_stack_tests.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = link_stack_tests.cc; sourceTree = "<group>"; };
@@ -571,6 +574,7 @@
 				31F3093C08BE43D500417394 /* Resources */,
 				31F3093508BE43C100417394 /* Riven X-Info.plist */,
 				318161AD147C633100623EF2 /* Riven X.entitlements */,
+				5563F58722290B71009B2E74 /* RXBase.pch */,
 				31A9EF94094D285400C6A0AB /* rivenx.pch */,
 				31154B4D0B4990E9002FCEDD /* Shaders */,
 				31A9EC1D094D23F200C6A0AB /* States */,
@@ -633,9 +637,9 @@
 				31F4F03A0F35461C00A68652 /* RXMovieProxy.h */,
 				31F4F03B0F35461C00A68652 /* RXMovieProxy.m */,
 				3103D4D90EF0D3D40025170A /* RXPicture.h */,
-				3103D4DA0EF0D3D40025170A /* RXPicture.mm */,
+				3103D4DA0EF0D3D40025170A /* RXPicture.m */,
 				3186C9E3102E47F4004E81D2 /* RXTexture.h */,
-				3186C9E4102E47F4004E81D2 /* RXTexture.mm */,
+				3186C9E4102E47F4004E81D2 /* RXTexture.m */,
 				312F4DAC0DC263F400B3AF0D /* RXTransition.h */,
 				312F4DAD0DC263F400B3AF0D /* RXTransition.m */,
 				3167EF001115057C002DDE6D /* RXWindow.h */,
@@ -698,7 +702,7 @@
 				3153EDA309A3EDAF002E1149 /* PublicUtility */,
 				3153ED6209A3ED12002E1149 /* RXAudioRenderer.cc */,
 				3153ED6309A3ED12002E1149 /* RXAudioRenderer.h */,
-				31BC739D09A57D4E001EC1E0 /* RXAudioSourceBase.cc */,
+				31BC739D09A57D4E001EC1E0 /* RXAudioSourceBase.cpp */,
 				31BC739C09A57D4E001EC1E0 /* RXAudioSourceBase.h */,
 				315017970CC0533D001BA929 /* RXCardAudioSource.h */,
 				315017980CC0533D001BA929 /* RXCardAudioSource.mm */,
@@ -813,7 +817,8 @@
 				31336ED019EA02450024E533 /* integer.h */,
 				31D1D5FD19E3936300E1D631 /* next_element_helper.h */,
 				6B3537AA1AED56100069E16B /* ref_counted.h */,
-				318161AE147C69C600623EF2 /* rx_abort.cc */,
+				318161AE147C69C600623EF2 /* rx_abort.c */,
+				5563F58822290CD4009B2E74 /* RXAtomic.h */,
 				318161AF147C69C600623EF2 /* RXBase.h */,
 				318161B0147C69C600623EF2 /* RXBufferMacros.h */,
 				318161B1147C69C600623EF2 /* RXErrorMacros.h */,
@@ -848,7 +853,7 @@
 				3153ED6109A3ED12002E1149 /* Audio */,
 				312F4D930DC263F400B3AF0D /* Graphics */,
 				312F4D8B0DC2639C00B3AF0D /* RXRendering.h */,
-				312F4D8C0DC2639C00B3AF0D /* RXRendering.mm */,
+				312F4D8C0DC2639C00B3AF0D /* RXRendering.m */,
 				312F4D8D0DC2639C00B3AF0D /* RXWorldRendering.mm */,
 			);
 			path = Rendering;
@@ -989,6 +994,7 @@
 				31245678198B102100B76629 /* MHKFileHandle.h in Headers */,
 				3124567A198B102100B76629 /* MHKKit.h in Headers */,
 				31245683198B102100B76629 /* mohawk_ffmpeg.h in Headers */,
+				5563F58922290CD4009B2E74 /* RXAtomic.h in Headers */,
 				31245671198B102100B76629 /* MHKArchiveMediaInterface.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1144,14 +1150,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = RX;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = MacStorm;
 				TargetAttributes = {
 					3149598E0E327B2D00E49C83 = {
 						DevelopmentTeam = 4YFS4VAABW;
 					};
 					31F3093208BE43C100417394 = {
-						DevelopmentTeam = 4YFS4VAABW;
+						ProvisioningStyle = Manual;
 					};
 					6B5BFF1E1ADECF6700AEF66B = {
 						CreatedOnToolsVersion = 6.3;
@@ -1239,7 +1245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31AA1122199C1E34004E32F0 /* RXThreadUtilities.m in Sources */,
-				31D1D5FE19E395B600E1D631 /* rx_abort.cc in Sources */,
+				31D1D5FE19E395B600E1D631 /* rx_abort.c in Sources */,
 				31333F5A09B01A3700DB6FC7 /* rxaudio_test.mm in Sources */,
 				31333F6709B01A7D00DB6FC7 /* RXAudioRenderer.cc in Sources */,
 				31200FB40F3F8443006E6EF7 /* AUOutputBL.cpp in Sources */,
@@ -1271,7 +1277,7 @@
 				3124567C198B102100B76629 /* MHKFFmpegAudioDecompressor.mm in Sources */,
 				3124567F198B102100B76629 /* mohawk_bitmap.c in Sources */,
 				31245674198B102100B76629 /* MHKArchiveSoundAdditions.m in Sources */,
-				31D1D5FF19E397B300E1D631 /* rx_abort.cc in Sources */,
+				31D1D5FF19E397B300E1D631 /* rx_abort.c in Sources */,
 				31245684198B102100B76629 /* mohawk_ffmpeg.m in Sources */,
 				31245679198B102100B76629 /* MHKFileHandle.m in Sources */,
 				31245677198B102100B76629 /* MHKErrors.m in Sources */,
@@ -1320,10 +1326,10 @@
 				316C37B40987227800AC2C8E /* RXCardState.mm in Sources */,
 				31588874098D7A120090A6B6 /* RXCardDescriptor.m in Sources */,
 				3153ED6409A3ED12002E1149 /* RXAudioRenderer.cc in Sources */,
-				31BC739F09A57D4E001EC1E0 /* RXAudioSourceBase.cc in Sources */,
+				31BC739F09A57D4E001EC1E0 /* RXAudioSourceBase.cpp in Sources */,
 				3124F2A909C36792009BA3CF /* RXSoundGroup.mm in Sources */,
 				312EDC730A2E3B80005D26AF /* RXHotspot.m in Sources */,
-				6BC16516193945E900B45CB4 /* RXTexture.mm in Sources */,
+				6BC16516193945E900B45CB4 /* RXTexture.m in Sources */,
 				31FA569F0C5AD15D005DE22F /* RXErrors.m in Sources */,
 				315017990CC0533E001BA929 /* RXCardAudioSource.mm in Sources */,
 				315017FA0CC06872001BA929 /* RXThreadUtilities.m in Sources */,
@@ -1336,14 +1342,14 @@
 				31C545530D5D50620024B486 /* RXMediaInstaller.m in Sources */,
 				3105EC610D74922500609273 /* RXLogging.mm in Sources */,
 				3196B9360D945CC100BC818E /* RXTiming.c in Sources */,
-				312F4D8F0DC2639C00B3AF0D /* RXRendering.mm in Sources */,
+				312F4D8F0DC2639C00B3AF0D /* RXRendering.m in Sources */,
 				312F4D900DC2639C00B3AF0D /* RXWorldRendering.mm in Sources */,
 				312F4DB40DC263F600B3AF0D /* GL_debug.c in Sources */,
 				312F4DBF0DC263F600B3AF0D /* RXTransition.m in Sources */,
 				312F4DC20DC263F600B3AF0D /* RXWorldView.m in Sources */,
 				31074C7A0DCCA63C004A5D7C /* GLShaderProgramManager.m in Sources */,
 				31A1FA1D0E0B4AB800B2437A /* RXAnimation.m in Sources */,
-				3103D4DB0EF0D3D40025170A /* RXPicture.mm in Sources */,
+				3103D4DB0EF0D3D40025170A /* RXPicture.m in Sources */,
 				31A14B860F03F495006EFF93 /* AUOutputBL.cpp in Sources */,
 				31A14B870F03F495006EFF93 /* CAAudioChannelLayout.cpp in Sources */,
 				31A14B880F03F495006EFF93 /* CAAudioChannelLayoutObject.cpp in Sources */,
@@ -1363,7 +1369,7 @@
 				3167EF021115057C002DDE6D /* RXWindow.m in Sources */,
 				31E9334A1127B0CE00188488 /* RXWelcomeWindowController.m in Sources */,
 				318AFC2F13BFA4B5000402B7 /* CAStreamBasicDescription.cpp in Sources */,
-				318161B2147C69C700623EF2 /* rx_abort.cc in Sources */,
+				318161B2147C69C700623EF2 /* rx_abort.c in Sources */,
 				311AEBC414A91F6F002EFCDD /* NSArray+RXArrayAdditions.m in Sources */,
 				31F32F5D14AE6DBF00E53DF3 /* RXGOGSetupInstaller.m in Sources */,
 				318384EF153BD91D008CC9DC /* platform_info.mm in Sources */,
@@ -1378,7 +1384,7 @@
 				6B3972E21BD86D6D00BE7275 /* link_stack_tests.cc in Sources */,
 				6B3972E11BD86D6D00BE7275 /* atomic_tests.cc in Sources */,
 				6B3972E31BD999DD00BE7275 /* pc_queue_tests.cc in Sources */,
-				6B5AE45C1AE0C10D00FC3294 /* rx_abort.cc in Sources */,
+				6B5AE45C1AE0C10D00FC3294 /* rx_abort.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1524,13 +1530,14 @@
 		314959910E327B2E00E49C83 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = rivenx.pch;
+				GCC_PREFIX_HEADER = RXBase.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"RX_ERROR_CLASS=MHKError",
@@ -1551,14 +1558,15 @@
 		314959930E327B2E00E49C83 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = rivenx.pch;
+				GCC_PREFIX_HEADER = RXBase.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"RX_ERROR_CLASS=MHKError",
@@ -1605,6 +1613,7 @@
 		31ADC95914ADA128004FB4AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/xz/$(CURRENT_ARCH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1618,6 +1627,7 @@
 		31ADC95B14ADA128004FB4AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/xz/$(CURRENT_ARCH)";
 				LIBRARY_SEARCH_PATHS = (
@@ -1632,6 +1642,7 @@
 		31CB99B708B29A4100609EB5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -1642,7 +1653,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = plistize_stacks;
 				ZERO_LINK = NO;
 			};
@@ -1651,6 +1662,7 @@
 		31CB99B808B29A4100609EB5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ALTIVEC_EXTENSIONS = YES;
@@ -1660,7 +1672,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = plistize_stacks;
 				ZERO_LINK = NO;
 			};
@@ -1678,14 +1690,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1699,6 +1718,7 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1732,6 +1752,7 @@
 				SDKROOT = macosx;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)";
+				WARNING_CFLAGS = "-Wno-float-conversion";
 			};
 			name = Debug;
 		};
@@ -1748,14 +1769,21 @@
 				CLANG_DEBUG_INFORMATION_LEVEL = "line-tables-only";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1768,6 +1796,7 @@
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1800,12 +1829,14 @@
 				SDKROOT = macosx;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)";
+				WARNING_CFLAGS = "-Wno-float-conversion";
 			};
 			name = Release;
 		};
 		31D6AD8F0D4197E700629AEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -1816,7 +1847,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = dump_save;
 				ZERO_LINK = NO;
 			};
@@ -1825,6 +1856,7 @@
 		31D6AD910D4197E700629AEB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				GCC_ALTIVEC_EXTENSIONS = YES;
@@ -1834,7 +1866,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = dump_save;
 				ZERO_LINK = NO;
 			};
@@ -1844,18 +1876,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = "Riven X.entitlements";
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PREFIX_HEADER = rivenx.pch;
+				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = RXBase.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"RX_ERROR_CLASS=RXError",
+					"GL_SILENCE_DEPRECATION=1",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Riven X-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.macstorm.rivenx;
 				PRODUCT_NAME = "Riven X";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1864,19 +1902,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = "Riven X.entitlements";
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_PREFIX_HEADER = rivenx.pch;
+				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = RXBase.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"RX_ERROR_CLASS=RXError",
+					"GL_SILENCE_DEPRECATION=1",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = "Riven X-Info.plist";
 				INSTALL_PATH = "$(LOCAL_APPS_DIR)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.macstorm.rivenx;
 				PRODUCT_NAME = "Riven X";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1884,6 +1928,7 @@
 		6B5BFF241ADECF6700AEF66B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1892,6 +1937,7 @@
 		6B5BFF261ADECF6700AEF66B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

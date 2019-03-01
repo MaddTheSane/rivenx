@@ -93,8 +93,8 @@
 
 - (NSString*)description
 {
-  return [NSString stringWithFormat:@"%@ {fadeOutRemovedSounds=%d, fadeInNewSounds=%d, loop=%d, gain=%f, %d sounds}", [super description], fadeOutRemovedSounds,
-                                    fadeInNewSounds, loop, gain, [_sounds count]];
+  return [NSString stringWithFormat:@"%@ {fadeOutRemovedSounds=%d, fadeInNewSounds=%d, loop=%d, gain=%f, %lu sounds}", [super description], fadeOutRemovedSounds,
+          fadeInNewSounds, loop, gain, (unsigned long)[_sounds count]];
 }
 
 - (void)addSoundWithStack:(RXStack*)parent ID:(uint16_t)twav_id gain:(float)g pan:(float)p

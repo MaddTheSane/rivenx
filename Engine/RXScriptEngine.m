@@ -1128,7 +1128,7 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
   }
 
   NSTimeInterval movie_position;
-  QTGetTimeInterval([movie _noLockCurrentTime], &movie_position);
+  movie_position = CMTimeGetSeconds([movie _noLockCurrentTime]);
   if (movie_position > _scheduled_movie_command.time) {
 #if defined(DEBUG)
     if (!_disableScriptLogging) {
@@ -3185,12 +3185,12 @@ DEFINE_COMMAND(xjschool280_resetright) { [[g_world gameState] setUnsignedShort:0
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)k);
 
   // compute the duration per tick
-  QTTime duration = [movie duration];
-  duration.timeValue /= 19;
+  CMTime duration = [movie duration];
+  duration.value /= 19;
 
   // set the movie's playback range
-  QTTimeRange movie_range = QTMakeTimeRange(QTMakeTime(duration.timeValue * level_of_doom, duration.timeScale),
-                                            QTMakeTime(duration.timeValue * [stepsNumber unsignedShortValue], duration.timeScale));
+  CMTimeRange movie_range = QTMakeTimeRange(QTMakeTime(duration.timeValue * level_of_doom, duration.timescale),
+                                            QTMakeTime(duration.timeValue * [stepsNumber unsignedShortValue], duration.timescale));
   [movie setPlaybackSelection:movie_range];
 }
 
@@ -3294,10 +3294,10 @@ DEFINE_COMMAND(xschool280_playwhark)
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)k);
 
   NSTimeInterval movie_position;
-  QTGetTimeInterval([movie _noLockCurrentTime], &movie_position);
+  movie_position = CMTimeGetSeconds([movie _noLockCurrentTime]);
 
   NSTimeInterval duration;
-  QTGetTimeInterval([movie duration], &duration);
+  duration = CMTimeGetSeconds([movie duration]);
 
   // get the button movie
   k = 2;
@@ -3770,9 +3770,9 @@ static float const marble_size = 13.5f;
 
     NSPoint p1 = NSMakePoint(11834.f / 39.f, 4321.f / 39.f);
     NSPoint p2 = NSMakePoint(tiny_marble_offset_matrix[0][marble_x / 5] + 5 * (marble_x % 5), tiny_marble_offset_matrix[1][0]);
-    float y = tiny_marble_offset_matrix[1][marble_y / 5] + 2 * (marble_y % 5);
-    float t = (y - p1.y) / (p2.y - p1.y + 0.000001);
-    float x = p2.x * t + p1.x * (1.f - t);
+    CGFloat y = tiny_marble_offset_matrix[1][marble_y / 5] + 2 * (marble_y % 5);
+    CGFloat t = (y - p1.y) / (p2.y - p1.y + 0.000001);
+    CGFloat x = p2.x * t + p1.x * (1.f - t);
 
     core_display_rect.left = x - 1;
     core_display_rect.top = y;
@@ -4190,7 +4190,7 @@ static uint16_t const prison_activity_movies[3][8] = {{9, 10, 19, 19, 21, 21}, {
   // schedule the next prison activity movie
   NSTimeInterval delay;
   movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)(uintptr_t)30);
-  QTGetTimeInterval([movie duration], &delay);
+  delay = CMTimeGetSeconds([movie duration]);
   delay += rx_rnd_range_normal_clamped(30, 15);
 
   [event_timer invalidate];
@@ -4254,7 +4254,7 @@ DEFINE_COMMAND(xglview_prisonon)
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)k);
   NSTimeInterval delay;
   if (movie) {
-    QTGetTimeInterval([movie duration], &delay);
+    delay = CMTimeGetSeconds(movie.duration);
     delay += rx_rnd_range_normal_clamped(45, 15);
   } else {
     delay = rx_rnd_range_normal_clamped(13, 3);
@@ -4315,10 +4315,10 @@ static int64_t const left_viewer_spin_timevals[] = {0LL, 816LL, 1617LL, 2416LL, 
 
   // determine the playback selection for the viewer spin movie
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)(uintptr_t)1);
-  QTTime duration = [movie duration];
+  CMTime duration = [movie duration];
 
-  QTTime start_time = QTMakeTime(left_viewer_spin_timevals[old_pos], duration.timeScale);
-  QTTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(left_viewer_spin_timevals[new_pos] - start_time.timeValue, duration.timeScale));
+  CMTime start_time = QTMakeTime(left_viewer_spin_timevals[old_pos], duration.timeScale);
+  CMTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(left_viewer_spin_timevals[new_pos] - start_time.timeValue, duration.timeScale));
   [movie setPlaybackSelection:movie_range];
 
   // update the position variable
@@ -4354,10 +4354,10 @@ static int64_t const right_viewer_spin_timevals[] = {0LL, 816LL, 1617LL, 2416LL,
 
   // determine the playback selection for the viewer spin movie
   RXMovie* movie = (RXMovie*)NSMapGet(code_movie_map, (const void*)(uintptr_t)1);
-  QTTime duration = [movie duration];
+  CMTime duration = [movie duration];
 
-  QTTime start_time = QTMakeTime(right_viewer_spin_timevals[old_pos], duration.timeScale);
-  QTTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(right_viewer_spin_timevals[new_pos] - start_time.timeValue, duration.timeScale));
+  CMTime start_time = QTMakeTime(right_viewer_spin_timevals[old_pos], duration.timeScale);
+ CMTimeRange movie_range = QTMakeTimeRange(start_time, QTMakeTime(right_viewer_spin_timevals[new_pos] - start_time.timeValue, duration.timeScale));
   [movie setPlaybackSelection:movie_range];
 
   // update the position variable

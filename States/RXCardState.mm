@@ -735,7 +735,7 @@ init_failure:
     sound->source = NULL;
 
   // detach the sources
-  RX::AudioRenderer* renderer = (reinterpret_cast<RX::AudioRenderer*>([g_world audioRenderer]));
+  rx::AudioRenderer* renderer = (reinterpret_cast<rx::AudioRenderer*>([g_world audioRenderer]));
   renderer->DetachSources(_sourcesToDelete);
 
   // if automatic graph updates are enabled, we can safely delete the sources,

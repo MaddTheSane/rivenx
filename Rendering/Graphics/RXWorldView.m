@@ -20,6 +20,7 @@
 #import <AppKit/NSApplication.h>
 #import <AppKit/NSOpenGL.h>
 #import <AppKit/NSWindow.h>
+#include <pthread.h>
 
 #ifndef kCGLRendererIDMatchingMask
 #define kCGLRendererIDMatchingMask 0x00FE7F00

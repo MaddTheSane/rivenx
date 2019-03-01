@@ -8,6 +8,7 @@
  */
 
 #include <assert.h>
+#include <pthread.h>
 
 #include "RXAtomic.h"
 #include "RXAudioSourceBase.h"

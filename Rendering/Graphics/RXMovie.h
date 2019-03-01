@@ -8,22 +8,24 @@
 
 #import <libkern/OSAtomic.h>
 
-#import <QuickTime/QuickTime.h>
-#import <QTKit/QTKit.h>
+#import <AVKit/AVKit.h>
+#import <CoreMedia/CoreMedia.h>
 
 #import "Rendering/RXRendering.h"
 
 extern NSString* const RXMoviePlaybackDidEndNotification;
 
+@class RXMovie;
+
 @interface RXMovie : NSObject <RXRenderingProtocol> {
   id _owner;
 
-  QTMovie* _movie;
-  QTVisualContextRef _vc;
+  AVMovie* _movie;
+  AVComposition *_vc;
 
   long _hints;
   CGSize _current_size;
-  QTTime _original_duration;
+  CMTime _original_duration;
 
   BOOL _looping;
   BOOL _seamless_looping_hacked;
@@ -38,20 +40,20 @@ extern NSString* const RXMoviePlaybackDidEndNotification;
   void* _texture_storage;
   CVImageBufferRef _image_buffer;
 
-  QTTime _current_time;
+  CMTime _current_time;
   OSSpinLock _current_time_lock;
 
   OSSpinLock _render_lock;
 }
 
-- (id)initWithMovie:(Movie)movie disposeWhenDone:(BOOL)disposeWhenDone owner:(id)owner;
+//- (id)initWithMovie:(Movie)movie disposeWhenDone:(BOOL)disposeWhenDone owner:(id)owner;
 - (id)initWithURL:(NSURL*)movieURL owner:(id)owner;
 
 - (id)owner;
 
 - (CGSize)currentSize;
-- (QTTime)duration;
-- (QTTime)videoDuration;
+- (CMTime)duration;
+- (CMTime)videoDuration;
 
 - (BOOL)looping;
 - (void)setLooping:(BOOL)flag;
@@ -60,7 +62,7 @@ extern NSString* const RXMoviePlaybackDidEndNotification;
 - (void)setVolume:(float)volume;
 
 - (BOOL)isPlayingSelection;
-- (void)setPlaybackSelection:(QTTimeRange)selection;
+- (void)setPlaybackSelection:(CMTimeRange)selection;
 - (void)clearPlaybackSelection;
 
 - (void)setExpectedReadAheadFromDisplayLink:(CVDisplayLinkRef)displayLink;
@@ -78,7 +80,7 @@ extern NSString* const RXMoviePlaybackDidEndNotification;
 
 - (void)gotoEnd;
 
-- (QTTime)_noLockCurrentTime;
+- (CMTime)_noLockCurrentTime;
 
 - (void)reset;
 

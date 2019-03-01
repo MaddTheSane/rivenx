@@ -60,7 +60,7 @@ NSString* const RXErrorDomain = @"RXErrorDomain";
       return @"Riven X failed to unpack the GOG.com Riven installer.";
 
     default:
-      return [NSString stringWithFormat:@"Unknown error code (%u).", code];
+      return [NSString stringWithFormat:@"Unknown error code (%lu).", (unsigned long)code];
     }
   }
 
