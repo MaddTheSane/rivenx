@@ -113,6 +113,7 @@
 		318AFC2F13BFA4B5000402B7 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31200FBF0F3F8495006E6EF7 /* CAStreamBasicDescription.cpp */; };
 		3196B9360D945CC100BC818E /* RXTiming.c in Sources */ = {isa = PBXBuildFile; fileRef = 3196B9350D945CC100BC818E /* RXTiming.c */; };
 		319BDEFB186C8FF400C7B334 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 319BDEFA186C8FF400C7B334 /* libz.dylib */; };
+		319BDEFD186C900B00C7B334 /* liblzma.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 319BDEFC186C900B00C7B334 /* liblzma.a */; };
 		319BDF00186C92D000C7B334 /* random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 319BDEFE186C92D000C7B334 /* random.cpp */; };
 		31A14B860F03F495006EFF93 /* AUOutputBL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31A14B810F03F495006EFF93 /* AUOutputBL.cpp */; };
 		31A14B870F03F495006EFF93 /* CAAudioChannelLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31A14B830F03F495006EFF93 /* CAAudioChannelLayout.cpp */; };
@@ -154,7 +155,6 @@
 		5563F58922290CD4009B2E74 /* RXAtomic.h in Headers */ = {isa = PBXBuildFile; fileRef = 5563F58822290CD4009B2E74 /* RXAtomic.h */; };
 		557583A925AE49CB002C812D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557583A725AE49CB002C812D /* AVFoundation.framework */; };
 		557583AA25AE49CB002C812D /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557583A825AE49CB002C812D /* AVKit.framework */; };
-		557583B325AE49EF002C812D /* liblzma.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 557583B225AE49EF002C812D /* liblzma.tbd */; };
 		5575841125AE66F9002C812D /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5575841025AE66F9002C812D /* GLUT.framework */; };
 		5575841A25AE671A002C812D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5575841925AE671A002C812D /* SystemConfiguration.framework */; };
 		5575842425AE6767002C812D /* RXDynamicPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5575842325AE6766002C812D /* RXDynamicPicture.m */; };
@@ -380,7 +380,6 @@
 		316E1EE80E77803100F28E2A /* mhkdump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mhkdump; sourceTree = BUILT_PRODUCTS_DIR; };
 		317403920CDC1A67006F3523 /* RXGameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXGameState.h; sourceTree = "<group>"; };
 		317403930CDC1A67006F3523 /* RXGameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXGameState.m; sourceTree = "<group>"; };
-		317531721935B12300565AF4 /* CGLContextLockGuard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGLContextLockGuard.h; sourceTree = "<group>"; };
 		317DF4E8198AF0CB00937826 /* mhkdump.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mhkdump.mm; sourceTree = "<group>"; };
 		318161AD147C633100623EF2 /* Riven X.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Riven X.entitlements"; sourceTree = "<group>"; };
 		318161AE147C69C600623EF2 /* rx_abort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rx_abort.c; sourceTree = "<group>"; };
@@ -414,7 +413,6 @@
 		31A1FA1B0E0B4AB800B2437A /* RXAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXAnimation.h; sourceTree = "<group>"; };
 		31A1FA1C0E0B4AB800B2437A /* RXAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXAnimation.m; sourceTree = "<group>"; };
 		31A39A91186CDBA900A9E84D /* math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
-		31A9EF94094D285400C6A0AB /* rivenx.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rivenx.pch; sourceTree = "<group>"; };
 		31A9F027094D2D0300C6A0AB /* RXRenderState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RXRenderState.m; path = States/RXRenderState.m; sourceTree = "<group>"; };
 		31A9F03A094D2E2600C6A0AB /* RXRenderState.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RXRenderState.h; path = States/RXRenderState.h; sourceTree = "<group>"; };
 		31AA79800F75AACC006F06AC /* RXCursors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXCursors.h; sourceTree = "<group>"; };
@@ -463,7 +461,6 @@
 		5563F58822290CD4009B2E74 /* RXAtomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXAtomic.h; sourceTree = "<group>"; };
 		557583A725AE49CB002C812D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		557583A825AE49CB002C812D /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		557583B225AE49EF002C812D /* liblzma.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = liblzma.tbd; path = usr/lib/liblzma.tbd; sourceTree = SDKROOT; };
 		557583DE25AE4E7D002C812D /* CAAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAAudioUnit.h; sourceTree = "<group>"; };
 		557583DF25AE4EC0002C812D /* AUOutputBL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AUOutputBL.h; sourceTree = "<group>"; };
 		557583E025AE4EC0002C812D /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
@@ -548,7 +545,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				557583B325AE49EF002C812D /* liblzma.tbd in Frameworks */,
+				319BDEFD186C900B00C7B334 /* liblzma.a in Frameworks */,
 				319BDEFB186C8FF400C7B334 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,7 +608,6 @@
 				31F3093508BE43C100417394 /* Riven X-Info.plist */,
 				318161AD147C633100623EF2 /* Riven X.entitlements */,
 				5563F58722290B71009B2E74 /* RXBase.pch */,
-				31A9EF94094D285400C6A0AB /* rivenx.pch */,
 				31154B4D0B4990E9002FCEDD /* Shaders */,
 				31A9EC1D094D23F200C6A0AB /* States */,
 				31C357220D92A6C700EDEF81 /* Tests */,
@@ -672,7 +668,6 @@
 				5575842225AE6766002C812D /* RXDynamicPicture.h */,
 				5575842325AE6766002C812D /* RXDynamicPicture.m */,
 				312F4D940DC263F400B3AF0D /* GL */,
-				317531721935B12300565AF4 /* CGLContextLockGuard.h */,
 				312F4D9A0DC263F400B3AF0D /* RXMovie.h */,
 				312F4D9B0DC263F400B3AF0D /* RXMovie.m */,
 				31F4F03A0F35461C00A68652 /* RXMovieProxy.h */,
@@ -1010,7 +1005,6 @@
 			children = (
 				5575841925AE671A002C812D /* SystemConfiguration.framework */,
 				5575841025AE66F9002C812D /* GLUT.framework */,
-				557583B225AE49EF002C812D /* liblzma.tbd */,
 				557583A725AE49CB002C812D /* AVFoundation.framework */,
 				557583A825AE49CB002C812D /* AVKit.framework */,
 				319BDEFC186C900B00C7B334 /* liblzma.a */,
@@ -1606,6 +1600,7 @@
 					"RX_ERROR_CLASS=MHKError",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = mhk/Info.plist;
 				INSTALL_PATH = "@rpath";
 				OTHER_CFLAGS = (
@@ -1635,6 +1630,7 @@
 					"RX_ERROR_CLASS=MHKError",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = mhk/Info.plist;
 				INSTALL_PATH = "@rpath";
 				OTHER_CFLAGS = (
@@ -1781,7 +1777,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Frameworks",
@@ -1861,7 +1856,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Frameworks",

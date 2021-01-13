@@ -3,7 +3,7 @@
 SYMROOT="`pwd`/symroot/$CURRENT_ARCH"
 DSTROOT="`pwd`/dstroot/$CURRENT_ARCH"
 PKGROOT="`pwd`/pkgroot/$CURRENT_ARCH"
-MIN_VERSION='10.9'
+MIN_VERSION='10.12'
 SDKROOT="`xcodebuild -sdk macosx -version Path`"
 
 export CC="clang"

@@ -168,7 +168,7 @@ void ConvertSampleFormat(const AVSampleFormat format, AudioStreamBasicDescriptio
   if (!codec) {
     return NO;
   }
-  debug_assert((codec->capabilities & CODEC_CAP_DELAY) == 0);
+  debug_assert((codec->capabilities & AV_CODEC_CAP_DELAY) == 0);
 
   if (![self _resetAdpcmCodecContext:codec
                           sampleRate:sdesc.sampleRate
@@ -244,7 +244,7 @@ void ConvertSampleFormat(const AVSampleFormat format, AudioStreamBasicDescriptio
   if (!codec) {
     return NO;
   }
-  debug_assert((codec->capabilities & CODEC_CAP_DELAY) == 0);
+  debug_assert((codec->capabilities & AV_CODEC_CAP_DELAY) == 0);
 
   debug_assert(_formatContext->streams[0]->codec->codec_type == AVMEDIA_TYPE_AUDIO);
   debug_assert(_formatContext->streams[0]->codec->sample_rate == sdesc.sampleRate);

@@ -5,7 +5,7 @@ DSTROOT="`pwd`/dstroot/$CURRENT_ARCH"
 PKGROOT="`pwd`/pkgroot/$CURRENT_ARCH"
 
 SDKROOT="`xcodebuild -sdk macosx -version Path`"
-MIN_VERSION="10.10"
+MIN_VERSION="10.12"
 
 rm -Rf "$SYMROOT"
 rm -Rf "$DSTROOT"
@@ -26,7 +26,7 @@ make distclean
     --enable-decoder=mp2 --enable-decoder=cinepak --enable-decoder=adpcm_ima_apc \
     --enable-parser=mpegaudio \
     --enable-demuxer=mov --enable-demuxer=mp3 \
-    --enable-videotoolbox --enable-audiotoolbox
+    --enable-videotoolbox --enable-audiotoolbox --arch="$CURRENT_ARCH"
 
 make -j 4
 make install

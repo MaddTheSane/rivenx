@@ -26,7 +26,7 @@ enum {
 #import <Foundation/NSString.h>
 #import <Foundation/NSError.h>
 
-extern NSString* const MHKErrorDomain;
+extern NSErrorDomain const MHKErrorDomain;
 
 @interface MHKError : NSError
 @end

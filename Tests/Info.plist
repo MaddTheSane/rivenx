@@ -1,0 +1,6 @@
+{
+	CFBundleExecutable = "${EXECUTABLE_NAME}";
+	CFBundleSignature = "????";
+	CFBundlePackageType = APPL;
+	"CFBundleInfoDictionaryVersion" = "6.0";
+}
