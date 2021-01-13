@@ -29,9 +29,59 @@
 
 + (void)initialize
 {
-  if (self == [RXApplicationDelegate class]) {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [NSError setUserInfoValueProviderForDomain:RXErrorDomain provider:^id _Nullable(NSError * _Nonnull err, NSErrorUserInfoKey  _Nonnull userInfoKey) {
+      if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+        NSInteger code = [err code];
+        switch (code) {
+          case kRXErrSavedGameCantBeLoaded:
+            return @"Save game cannot be loaded.";
+          case kRXErrQuickTimeTooOld:
+            return @"QuickTime is too old.";
+            
+          case kRXErrArchivesNotFound:
+            return @"Failed to find required Riven data files.";
+          case kRXErrFailedToInitializeStack:
+            return @"Riven X was unable to load a segment of Riven.";
+            
+          case kRXErrFailedToGetDisplayID:
+            return @"Failed to get display ID.";
+          case kRXErrNoAcceleratorService:
+            return @"No graphics accelerator service.";
+          case kRXErrFailedToGetAcceleratorPerfStats:
+            return @"Failed to get graphics accelerator performance statistics.";
+          case kRXErrFailedToFindFreeVRAMInformation:
+            return @"Failed to determine the amount of free VRAM.";
+          case kRXErrFailedToCreatePixelFormat:
+            return @"Failed to creare a pixel format.";
+            
+          case kRXErrInstallerAlreadyRan:
+            return @"Installer already ran.";
+          case kRXErrInstallerMissingArchivesOnMedia:
+            return @"Media is missing some Riven data files.";
+          case kRXErrInstallerCancelled:
+            return @"Installer was cancelled.";
+          case kRXErrInstallerMissingArchivesAfterInstall:
+            return @"Riven data files are missing after installation.";
+          case kRXErrFailedToGetFilesystemInformation:
+            return @"Riven X failed to obtain filesystem information for the selected media.";
+          case kRXErrUnusableInstallMedia:
+            return @"Riven X cannot install from the selected disc because it does not appear to be a Riven disc.";
+          case kRXErrUnusableInstallFolder:
+            return @"Riven X cannot install from the selected folder because it does not appear to contain Riven.";
+          case kRXErrInstallerGOGSetupUnpackFailed:
+            return @"Riven X failed to unpack the GOG.com Riven installer.";
+            
+          default:
+            return [NSString stringWithFormat:@"Unknown error code (%lu).", (unsigned long)code];
+        }
+      }
+      
+      return nil;
+    }];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"Fullscreen": @NO, @"EngineVariables": @{}}];
-  }
+  });
 }
 
 + (RXApplicationDelegate*)sharedApplicationDelegate { return [NSApp delegate]; }
@@ -277,7 +327,7 @@
   if (wasFullscreen)
     [g_world toggleFullscreenLegacyPath];
 
-  if (result == NSOKButton)
+  if (result == NSModalResponseOK)
     [self _openGameWithURL:[panel URL] addToRecents:YES];
 }
 
@@ -315,7 +365,7 @@
 
     [panel beginSheetModalForWindow:[g_worldView window] completionHandler:^(NSInteger result)
     {
-      if (result == NSCancelButton || [self isGameLoadingAndSavingDisabled])
+      if (result == NSModalResponseCancel || [self isGameLoadingAndSavingDisabled])
         return;
 
       // dismiss the panel now

@@ -19,9 +19,9 @@
   NSRecursiveLock* _accessLock;
 }
 
-+ (RXGameState*)gameStateWithURL:(NSURL*)url error:(NSError**)error;
++ (instancetype)gameStateWithURL:(NSURL*)url error:(NSError**)error;
 
-- (id)init;
+- (instancetype)init;
 
 - (void)dump;
 

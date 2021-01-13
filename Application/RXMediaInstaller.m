@@ -441,7 +441,7 @@ static NSString* const gStacks[] = {@"aspit", @"bspit", @"gspit", @"jspit", @"os
 
   // we have gone through all our stages; call the completion block
   _completionBlock(YES, nil);
-  [_completionBlock release], _completionBlock = nil;
+  [_completionBlock release]; _completionBlock = nil;
 }
 
 #pragma mark -

@@ -561,6 +561,7 @@ static NSString* required_extensions[] = {@"GL_APPLE_vertex_array_object", @"GL_
 
   // start the CV display link
   CVDisplayLinkStart(_displayLink);
+  [super prepareOpenGL];
 }
 
 extern CGError CGSAcceleratorForDisplayNumber(CGDirectDisplayID display, io_service_t* accelerator, uint32_t* index);

@@ -55,7 +55,7 @@ extern NSNotificationName const RXMoviePlaybackDidEndNotification;
 @property (readonly, nonatomic) CMTime duration;
 @property (readonly, nonatomic) CMTime videoDuration;
 
-@property BOOL looping;
+@property (nonatomic) BOOL looping;
 
 @property float volume;
 

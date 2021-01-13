@@ -15,6 +15,7 @@
 
 #import "Utilities/random.h"
 
+NSErrorDomain const RXGameStateErrorDomain = @"RXGameStateErrorDomain";
 static const int RX_GAME_STATE_CURRENT_VERSION = 4;
 
 // 1-2-3-4-5
@@ -68,23 +69,23 @@ static const uint32_t domecombo_bad1 = (1 << 24) | (1 << 23) | (1 << 22) | (1 <<
 
 - (uint32_t)_generateDomeCombination
 {
-  uint8_t domecombo1 = rx_rnd_range(0, 24);
+  uint8_t domecombo1 = (uint8_t)rx_rnd_range(0, 24);
 
-  uint8_t domecombo2 = rx_rnd_range(0, 24);
+  uint8_t domecombo2 = (uint8_t)rx_rnd_range(0, 24);
   while (domecombo2 == domecombo1)
-    domecombo2 = rx_rnd_range(0, 24);
+    domecombo2 = (uint8_t)rx_rnd_range(0, 24);
 
-  uint8_t domecombo3 = rx_rnd_range(0, 24);
+  uint8_t domecombo3 = (uint8_t)rx_rnd_range(0, 24);
   while (domecombo3 == domecombo1 || domecombo3 == domecombo2)
-    domecombo3 = rx_rnd_range(0, 24);
+    domecombo3 = (uint8_t)rx_rnd_range(0, 24);
 
-  uint8_t domecombo4 = rx_rnd_range(0, 24);
+  uint8_t domecombo4 = (uint8_t)rx_rnd_range(0, 24);
   while (domecombo4 == domecombo1 || domecombo4 == domecombo2 || domecombo4 == domecombo3)
-    domecombo4 = rx_rnd_range(0, 24);
+    domecombo4 = (uint8_t)rx_rnd_range(0, 24);
 
-  uint8_t domecombo5 = rx_rnd_range(0, 24);
+  uint8_t domecombo5 = (uint8_t)rx_rnd_range(0, 24);
   while (domecombo5 == domecombo1 || domecombo5 == domecombo2 || domecombo5 == domecombo3 || domecombo5 == domecombo4)
-    domecombo5 = rx_rnd_range(0, 24);
+    domecombo5 = (uint8_t)rx_rnd_range(0, 24);
 
   return (1 << (24 - domecombo1)) | (1 << (24 - domecombo2)) | (1 << (24 - domecombo3)) | (1 << (24 - domecombo4)) | (1 << (24 - domecombo5));
 }
@@ -163,18 +164,17 @@ static const uint32_t domecombo_bad1 = (1 << 24) | (1 << 23) | (1 << 22) | (1 <<
                                  userInfo:[NSDictionary dictionaryWithObject:error forKey:NSUnderlyingErrorKey]];
   }
 
-  NSString* error_str = nil;
-  _variables = [[NSPropertyListSerialization propertyListFromData:defaultVarData
-                                                 mutabilityOption:NSPropertyListMutableContainers
+  NSError* error_str = nil;
+  _variables = [[NSPropertyListSerialization propertyListWithData:defaultVarData
+                                                 options:NSPropertyListMutableContainers
                                                            format:NULL
-                                                 errorDescription:&error_str] retain];
+                                                 error:&error_str] retain];
   if (!_variables) {
     [self release];
     @throw [NSException exceptionWithName:@"RXInvalidDefaultEngineVariablesException"
                                    reason:@"Unable to load the default engine variables."
-                                 userInfo:[NSDictionary dictionaryWithObject:error_str forKey:@"RXErrorString"]];
+                                 userInfo:[NSDictionary dictionaryWithObject:error_str forKey:NSUnderlyingErrorKey]];
   }
-  [error_str release];
 
   // generate random combinations for the game
   [self _generateCombinations];
@@ -200,6 +200,7 @@ static const uint32_t domecombo_bad1 = (1 << 24) | (1 << 23) | (1 << 22) | (1 <<
   _accessLock = [NSRecursiveLock new];
 
   if (![decoder containsValueForKey:@"VERSION"]) {
+    [decoder failWithError:[NSError errorWithDomain:RXErrorDomain code:kRXErrSavedGameCantBeLoaded userInfo:nil]];
     [self release];
     return nil;
   }
@@ -215,6 +216,7 @@ static const uint32_t domecombo_bad1 = (1 << 24) | (1 << 23) | (1 << 22) | (1 <<
       @throw [NSException exceptionWithName:@"RXInvalidGameStateArchive"
                                      reason:@"Riven X does not understand the save file. It may be corrupted or may not be a Riven X save file at all."
                                    userInfo:nil];
+      return nil;
     }
     _returnCard = [[decoder decodeObjectForKey:@"returnCard"] retain];
 

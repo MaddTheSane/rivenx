@@ -10,4 +10,6 @@
 #include "Base/RXBase.h"
 #include "Base/RXBufferMacros.h"
 #include "Base/RXLogging.h"
+#if defined(__OBJC__)
 #include "Base/RXErrors.h"
+#endif

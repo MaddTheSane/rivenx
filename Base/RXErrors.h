@@ -7,10 +7,12 @@
 #define RX_ERRORS_H
 
 #import "Base/RXBase.h"
+#import <Foundation/NSError.h>
 
 __BEGIN_DECLS
 
-enum {
+extern NSErrorDomain const RXErrorDomain;
+typedef NS_ERROR_ENUM(RXErrorDomain, RXErrors) {
   kRXErrSavedGameCantBeLoaded,
   kRXErrQuickTimeTooOld,
   kRXErrArchivesNotFound,
@@ -30,16 +32,10 @@ enum {
   kRXErrInstallerGOGSetupUnpackFailed,
 };
 
-#if defined(__OBJC__)
-
-#import <Foundation/NSError.h>
-
-extern NSString* const RXErrorDomain;
 
 @interface RXError : NSError
 @end
 
-#endif // __OBJC__
 
 __END_DECLS
 
