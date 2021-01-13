@@ -6,6 +6,7 @@
 #import <thread>
 #import <Foundation/Foundation.h>
 
+#import "Base/RXErrors.h"
 #import "Base/RXBase.h"
 #import "Base/RXThreadUtilities.h"
 
@@ -46,7 +47,7 @@ class AudioFileSource {
   AudioUnitElement element_;
 
   thread thread_;
-  atomic<bool> decompress_flag_;
+  std::atomic<bool> decompress_flag_;
 };
 
 AudioFileSource::AudioFileSource(const char* path) noexcept {
