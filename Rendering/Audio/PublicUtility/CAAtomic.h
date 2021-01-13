@@ -56,6 +56,8 @@ full barrier.
 #ifndef __CAAtomic_h__
 #define __CAAtomic_h__
 
+#include <atomic>
+
 #if TARGET_OS_WIN32
 	#include <windows.h>
 	#include <intrin.h>
@@ -64,136 +66,76 @@ full barrier.
 #else
 	#include <CoreFoundation/CFBase.h>
 	#include <libkern/OSAtomic.h>
+	#include <os/lock.h>
 #endif
 
 inline void CAMemoryBarrier() 
 {
-#if TARGET_OS_WIN32
-	MemoryBarrier();
-#else
-	OSMemoryBarrier();
-#endif
+	std::atomic_thread_fence(std::memory_order_seq_cst);
 }
 
 inline SInt32 CAAtomicAdd32Barrier(SInt32 theAmt, volatile SInt32* theValue)
 {
-#if TARGET_OS_WIN32
-	long lRetVal = InterlockedExchangeAdd((volatile long*)theValue, theAmt);
-	// InterlockedExchangeAdd returns the original value which differs from OSX version. 
-	// At this point the addition would have occured and hence returning the new value
-	// to keep it sync with OSX.
-	return lRetVal + theAmt;
-#else
-	return OSAtomicAdd32Barrier(theAmt, (volatile int32_t *)theValue);
-#endif
+	return (int32_t)(std::atomic_fetch_add_explicit((volatile std::atomic_int32_t*)theValue, theAmt, std::memory_order_seq_cst) + theAmt);
 }
 
 inline SInt32 CAAtomicOr32Barrier(UInt32 theMask, volatile UInt32* theValue)
 {
-#if TARGET_OS_WIN32
-	// InterlockedAnd macro is not defined in x86 platform, and hence using the intrinsic
-	// function instead.
-	long j = _InterlockedOr((volatile long*)theValue, theMask);
-	// _InterlockedOr returns the original value which differs from OSX version.
-	// Returning the new value similar to OSX
-	return (SInt32)(j | theMask);
-#else
-	return OSAtomicOr32Barrier(theMask, (volatile uint32_t *)theValue);
-#endif
+	return (int32_t)(std::atomic_fetch_or_explicit((volatile std::atomic_uint32_t*)theValue, theMask, std::memory_order_seq_cst) | theMask);
 }
 
 inline SInt32 CAAtomicAnd32Barrier(UInt32 theMask, volatile UInt32* theValue)
 {
-#if TARGET_OS_WIN32
-// InterlockedAnd macro is not defined in x86 platform, and hence using the intrinsic
-// function instead.
-	long j = _InterlockedAnd((volatile long*)theValue, theMask);
-	// _InterlockedAnd returns the original value which differs from OSX version.
-	// Returning the new value similar to OSX
-	return (SInt32)(j & theMask);
-#else
-	return OSAtomicAnd32Barrier(theMask, (volatile uint32_t *)theValue);
-#endif
+	return (int32_t)(std::atomic_fetch_and_explicit((volatile std::atomic_uint32_t*)theValue, theMask, std::memory_order_seq_cst) & theMask);
 }
 
 inline bool CAAtomicCompareAndSwap32Barrier(SInt32 oldValue, SInt32 newValue, volatile SInt32 *theValue)
 {
-#if TARGET_OS_WIN32
-	// InterlockedCompareExchange returns the old value. But we need to return bool value.
-	long lRetVal = InterlockedCompareExchange((volatile long*)theValue, newValue, oldValue);
-// Hence we check if the new value is set and if it is we return true else false.
-// If theValue is equal to oldValue then the swap happens. Otherwise swap doesn't happen.
-	return (oldValue == lRetVal);
-#else
-	return OSAtomicCompareAndSwap32Barrier(oldValue, newValue, (volatile int32_t *)theValue);
-#endif
+	return std::atomic_compare_exchange_strong_explicit((volatile std::atomic_int32_t*)theValue, &oldValue, newValue, std::memory_order_seq_cst, std::memory_order_relaxed);
 }
 
 
 inline SInt32 CAAtomicIncrement32(volatile SInt32* theValue)
 {
-#if TARGET_OS_WIN32
-	return (SInt32)InterlockedIncrement((volatile long*)theValue);
-#else
-	return OSAtomicIncrement32((volatile int32_t *)theValue);
-#endif
+	return (std::atomic_fetch_add_explicit((volatile std::atomic_int32_t*) theValue, 1, std::memory_order_relaxed) + 1);
 }
 
 inline SInt32 CAAtomicDecrement32(volatile SInt32* theValue)
 {
-#if TARGET_OS_WIN32
-	return (SInt32)InterlockedDecrement((volatile long*)theValue);
-#else
-	return OSAtomicDecrement32((volatile int32_t *)theValue);
-#endif
+	return (std::atomic_fetch_add_explicit((volatile std::atomic_int32_t*) theValue, -1, std::memory_order_relaxed) - 1);
 }
 
 inline SInt32 CAAtomicIncrement32Barrier(volatile SInt32* theValue)
 {
-#if TARGET_OS_WIN32
-	return CAAtomicIncrement32(theValue);
-#else
-	return OSAtomicIncrement32Barrier((volatile int32_t *)theValue);
-#endif
+	return CAAtomicAdd32Barrier(1, theValue);
 }
 
 inline SInt32 CAAtomicDecrement32Barrier(volatile SInt32* theValue)
 {
-#if TARGET_OS_WIN32
-	return CAAtomicDecrement32(theValue);
-#else
-	return OSAtomicDecrement32Barrier((volatile int32_t *)theValue);
-#endif
+	return CAAtomicAdd32Barrier(-1, theValue);
 }
 
 inline bool CAAtomicTestAndClearBarrier(int bitToClear, void* theAddress)
 {
-#if TARGET_OS_WIN32
-	BOOL bOldVal = InterlockedBitTestAndReset((long*)theAddress, bitToClear);
-	return (bOldVal ? true : false);
-#else
-	return OSAtomicTestAndClearBarrier(bitToClear, (volatile void *)theAddress);
-#endif
+	uintptr_t a = (uintptr_t)theAddress + (bitToClear >> 3);
+	uint8_t v = (0x80u >> (bitToClear & 7));
+	return (std::atomic_fetch_and_explicit((std::atomic_uint8_t*)a,
+			(uint8_t)~v, std::memory_order_seq_cst) & v);
 }
 
 inline bool CAAtomicTestAndClear(int bitToClear, void* theAddress)
 {
-#if TARGET_OS_WIN32
-	BOOL bOldVal = CAAtomicTestAndClearBarrier(bitToClear, (long*)theAddress);
-	return (bOldVal ? true : false);
-#else
-	return OSAtomicTestAndClear(bitToClear, (volatile void *)theAddress);
-#endif
+	uintptr_t a = (uintptr_t)theAddress + (bitToClear >> 3);
+	uint8_t v = (0x80u >> (bitToClear & 7));
+	return (std::atomic_fetch_and_explicit((std::atomic_uint8_t*)a, (uint8_t)~v, std::memory_order_relaxed) & v);
 }
 
 inline bool CAAtomicTestAndSetBarrier(int bitToSet, void* theAddress)
 {
-#if TARGET_OS_WIN32
-	BOOL bOldVal = InterlockedBitTestAndSet((long*)theAddress, bitToSet);
-	return (bOldVal ? true : false);
-#else
-	return OSAtomicTestAndSetBarrier(bitToSet, (volatile void *)theAddress);
-#endif
+	uintptr_t a = (uintptr_t)theAddress + (bitToSet >> 3);
+	uint8_t v = (0x80u >> (bitToSet & 7));
+	return (std::atomic_fetch_or_explicit((std::atomic_uint8_t*)a, v,
+			std::memory_order_seq_cst) & v);
 }
 
 // int32_t flavors -- for C++ only since we can't overload in C
@@ -246,7 +188,7 @@ inline int32_t CAAtomicDecrement32Barrier(volatile int32_t* theValue)
 #if __LP64__
 inline bool CAAtomicCompareAndSwap64Barrier( int64_t __oldValue, int64_t __newValue, volatile int64_t *__theValue )
 {
-	return OSAtomicCompareAndSwap64Barrier(__oldValue, __newValue, __theValue);
+	return std::atomic_compare_exchange_strong_explicit((volatile std::atomic_int64_t*)__theValue, &__oldValue, __newValue, std::memory_order_seq_cst, std::memory_order_relaxed);
 }
 #endif
 
@@ -265,9 +207,15 @@ inline bool CAAtomicCompareAndSwapPtrBarrier(void *__oldValue, void *__newValue,
  * The try operation immediately returns false if the lock was held, true if it took the
  * lock.  The convention is that unlocked is zero, locked is nonzero.
  */
-#define	CA_SPINLOCK_INIT    0
+#if TARGET_OS_MAC
+#define	CA_SPINLOCK_INIT    OS_UNFAIR_LOCK_INIT
+
+typedef os_unfair_lock_s CASpinLock;
+#else
+#define  CA_SPINLOCK_INIT    0
 
 typedef int32_t CASpinLock;
+#endif
 
 bool    CASpinLockTry( volatile CASpinLock *__lock );
 void    CASpinLockLock( volatile CASpinLock *__lock );
@@ -276,7 +224,7 @@ void    CASpinLockUnlock( volatile CASpinLock *__lock );
 inline void    CASpinLockLock( volatile CASpinLock *__lock )
 {
 #if TARGET_OS_MAC
-	OSSpinLockLock(__lock);
+	os_unfair_lock_lock((os_unfair_lock_t)__lock);
 #else
 	while (CAAtomicTestAndSetBarrier(0, (void*)__lock))
 		usleep(1000); // ???
@@ -286,7 +234,7 @@ inline void    CASpinLockLock( volatile CASpinLock *__lock )
 inline void    CASpinLockUnlock( volatile CASpinLock *__lock )
 {
 #if TARGET_OS_MAC
-	OSSpinLockUnlock(__lock);
+	os_unfair_lock_unlock((os_unfair_lock_t)__lock);
 #else
 	CAAtomicTestAndClearBarrier(0, (void*)__lock);
 #endif
@@ -295,7 +243,7 @@ inline void    CASpinLockUnlock( volatile CASpinLock *__lock )
 inline bool    CASpinLockTry( volatile CASpinLock *__lock )
 {
 #if TARGET_OS_MAC
-	return OSSpinLockTry(__lock);
+	return ::os_unfair_lock_trylock((os_unfair_lock_t)__lock);
 #else
 	return (CAAtomicTestAndSetBarrier(0, (void*)__lock) == 0);
 #endif

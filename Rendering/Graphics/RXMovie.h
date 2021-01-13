@@ -6,7 +6,7 @@
 //  Copyright 2005-2012 MacStorm. All rights reserved.
 //
 
-#import <libkern/OSAtomic.h>
+#import <os/lock.h>
 
 #import <AVKit/AVKit.h>
 #import <CoreMedia/CoreMedia.h>
@@ -41,27 +41,25 @@ extern NSNotificationName const RXMoviePlaybackDidEndNotification;
   CVImageBufferRef _image_buffer;
 
   CMTime _current_time;
-  OSSpinLock _current_time_lock;
+  os_unfair_lock _current_time_lock;
 
-  OSSpinLock _render_lock;
+  os_unfair_lock _render_lock;
 }
 
-- (id)initWithMovie:(void*)movie disposeWhenDone:(BOOL)disposeWhenDone owner:(id)owner;
-- (id)initWithURL:(NSURL*)movieURL owner:(id)owner;
+- (instancetype)initWithMovie:(void*)movie disposeWhenDone:(BOOL)disposeWhenDone owner:(id)owner;
+- (instancetype)initWithURL:(NSURL*)movieURL owner:(id)owner;
 
 - (id)owner;
 
-- (CGSize)currentSize;
-- (CMTime)duration;
-- (CMTime)videoDuration;
+@property (readonly) CGSize currentSize;
+@property (readonly, nonatomic) CMTime duration;
+@property (readonly, nonatomic) CMTime videoDuration;
 
-- (BOOL)looping;
-- (void)setLooping:(BOOL)flag;
+@property BOOL looping;
 
-- (float)volume;
-- (void)setVolume:(float)volume;
+@property float volume;
 
-- (BOOL)isPlayingSelection;
+@property (readonly, getter=isPlayingSelection) BOOL playingSelection;
 - (void)setPlaybackSelection:(CMTimeRange)selection;
 - (void)clearPlaybackSelection;
 
@@ -70,13 +68,11 @@ extern NSNotificationName const RXMoviePlaybackDidEndNotification;
 - (void)setWorkingColorSpace:(CGColorSpaceRef)colorspace;
 - (void)setOutputColorSpace:(CGColorSpaceRef)colorspace;
 
-- (CGRect)renderRect;
-- (void)setRenderRect:(CGRect)rect;
+@property CGRect renderRect;
 
 - (void)play;
 - (void)stop;
-- (float)rate;
-- (void)setRate:(float)rate;
+@property float rate;
 
 - (void)gotoEnd;
 

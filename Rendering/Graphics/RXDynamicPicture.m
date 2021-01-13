@@ -6,7 +6,7 @@
 //  Copyright 2005-2012 MacStorm. All rights reserved.
 //
 
-#import <libkern/OSAtomic.h>
+#import <os/lock.h>
 
 #import "Rendering/Graphics/RXDynamicPicture.h"
 #import "Base/RXDynamicBitfield.h"
@@ -20,7 +20,7 @@ static RXDynamicBitfield* dynamic_picture_allocation_bitmap;
 static GLuint dynamic_picture_vao = UINT32_MAX;
 static GLuint dynamic_picture_vertex_bo = UINT32_MAX;
 
-static OSSpinLock dynamic_picture_lock = OS_SPINLOCK_INIT;
+static os_unfair_lock dynamic_picture_lock = OS_UNFAIR_LOCK_INIT;
 
 static void initialize_dynamic_picture_system()
 {
@@ -196,7 +196,7 @@ static void free_dynamic_picture_index(GLuint index)
   if (!dynamic_picture_system_initialized)
     initialize_dynamic_picture_system();
 
-  OSSpinLockLock(&dynamic_picture_lock);
+  os_unfair_lock_lock(&dynamic_picture_lock);
 
   GLuint index = allocate_dynamic_picture_index();
 
@@ -240,7 +240,7 @@ static void free_dynamic_picture_index(GLuint index)
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-  OSSpinLockUnlock(&dynamic_picture_lock);
+  os_unfair_lock_unlock(&dynamic_picture_lock);
   CGLUnlockContext(cgl_ctx);
 
   self = [super initWithTexture:texture vao:dynamic_picture_vao index:index << 2 owner:owner];
@@ -257,9 +257,9 @@ static void free_dynamic_picture_index(GLuint index)
 #endif
 
   if (_index != UINT32_MAX) {
-    OSSpinLockLock(&dynamic_picture_lock);
+    os_unfair_lock_lock(&dynamic_picture_lock);
     free_dynamic_picture_index(_index >> 2);
-    OSSpinLockUnlock(&dynamic_picture_lock);
+    os_unfair_lock_unlock(&dynamic_picture_lock);
   }
 
   [super dealloc];
@@ -267,9 +267,9 @@ static void free_dynamic_picture_index(GLuint index)
 
 - (void)render:(const CVTimeStamp*)output_time inContext:(CGLContextObj)cgl_ctx framebuffer:(GLuint)fbo
 {
-  OSSpinLockLock(&dynamic_picture_lock);
+  os_unfair_lock_lock(&dynamic_picture_lock);
   [super render:output_time inContext:cgl_ctx framebuffer:fbo];
-  OSSpinLockUnlock(&dynamic_picture_lock);
+  os_unfair_lock_unlock(&dynamic_picture_lock);
 }
 
 @end

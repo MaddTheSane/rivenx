@@ -33,8 +33,9 @@ AudioSourceBase::~AudioSourceBase() noexcept(false)
 void AudioSourceBase::Finalize() noexcept(false)
 {
   this->SetEnabled(false);
-  if (rendererPtr)
-    rendererPtr->DetachSource(*this);
+  if (rendererPtr) {
+//    rendererPtr->DetachSource(*this);
+  }
 }
 
 void AudioSourceBase::SetEnabled(bool enable) noexcept(false)

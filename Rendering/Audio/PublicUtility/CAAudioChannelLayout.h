@@ -186,9 +186,9 @@ private:
 	
 	private:
 		// prohibited methods: private and unimplemented.
-		RefCountedLayout();
-		RefCountedLayout(const RefCountedLayout& c);
-		RefCountedLayout& operator=(const RefCountedLayout& c);
+		RefCountedLayout() = delete;
+		RefCountedLayout(const RefCountedLayout& c) = delete;
+		RefCountedLayout& operator=(const RefCountedLayout& c) = delete;
 	};
 	
 	RefCountedLayout		*mLayout;

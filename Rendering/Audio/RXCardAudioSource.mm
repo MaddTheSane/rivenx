@@ -16,7 +16,7 @@ namespace RX {
 CardAudioSource::CardAudioSource(id<MHKAudioDecompression> decompressor, float gain, float pan, bool loop) noexcept(false)
     : _decompressor(decompressor), _gain(gain), _pan(pan), _loop(loop)
 {
-  _task_lock = OS_SPINLOCK_INIT;
+  _task_lock = OS_UNFAIR_LOCK_INIT;
 
   // keep our decompressor around
   [_decompressor retain];
@@ -35,7 +35,7 @@ CardAudioSource::CardAudioSource(id<MHKAudioDecompression> decompressor, float g
 
   _render_buffer = nil;
   _decompressionBuffer = nil;
-  _buffer_swap_lock = OS_SPINLOCK_INIT;
+  _buffer_swap_lock = OS_UNFAIR_LOCK_INIT;
 
   _bufferedFrames = 0;
 
@@ -52,7 +52,7 @@ CardAudioSource::~CardAudioSource() noexcept(false)
   RXCFLog(kRXLoggingAudio, kRXLoggingLevelDebug, CFSTR("<RX::CardAudioSource: 0x%x> deallocating"), this);
 #endif
 
-  OSSpinLockLock(&_task_lock);
+  os_unfair_lock_lock(&_task_lock);
 
   Finalize();
 
@@ -62,16 +62,16 @@ CardAudioSource::~CardAudioSource() noexcept(false)
   if (_loopBuffer)
     free(_loopBuffer);
 
-  OSSpinLockUnlock(&_task_lock);
+  os_unfair_lock_unlock(&_task_lock);
 }
 
 OSStatus CardAudioSource::Render(AudioUnitRenderActionFlags* ioActionFlags, const AudioTimeStamp* inTimeStamp, UInt32 inNumberFrames,
                                  AudioBufferList* ioData) noexcept
 {
-  OSSpinLockLock(&_buffer_swap_lock);
+  os_unfair_lock_lock(&_buffer_swap_lock);
   VirtualRingBuffer* volatile render_buffer = _render_buffer;
   [render_buffer retain];
-  OSSpinLockUnlock(&_buffer_swap_lock);
+  os_unfair_lock_unlock(&_buffer_swap_lock);
 
   // if we're disable, have no renderer, no decompressor or no render buffer, render silence
   if (!Enabled() || !rendererPtr || !_decompressor || !render_buffer) {
@@ -131,15 +131,15 @@ void CardAudioSource::RenderTask() noexcept
   if (!_decompressor || !_decompressionBuffer)
     return;
 
-  OSSpinLockLock(&_task_lock);
+  os_unfair_lock_lock(&_task_lock);
   if (!_decompressor || !_decompressionBuffer) {
-    OSSpinLockUnlock(&_task_lock);
+    os_unfair_lock_unlock(&_task_lock);
     return;
   }
 
   task(_bytesPerTask);
 
-  OSSpinLockUnlock(&_task_lock);
+  os_unfair_lock_unlock(&_task_lock);
 }
 
 void CardAudioSource::task(uint32_t byte_limit) noexcept
@@ -231,11 +231,11 @@ void CardAudioSource::Reset() noexcept
   RXCFLog(kRXLoggingAudio, kRXLoggingLevelDebug, CFSTR("<RX::CardAudioSource: 0x%x> resetting self and decompressor %p"), this, _decompressor);
 #endif
 
-  OSSpinLockLock(&_task_lock);
+  os_unfair_lock_lock(&_task_lock);
 
   // set the gain and pan
-  rendererPtr->SetSourceGain(*this, _gain);
-  rendererPtr->SetSourcePan(*this, _pan);
+//  rendererPtr->SetSourceGain(*this, _gain);
+//  rendererPtr->SetSourcePan(*this, _pan);
 
   // reset the decompressor
   [_decompressor reset];
@@ -249,12 +249,12 @@ void CardAudioSource::Reset() noexcept
 
   // swap the render buffer; this will also take care of releasing any previous decompression buffer
   VirtualRingBuffer* render_buffer = _render_buffer;
-  OSSpinLockLock(&_buffer_swap_lock);
+  os_unfair_lock_lock(&_buffer_swap_lock);
   _render_buffer = _decompressionBuffer;
-  OSSpinLockUnlock(&_buffer_swap_lock);
+  os_unfair_lock_unlock(&_buffer_swap_lock);
   [render_buffer release];
 
-  OSSpinLockUnlock(&_task_lock);
+  os_unfair_lock_unlock(&_task_lock);
 }
 
 void CardAudioSource::HandleAttach() noexcept(false) { Reset(); }

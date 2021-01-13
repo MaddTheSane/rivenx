@@ -135,10 +135,10 @@
       if (RX_OPCODE_COMMAND_EQ(opcode, RX_COMMAND_BRANCH)) {
         NSDictionary* case0 = [[opcode objectForKey:@"cases"] objectAtIndexIfAny:0];
         if (RX_CASE_VAL_EQ(case0, 0)) {
-                    [[case0 objectForKey:@"block"] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSDictionary* opcode, NSUInteger idx, BOOL* stop)
+                    [(NSArray*)[case0 objectForKey:@"block"] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSDictionary* opcode1, NSUInteger idx, BOOL* stop)
                     {
-                      if (RX_OPCODE_COMMAND_EQ(opcode, RX_COMMAND_ACTIVATE_SLST) && RX_OPCODE_ARG(opcode, 0) == 2 && idx > 20u) {
-                        RX_OPCODE_SET_ARG(opcode, 0, 1);
+                      if (RX_OPCODE_COMMAND_EQ(opcode1, RX_COMMAND_ACTIVATE_SLST) && RX_OPCODE_ARG(opcode1, 0) == 2 && idx > 20u) {
+                        RX_OPCODE_SET_ARG(opcode1, 0, 1);
                         *stop = YES;
                       }
                     }];

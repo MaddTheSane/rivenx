@@ -6,7 +6,8 @@
 //  Copyright 2005-2012 MacStorm. All rights reserved.
 //
 
-#import <mach/semaphore.h>
+#include <mach/semaphore.h>
+#include <os/lock.h>
 
 #import "Base/RXBase.h"
 
@@ -26,7 +27,7 @@ typedef struct {
 @interface RXScriptEngine : NSObject <RXScriptEngineProtocol> {
   id<RXScriptEngineControllerProtocol> controller;
   RXCard* _card;
-  OSSpinLock _card_lock;
+  os_unfair_lock _card_lock;
 
   // program execution
   uint32_t _programExecutionDepth;
@@ -36,7 +37,7 @@ typedef struct {
   BOOL _disableScriptLogging;
 
   NSMutableArray* _active_hotspots;
-  OSSpinLock _active_hotspots_lock;
+  os_unfair_lock _active_hotspots_lock;
   BOOL _did_hide_mouse;
 
   // rendering support

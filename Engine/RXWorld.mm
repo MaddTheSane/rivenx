@@ -159,7 +159,7 @@ NSObject<RXWorldProtocol>* g_world = nil;
           [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]);
 
   // initialize the engine variables
-  _engineVariablesLock = OS_SPINLOCK_INIT;
+  _engineVariablesLock = OS_UNFAIR_LOCK_INIT;
   [self _initEngineVariables];
 
   // initialize engine location URLs (the bases)
@@ -272,7 +272,7 @@ NSObject<RXWorldProtocol>* g_world = nil;
 
   if (g_worldView)
     [[g_worldView window] setDelegate:nil];
-  [_cardRenderer release], _cardRenderer = nil;
+  [_cardRenderer release]; _cardRenderer = nil;
   [g_worldView tearDown];
 
   if (_audioRenderer) {
@@ -290,14 +290,14 @@ NSObject<RXWorldProtocol>* g_world = nil;
     NSFreeMapTable(_cursors);
   _cursors = nil;
 
-  [_extrasDescriptor release], _extrasDescriptor = nil;
-  [_gameState release], _gameState = nil;
-  [_worldBase release], _worldBase = nil;
-  [_worldCacheBase release], _worldCacheBase = nil;
-  [_worldSupportBase release], _worldSupportBase = nil;
-  [_engineVariables release], _engineVariables = nil;
-  [_activeStacks release], _activeStacks = nil;
-  [_cachePreferences release], _cachePreferences = nil;
+  [_extrasDescriptor release]; _extrasDescriptor = nil;
+  [_gameState release]; _gameState = nil;
+  [_worldBase release]; _worldBase = nil;
+  [_worldCacheBase release]; _worldCacheBase = nil;
+  [_worldSupportBase release]; _worldSupportBase = nil;
+  [_engineVariables release]; _engineVariables = nil;
+  [_activeStacks release]; _activeStacks = nil;
+  [_cachePreferences release]; _cachePreferences = nil;
 }
 
 #pragma mark -
@@ -489,25 +489,25 @@ NSObject<RXWorldProtocol>* g_world = nil;
 
 - (void)_dumpEngineVariables
 {
-  OSSpinLockLock(&_engineVariablesLock);
+  os_unfair_lock_lock(&_engineVariablesLock);
   RXOLog(@"dumping engine variables\n%@", _engineVariables);
-  OSSpinLockUnlock(&_engineVariablesLock);
+  os_unfair_lock_unlock(&_engineVariablesLock);
 }
 
 - (id)valueForEngineVariable:(NSString*)path
 {
-  OSSpinLockLock(&_engineVariablesLock);
+  os_unfair_lock_lock(&_engineVariablesLock);
   id value = [_engineVariables valueForKeyPath:path];
-  OSSpinLockUnlock(&_engineVariablesLock);
+  os_unfair_lock_unlock(&_engineVariablesLock);
   return value;
 }
 
 - (void)setValue:(id)value forEngineVariable:(NSString*)path
 {
-  OSSpinLockLock(&_engineVariablesLock);
+  os_unfair_lock_lock(&_engineVariablesLock);
   [_engineVariables setValue:value forKeyPath:path];
   [[NSUserDefaults standardUserDefaults] setObject:_engineVariables forKey:@"EngineVariables"];
-  OSSpinLockUnlock(&_engineVariablesLock);
+  os_unfair_lock_unlock(&_engineVariablesLock);
 }
 
 @end

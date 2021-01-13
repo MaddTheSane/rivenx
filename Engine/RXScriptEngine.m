@@ -14,6 +14,7 @@
 #import <mach/thread_policy.h>
 
 #import <objc/runtime.h>
+#include <stdatomic.h>
 
 #import "Rendering/RXRendering.h"
 
@@ -233,11 +234,11 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
 
   controller = ctlr;
 
-  _card_lock = OS_SPINLOCK_INIT;
+  _card_lock = OS_UNFAIR_LOCK_INIT;
 
   logPrefix = [NSMutableString new];
 
-  _active_hotspots_lock = OS_SPINLOCK_INIT;
+  _active_hotspots_lock = OS_UNFAIR_LOCK_INIT;
   _active_hotspots = [NSMutableArray new];
 
   _dynamic_texture_cache = [NSMutableDictionary new];
@@ -343,13 +344,13 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
   if (c == _card)
     return;
 
-  OSSpinLockLock(&_card_lock);
+  os_unfair_lock_lock(&_card_lock);
 
   id old = _card;
   _card = [c retain];
   [old release];
 
-  OSSpinLockUnlock(&_card_lock);
+  os_unfair_lock_unlock(&_card_lock);
 
   [self _emptyPictureCaches];
   _schedule_movie_proxy_reset = YES;
@@ -581,12 +582,12 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
   DISPATCH_COMMAND0(RX_COMMAND_DISABLE_SCREEN_UPDATES);
 
   // clear all active hotspots and replace them with the new card's hotspots
-  OSSpinLockLock(&_active_hotspots_lock);
+  os_unfair_lock_lock(&_active_hotspots_lock);
   [_active_hotspots removeAllObjects];
   [_active_hotspots addObjectsFromArray:[_card hotspots]];
   [_active_hotspots makeObjectsPerformSelector:@selector(enable)];
   [_active_hotspots sortUsingSelector:@selector(compareByIndex:)];
-  OSSpinLockUnlock(&_active_hotspots_lock);
+  os_unfair_lock_unlock(&_active_hotspots_lock);
 
   // reset auto-activation states
   _did_activate_plst = NO;
@@ -816,9 +817,9 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
 #endif
 
   // clear all active hotspots
-  OSSpinLockLock(&_active_hotspots_lock);
+  os_unfair_lock_lock(&_active_hotspots_lock);
   [_active_hotspots removeAllObjects];
-  OSSpinLockUnlock(&_active_hotspots_lock);
+  os_unfair_lock_unlock(&_active_hotspots_lock);
 
   // we can show the mouse again (if we hid it) if the execution depth is
   // back to 0 (e.g. there are no more scripts running after this one)
@@ -835,9 +836,9 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
 {
   // WARNING: WILL BE CALLED BY THE MAIN THREAD
 
-  OSSpinLockLock(&_active_hotspots_lock);
+  os_unfair_lock_lock(&_active_hotspots_lock);
   NSArray* hotspots = [_active_hotspots copy];
-  OSSpinLockUnlock(&_active_hotspots_lock);
+  os_unfair_lock_unlock(&_active_hotspots_lock);
 
   return [hotspots autorelease];
 }
@@ -846,9 +847,9 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
 {
   // WARNING: WILL BE CALLED BY THE MAIN THREAD
 
-  OSSpinLockLock(&_card_lock);
+  os_unfair_lock_lock(&_card_lock);
   RXHotspot* hotspot = [(RXHotspot*)NSMapGet([_card hotspotsNameMap], name) retain];
-  OSSpinLockUnlock(&_card_lock);
+  os_unfair_lock_unlock(&_card_lock);
 
   return [hotspot autorelease];
 }
@@ -1061,7 +1062,7 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
   if (_blocking_movie && [_blocking_movie proxiedMovie] == [notification object]) {
     [_blocking_movie release];
     _blocking_movie = nil;
-    OSMemoryBarrier();
+    atomic_thread_fence(memory_order_seq_cst);
   }
 }
 
@@ -1446,10 +1447,10 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
   if (!hotspot->enabled) {
     hotspot->enabled = YES;
 
-    OSSpinLockLock(&_active_hotspots_lock);
+    os_unfair_lock_lock(&_active_hotspots_lock);
     [_active_hotspots addObject:hotspot];
     [_active_hotspots sortUsingSelector:@selector(compareByIndex:)];
-    OSSpinLockUnlock(&_active_hotspots_lock);
+    os_unfair_lock_unlock(&_active_hotspots_lock);
 
     // instruct the script handler to update the hotspot state
     [controller updateHotspotState];
@@ -1473,10 +1474,10 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
   if (hotspot->enabled) {
     hotspot->enabled = NO;
 
-    OSSpinLockLock(&_active_hotspots_lock);
+    os_unfair_lock_lock(&_active_hotspots_lock);
     [_active_hotspots removeObject:hotspot];
     [_active_hotspots sortUsingSelector:@selector(compareByIndex:)];
-    OSSpinLockUnlock(&_active_hotspots_lock);
+    os_unfair_lock_unlock(&_active_hotspots_lock);
 
     // instruct the script handler to update the hotspot state
     [controller updateHotspotState];
@@ -2063,18 +2064,18 @@ RX_INLINE void rx_dispatch_external1(id target, NSString* external_name, uint16_
   RXHotspot* hotspot = (RXHotspot*)NSMapGet([_card hotspotsIDMap], (void*)k);
   release_assert(hotspot);
 
-  OSSpinLockLock(&_active_hotspots_lock);
+  os_unfair_lock_lock(&_active_hotspots_lock);
   if (record->enabled == 1 && !hotspot->enabled)
     [_active_hotspots addObject:hotspot];
   else if (record->enabled == 0 && hotspot->enabled)
     [_active_hotspots removeObject:hotspot];
-  OSSpinLockUnlock(&_active_hotspots_lock);
+  os_unfair_lock_unlock(&_active_hotspots_lock);
 
   hotspot->enabled = record->enabled;
 
-  OSSpinLockLock(&_active_hotspots_lock);
+  os_unfair_lock_lock(&_active_hotspots_lock);
   [_active_hotspots sortUsingSelector:@selector(compareByIndex:)];
-  OSSpinLockUnlock(&_active_hotspots_lock);
+  os_unfair_lock_unlock(&_active_hotspots_lock);
 
   // instruct the script handler to update the hotspot state
   [controller updateHotspotState];

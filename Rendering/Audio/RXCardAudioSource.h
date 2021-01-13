@@ -14,7 +14,7 @@
 #error C++ is required to include RXCardAudioSource.h
 #endif
 
-#include <libkern/OSAtomic.h>
+#include <os/lock.h>
 #include <MHKKit/MHKAudioDecompression.h>
 
 #include "Rendering/Audio/RXAudioSourceBase.h"
@@ -71,7 +71,7 @@ private:
 
   VirtualRingBuffer* _decompressionBuffer;
   VirtualRingBuffer* volatile _render_buffer;
-  OSSpinLock _buffer_swap_lock;
+  os_unfair_lock _buffer_swap_lock;
 
   int64_t _bufferedFrames;
   uint32_t _bytesPerTask;
@@ -81,7 +81,7 @@ private:
   uint8_t* _loopBufferReadPointer;
   uint64_t _loopBufferLength;
 
-  OSSpinLock _task_lock;
+  os_unfair_lock _task_lock;
 };
 }
 

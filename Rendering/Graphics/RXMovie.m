@@ -8,11 +8,11 @@
 
 #import <pthread.h>
 #import <limits.h>
+#include <stdatomic.h>
 
 #import "Rendering/Graphics/RXMovie.h"
 #import "Engine/RXWorldProtocol.h"
 
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 NSString* const RXMoviePlaybackDidEndNotification = @"RXMoviePlaybackDidEndNotification";
 
@@ -25,8 +25,8 @@ enum {
 
 @interface RXMovieReaper : NSObject {
 @public
-  QTMovie* movie;
-  QTVisualContextRef vc;
+  AVMovie* movie;
+  //QTVisualContextRef vc;
 }
 @end
 
@@ -44,8 +44,6 @@ enum {
   CGLLockContext(cgl_ctx);
 
   [movie release];
-  if (vc)
-    QTVisualContextRelease(vc);
 
   CGLUnlockContext(cgl_ctx);
 
@@ -65,7 +63,7 @@ enum {
   return nil;
 }
 
-- (id)initWithMovie:(Movie)movie disposeWhenDone:(BOOL)disposeWhenDone owner:(id)owner
+- (id)initWithMovie:(void*)movie disposeWhenDone:(BOOL)disposeWhenDone owner:(id)owner
 {
   self = [super init];
   if (!self)
@@ -83,7 +81,7 @@ enum {
   NSError* error = nil;
 
   // bind the movie to a QTMovie
-  _movie = [[QTMovie alloc] initWithQuickTimeMovie:movie disposeWhenDone:disposeWhenDone error:&error];
+  _movie = [[AVMovie alloc] initWithQuickTimeMovie:movie disposeWhenDone:disposeWhenDone error:&error];
   if (!_movie) {
     [self release];
     @throw [NSException exceptionWithName:@"RXMovieException"
@@ -95,17 +93,17 @@ enum {
   _hints = 0;
 
   // we do not restrict playback to the selection initially
-  [_movie setAttribute:[NSNumber numberWithBool:NO] forKey:QTMoviePlaysSelectionOnlyAttribute];
+//  [_movie setAttribute:[NSNumber numberWithBool:NO] forKey:QTMoviePlaysSelectionOnlyAttribute];
   _playing_selection = NO;
 
   // cache the movie's current size
-  [[_movie attributeForKey:QTMovieCurrentSizeAttribute] getValue:&_current_size];
+//  [[_movie attributeForKey:QTMovieCurrentSizeAttribute] getValue:&_current_size];
 
   // cache the movie's original duration
   _original_duration = [_movie duration];
 
   // register for rate change notifications
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_handleRateChange:) name:QTMovieRateDidChangeNotification object:_movie];
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_handleRateChange:) name:QTMovieRateDidChangeNotification object:_movie];
 
   // pixel buffer attributes
   NSMutableDictionary* pixelBufferAttributes = [NSMutableDictionary new];
@@ -121,7 +119,7 @@ enum {
 
   CFMutableDictionaryRef visualContextOptions =
       CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  CFDictionarySetValue(visualContextOptions, kQTVisualContextPixelBufferAttributesKey, pixelBufferAttributes);
+//  CFDictionarySetValue(visualContextOptions, kQTVisualContextPixelBufferAttributesKey, pixelBufferAttributes);
   [pixelBufferAttributes release];
 
   // get the load context and the associated pixel format
@@ -140,7 +138,7 @@ enum {
     RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"using main memory pixel buffer path");
 #endif
 
-    err = QTPixelBufferContextCreate(NULL, visualContextOptions, &_vc);
+//    err = QTPixelBufferContextCreate(NULL, visualContextOptions, &_vc);
     CFRelease(visualContextOptions);
     if (err != noErr) {
       [self release];
@@ -168,14 +166,14 @@ enum {
 
     GLenum type;
 #if defined(__LITTLE_ENDIAN__)
-    type = GL_UNSIGNED_INT_8_8_8_8_REV,
+    type = GL_UNSIGNED_INT_8_8_8_8_REV;
 #else
-    type = GL_UNSIGNED_INT_8_8_8_8_REV,
+    type = GL_UNSIGNED_INT_8_8_8_8_REV;
 #endif
     glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_RGBA8, MAX(_current_size.width, 128), _current_size.height, 0, GL_BGRA, type, _texture_storage);
     glReportError();
   } else {
-    err = QTOpenGLTextureContextCreate(NULL, cgl_ctx, pixel_format, visualContextOptions, &_vc);
+//    err = QTOpenGLTextureContextCreate(NULL, cgl_ctx, pixel_format, visualContextOptions, &_vc);
     CFRelease(visualContextOptions);
     if (err != noErr) {
       [self release];
@@ -214,7 +212,7 @@ enum {
   [self setRenderRect:_render_rect];
 
   // set the movie's visual context
-  err = SetMovieVisualContext(movie, _vc);
+//  err = SetMovieVisualContext(movie, _vc);
   if (err != noErr) {
     [self release];
     @throw [NSException exceptionWithName:@"RXMovieException"
@@ -223,10 +221,10 @@ enum {
                                                                       forKey:NSUnderlyingErrorKey]];
   }
 
-  _current_time_lock = OS_SPINLOCK_INIT;
+  _current_time_lock = OS_UNFAIR_LOCK_INIT;
   _current_time = [_movie currentTime];
 
-  _render_lock = OS_SPINLOCK_INIT;
+  _render_lock = OS_UNFAIR_LOCK_INIT;
 
   return self;
 }
@@ -246,6 +244,7 @@ enum {
   Boolean idleImport = true;
   //  Boolean optimizations = true;
 
+#if 0
   _vc = NULL;
   QTNewMoviePropertyElement newMovieProperties[] = {
       {kQTPropertyClass_DataLocation, kQTDataLocationPropertyID_CFURL, sizeof(NSURL*), &movieURL, 0},
@@ -275,6 +274,7 @@ enum {
     DisposeMovie(aMovie);
     @throw e;
   }
+#endif
 
   return self;
 }
@@ -285,7 +285,7 @@ enum {
   RXOLog2(kRXLoggingRendering, kRXLoggingLevelDebug, @"deallocating");
 #endif
 
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   CGLContextObj cgl_ctx = [g_worldView loadContext];
   CGLLockContext(cgl_ctx);
@@ -304,7 +304,7 @@ enum {
   if (_movie || _vc) {
     RXMovieReaper* reaper = [RXMovieReaper new];
     reaper->movie = _movie;
-    reaper->vc = _vc;
+//    reaper->vc = _vc;
 
     _movie = nil;
     _vc = NULL;
@@ -315,7 +315,7 @@ enum {
       [reaper release];
   }
 
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 
@@ -330,14 +330,15 @@ enum {
 
 - (CMTime)videoDuration
 {
-  CMTimeRange track_range = [[[[_movie tracksOfMediaType:QTMediaTypeVideo] objectAtIndex:0] attributeForKey:QTTrackRangeAttribute] QTTimeRangeValue];
+  CMTimeRange track_range /*= [[[[_movie tracksOfMediaType:QTMediaTypeVideo] objectAtIndex:0] attributeForKey:QTTrackRangeAttribute] QTTimeRangeValue]*/;
   return track_range.duration;
 }
 
-- (BOOL)looping { return _looping; }
+@synthesize looping=_looping;
 
 - (void)setLooping:(BOOL)flag
 {
+#if 0
   [_movie setAttribute:[NSNumber numberWithBool:flag] forKey:QTMovieLoopsAttribute];
 
   if (flag && !_seamless_looping_hacked) {
@@ -349,21 +350,21 @@ enum {
 
     // find the video and audio tracks; bail out if the movie doesn't have
     // exactly one of each or only one video track
-    NSArray* tracks = [_movie tracksOfMediaType:QTMediaTypeVideo];
+    NSArray* tracks = [_movie tracksWithMediaType:AVMediaTypeVideo];
     if ([tracks count] != 1)
       return;
-    QTTrack* video_track = [tracks objectAtIndex:0];
+    AVMovieTrack* video_track = [tracks objectAtIndex:0];
 
-    tracks = [_movie tracksOfMediaType:QTMediaTypeSound];
+    tracks = [_movie tracksWithMediaType:AVMediaTypeAudio];
     if ([tracks count] > 1)
       return;
-    QTTrack* audio_track = ([tracks count]) ? [tracks objectAtIndex:0] : nil;
+    AVAssetTrack* audio_track = ([tracks count]) ? [tracks objectAtIndex:0] : nil;
 
     TimeValue tv;
 
     // find the movie's last sample time
-    GetMovieNextInterestingTime([_movie quickTimeMovie], nextTimeStep | nextTimeEdgeOK, 0, NULL, (TimeValue)duration.timeValue, -1, &tv, NULL);
-    debug_assert(GetMoviesError() == noErr);
+//    GetMovieNextInterestingTime([_movie quickTimeMovie], nextTimeStep | nextTimeEdgeOK, 0, NULL, (TimeValue)duration.timeValue, -1, &tv, NULL);
+//    debug_assert(GetMoviesError() == noErr);
 
     // find the beginning time of the video track's last sample
     CMTimeRange track_range = [[video_track attributeForKey:QTTrackRangeAttribute] QTTimeRangeValue];
@@ -415,6 +416,7 @@ enum {
 #endif
 #endif
   }
+#endif
 
   // update the looping flag
   _looping = flag;
@@ -435,19 +437,19 @@ enum {
 
 - (void)setPlaybackSelection:(CMTimeRange)selection
 {
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   // this method does not clear the current movie image, because it is often
   // used to play a movie in segments (village school, gspit viewer)
 
   // set the movie's current time and selection
-  [_movie setCurrentTime:selection.time];
+//  [_movie setCurrentTime:selection.start];
   [_movie setSelection:selection];
 
   // task the VC
   CGLContextObj load_ctx = [g_worldView loadContext];
   CGLLockContext(load_ctx);
-  QTVisualContextTask(_vc);
+//  QTVisualContextTask(_vc);
   CGLUnlockContext(load_ctx);
 
   // disable looping (not sure this is required or desired, but right now
@@ -455,15 +457,15 @@ enum {
   [self setLooping:NO];
 
   // enable selection playback
-  [_movie setAttribute:[NSNumber numberWithBool:YES] forKey:QTMoviePlaysSelectionOnlyAttribute];
+//  [_movie setAttribute:[NSNumber numberWithBool:YES] forKey:QTMoviePlaysSelectionOnlyAttribute];
   _playing_selection = YES;
 
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 }
 
 - (void)clearPlaybackSelection
 {
-  [_movie setAttribute:[NSNumber numberWithBool:NO] forKey:QTMoviePlaysSelectionOnlyAttribute];
+//  [_movie setAttribute:[NSNumber numberWithBool:NO] forKey:QTMoviePlaysSelectionOnlyAttribute];
   _playing_selection = NO;
 }
 
@@ -472,19 +474,23 @@ enum {
   CVTime rawOVL = CVDisplayLinkGetOutputVideoLatency(displayLink);
 
   // if the OVL is indefinite, exit
-  if (rawOVL.flags | kCVTimeIsIndefinite)
+  if (rawOVL.flags & kCVTimeIsIndefinite)
     return;
 
   // set the expected read ahead
   SInt64 ovl = rawOVL.timeValue / rawOVL.timeScale;
   CFNumberRef ovlNumber = CFNumberCreate(NULL, kCFNumberSInt64Type, &ovl);
-  QTVisualContextSetAttribute(_vc, kQTVisualContextExpectedReadAheadKey, ovlNumber);
+//  QTVisualContextSetAttribute(_vc, kQTVisualContextExpectedReadAheadKey, ovlNumber);
   CFRelease(ovlNumber);
 }
 
-- (void)setWorkingColorSpace:(CGColorSpaceRef)colorspace { QTVisualContextSetAttribute(_vc, kQTVisualContextWorkingColorSpaceKey, colorspace); }
+- (void)setWorkingColorSpace:(CGColorSpaceRef)colorspace {
+//  QTVisualContextSetAttribute(_vc, kQTVisualContextWorkingColorSpaceKey, colorspace);
+}
 
-- (void)setOutputColorSpace:(CGColorSpaceRef)colorspace { QTVisualContextSetAttribute(_vc, kQTVisualContextOutputColorSpaceKey, colorspace); }
+- (void)setOutputColorSpace:(CGColorSpaceRef)colorspace{
+//  QTVisualContextSetAttribute(_vc, kQTVisualContextOutputColorSpaceKey, colorspace);
+}
 
 - (CGRect)renderRect { return _render_rect; }
 
@@ -493,10 +499,10 @@ enum {
   _render_rect = rect;
 
   // update certain visual context attributes
-  NSDictionary* attribDict =
-      [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:_render_rect.size.width], kQTVisualContextTargetDimensions_WidthKey,
-                                                 [NSNumber numberWithFloat:_render_rect.size.height], kQTVisualContextTargetDimensions_HeightKey, nil];
-  QTVisualContextSetAttribute(_vc, kQTVisualContextTargetDimensionsKey, attribDict);
+//  NSDictionary* attribDict =
+//      [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:_render_rect.size.width], kQTVisualContextTargetDimensions_WidthKey,
+//                                                 [NSNumber numberWithFloat:_render_rect.size.height], kQTVisualContextTargetDimensions_HeightKey, nil];
+//  QTVisualContextSetAttribute(_vc, kQTVisualContextTargetDimensionsKey, attribDict);
 
   // specify video rectangle vertices counter-clockwise from (0, 0)
   _coordinates[0] = _render_rect.origin.x;
@@ -530,7 +536,7 @@ enum {
 - (void)_handleRateChange:(NSNotification*)notification
 {
   // WARNING: MUST RUN ON MAIN THREAD
-  float rate = [[[notification userInfo] objectForKey:QTMovieRateDidChangeNotificationParameter] floatValue];
+  float rate = 0/* = [[[notification userInfo] objectForKey:QTMovieRateDidChangeNotificationParameter] floatValue]*/;
 #if defined(DEBUG)
   RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"rate has changed to %f", rate);
 #endif
@@ -550,7 +556,7 @@ enum {
   RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"resetting");
 #endif
 
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   // release and clear the current image buffer
   CVPixelBufferRelease(_image_buffer);
@@ -560,29 +566,29 @@ enum {
   [_movie gotoBeginning];
 
   _goto_end_notification_state = kRXMovieGotoEndStateInitial;
-  OSMemoryBarrier();
+  atomic_thread_fence(memory_order_seq_cst);
 
   // update the current time
-  OSSpinLockLock(&_current_time_lock);
+  os_unfair_lock_lock(&_current_time_lock);
   _current_time = [_movie currentTime];
-  OSSpinLockUnlock(&_current_time_lock);
+  os_unfair_lock_unlock(&_current_time_lock);
 
   // task the VC
   CGLContextObj load_ctx = [g_worldView loadContext];
   CGLLockContext(load_ctx);
-  QTVisualContextTask(_vc);
+//  QTVisualContextTask(_vc);
   CGLUnlockContext(load_ctx);
 
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 }
 
 - (CMTime)_noLockCurrentTime
 {
-  OSSpinLockLock(&_current_time_lock);
+  os_unfair_lock_lock(&_current_time_lock);
   CMTime t = _current_time;
-  OSSpinLockUnlock(&_current_time_lock);
+  os_unfair_lock_unlock(&_current_time_lock);
 
-  t.timeValue = t.timeValue % _original_duration.timeValue;
+  t.value = t.value % _original_duration.value;
   return t;
 }
 
@@ -595,10 +601,10 @@ enum {
   // alias the render context state object pointer
   NSObject<RXOpenGLStateProtocol>* gl_state = RXGetContextState(cgl_ctx);
 
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   // does the visual context have a new image?
-  if (QTVisualContextIsNewImageAvailable(_vc, outputTime)) {
+  if (/*QTVisualContextIsNewImageAvailable(_vc, outputTime)*/ 0) {
     // release the old image
     if (_image_buffer)
       CVPixelBufferRelease(_image_buffer);
@@ -606,7 +612,7 @@ enum {
     // get the new image
     CGLContextObj load_ctx = [g_worldView loadContext];
     CGLLockContext(load_ctx);
-    QTVisualContextCopyImageForTime(_vc, kCFAllocatorDefault, outputTime, &_image_buffer);
+//    QTVisualContextCopyImageForTime(_vc, kCFAllocatorDefault, outputTime, &_image_buffer);
     CGLUnlockContext(load_ctx);
 
     // get the current texture's coordinates
@@ -661,13 +667,13 @@ enum {
       // if the gotoEnd notification state is kRXMovieGotoEndStateWaitForRender, fake a rate change notification on the main thread
       if (_goto_end_notification_state == kRXMovieGotoEndStateWaitForRender) {
         _goto_end_notification_state = kRXMovieGotoEndStateSendNotification;
-        OSMemoryBarrier();
+        atomic_thread_fence(memory_order_seq_cst);
 
-        NSNotification* notification = [NSNotification
-            notificationWithName:QTMovieRateDidChangeNotification
-                          object:_movie
-                        userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:[_movie rate]] forKey:QTMovieRateDidChangeNotificationParameter]];
-        [self performSelectorOnMainThread:@selector(_handleRateChange:) withObject:notification waitUntilDone:NO];
+//        NSNotification* notification = [NSNotification
+//            notificationWithName:QTMovieRateDidChangeNotification
+//                          object:_movie
+//                        userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:[_movie rate]] forKey:QTMovieRateDidChangeNotificationParameter]];
+//        [self performSelectorOnMainThread:@selector(_handleRateChange:) withObject:notification waitUntilDone:NO];
       }
     }
   } else if (_image_buffer) {
@@ -687,12 +693,12 @@ enum {
     glReportError();
   }
 
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 
   // update the current time
-  OSSpinLockLock(&_current_time_lock);
+  os_unfair_lock_lock(&_current_time_lock);
   _current_time = [_movie currentTime];
-  OSSpinLockUnlock(&_current_time_lock);
+  os_unfair_lock_unlock(&_current_time_lock);
 }
 
 - (void)performPostFlushTasks:(const CVTimeStamp*)outputTime
@@ -700,7 +706,7 @@ enum {
   // WARNING: MUST RUN IN THE CORE VIDEO RENDER THREAD
   CGLContextObj load_ctx = [g_worldView loadContext];
   CGLLockContext(load_ctx);
-  QTVisualContextTask(_vc);
+//  QTVisualContextTask(_vc);
   CGLUnlockContext(load_ctx);
 }
 

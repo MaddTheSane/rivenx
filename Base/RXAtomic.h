@@ -7,6 +7,7 @@
 #define RX_ATOMIC_H
 
 #include "RXBase.h"
+#include <atomic>
 
 __BEGIN_DECLS
 
@@ -25,7 +26,7 @@ typedef int32_t atomic_int_t;
 RX_INLINE bool RX_compare_and_swap(atomic_int_t oldvalue, atomic_int_t newvalue, atomic_int_t* pvalue)
 {
 #if __LP64__
-  return OSAtomicCompareAndSwap64Barrier(oldvalue, newvalue, pvalue);
+  return std::atomic_compare_exchange_strong_explicit((volatile std::atomic_int64_t*)pvalue, &oldvalue, newvalue, std::memory_order_seq_cst, std::memory_order_relaxed);
 #else
   return OSAtomicCompareAndSwap32Barrier(oldvalue, newvalue, pvalue);
 #endif

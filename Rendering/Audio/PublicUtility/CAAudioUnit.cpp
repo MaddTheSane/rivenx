@@ -249,8 +249,8 @@ private:
 private:
 		// get the compiler to tell us when we do a bad thing!!!
 	AUState () {}
-	AUState (const AUState&);
-	AUState& operator= (const AUState&);
+	AUState (const AUState&) = delete;
+	AUState& operator= (const AUState&) = delete;
 };						
 						
 						

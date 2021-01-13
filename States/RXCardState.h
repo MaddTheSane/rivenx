@@ -12,6 +12,7 @@
 #import <mach/task.h>
 #import <mach/thread_act.h>
 #import <mach/thread_policy.h>
+#include <os/lock.h>
 
 #import "States/RXRenderState.h"
 
@@ -55,22 +56,22 @@ struct rx_transition_program {
   struct rx_card_state_render_state* volatile _front_render_state;
   struct rx_card_state_render_state* volatile _back_render_state;
   NSMutableArray* _active_movies;
-  OSSpinLock _render_lock;
-  OSSpinLock _state_swap_lock;
+  os_unfair_lock _render_lock;
+  os_unfair_lock _state_swap_lock;
   NSMutableArray* _movies_to_disable_on_next_update;
 
   // mouse event and hotspot handling
   NSRect _mouse_vector;
   double _mouse_timestamp;
   rx_event_t _last_mouse_down_event;
-  OSSpinLock _mouse_state_lock;
+  os_unfair_lock _mouse_state_lock;
 
   RXHotspot* _current_hotspot;
   RXHotspot* _mouse_down_hotspot;
 
-  int32_t volatile _hotspot_handling_disable_counter;
+  std::atomic<int32_t> volatile _hotspot_handling_disable_counter;
   NSCursor* _hidden_cursor;
-  int32_t volatile _cursor_hide_counter;
+  std::atomic<int32_t> volatile _cursor_hide_counter;
 
   // sounds
   NSMutableSet* _activeSounds;
@@ -80,7 +81,7 @@ struct rx_transition_program {
   CFMutableArrayRef _sourcesToDelete;
 
   NSTimer* _activeSourceUpdateTimer;
-  OSSpinLock _audioTaskThreadStatusLock;
+  os_unfair_lock _audioTaskThreadStatusLock;
 
   BOOL _forceFadeInOnNextSoundGroup;
 
@@ -127,7 +128,7 @@ struct rx_transition_program {
   uint32_t _inventory_alpha_interpolator_uninterruptible_flags;
   uint32_t _inventory_flags;
   uint32_t _inventory_max_width;
-  OSSpinLock _inventory_update_lock;
+  os_unfair_lock _inventory_update_lock;
   BOOL _inventory_has_focus;
 
   // credits

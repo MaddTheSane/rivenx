@@ -38,7 +38,7 @@
 {
   // create a fullscreen, borderless window
   _fullscreenWindow =
-      [[RXWindow alloc] initWithContentRect:[screen frame] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO screen:screen];
+  [[RXWindow alloc] initWithContentRect:[screen frame] styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO screen:screen];
 
   [_fullscreenWindow setLevel:NSStatusWindowLevel + 1];
   [_fullscreenWindow setFrameOrigin:NSZeroPoint];
@@ -55,7 +55,7 @@
 {
   // create a regular window
   _window = [[RXWindow alloc] initWithContentRect:NSMakeRect(0.0f, 0.0f, kRXRendererViewportSize.width, kRXRendererViewportSize.height)
-                                        styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask
+                                        styleMask:NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable
                                           backing:NSBackingStoreBuffered
                                             defer:YES
                                            screen:screen];
@@ -148,7 +148,7 @@
   NSString* encoded_frame = NSStringFromRect([window frame]);
   [[NSUserDefaults standardUserDefaults] setObject:encoded_frame forKey:@"WindowFrame"];
 
-  [window setStyleMask:([window styleMask] | NSFullScreenWindowMask)];
+  [window setStyleMask:([window styleMask] | NSWindowStyleMaskFullScreen)];
 
   NSScreen* screen = [window screen];
   NSRect screenFrame = [screen frame];
@@ -207,7 +207,7 @@ completionHandler:
   NSInteger previousWindowLevel = [window level];
   [window setLevel:(NSMainMenuWindowLevel + 1)];
 
-  [window setStyleMask:([window styleMask] & ~NSFullScreenWindowMask)];
+  [window setStyleMask:([window styleMask] & ~NSWindowStyleMaskFullScreen)];
 
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext* context)
     {

@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -193,6 +195,7 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="14" y="135"/>
         </menu>
         <customObject id="248" userLabel="RXApplicationDelegate" customClass="RXApplicationDelegate">
             <connections>
@@ -201,11 +204,11 @@
                 <outlet property="versionField" destination="276" id="459"/>
             </connections>
         </customObject>
-        <window title="About Riven X" allowsToolTipsWhenApplicationIsInactive="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="256" userLabel="About">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" unifiedTitleAndToolbar="YES"/>
+        <window title="About Riven X" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="256" userLabel="About">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="148" width="580" height="320"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <value key="minSize" type="size" width="580" height="320"/>
             <value key="maxSize" type="size" width="580" height="320"/>
             <view key="contentView" id="257">
@@ -214,6 +217,10 @@
                 <subviews>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="265">
                         <rect key="frame" x="0.0" y="0.0" width="580" height="320"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="320" id="iZ1-px-cKR"/>
+                            <constraint firstAttribute="width" constant="580" id="tKt-Yc-Edf"/>
+                        </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="about" id="266"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="276">
@@ -237,7 +244,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DRI-Eq-PuO">
-                        <rect key="frame" x="350" y="8" width="216" height="32"/>
+                        <rect key="frame" x="364" y="8" width="203" height="32"/>
                         <buttonCell key="cell" type="push" title="&lt;&lt;ACKNOWLEDGMENTS&gt;&gt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DJw-Mh-tTN">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -253,6 +260,7 @@
                     <constraint firstAttribute="bottom" secondItem="265" secondAttribute="bottom" id="7jA-Mz-XHD"/>
                     <constraint firstItem="276" firstAttribute="leading" secondItem="278" secondAttribute="leading" id="86W-NM-CiU"/>
                     <constraint firstItem="265" firstAttribute="leading" secondItem="257" secondAttribute="leading" id="Gwi-F8-8pQ"/>
+                    <constraint firstItem="DRI-Eq-PuO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="257" secondAttribute="leading" constant="20" symbolic="YES" id="hFB-sE-YFa"/>
                     <constraint firstItem="276" firstAttribute="leading" secondItem="257" secondAttribute="leading" constant="260" id="hJM-8D-JBU"/>
                     <constraint firstAttribute="trailing" secondItem="265" secondAttribute="trailing" id="kJe-WK-SYn"/>
                     <constraint firstItem="276" firstAttribute="top" secondItem="257" secondAttribute="top" constant="120" id="pRx-sy-pmW"/>

@@ -20,6 +20,6 @@ extern double rx_rnd_rangef(double lower, double upper);
 extern uint32_t rx_rnd_range_normal_clamped(uint32_t mean, uint32_t spread);
 
 // random boolean (unifom)
-extern bool rx_rnd_bool();
+extern bool rx_rnd_bool(void);
 
 __END_DECLS

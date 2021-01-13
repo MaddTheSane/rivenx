@@ -25,7 +25,8 @@ make distclean
     --enable-avcodec --enable-avformat --enable-avutil \
     --enable-decoder=mp2 --enable-decoder=cinepak --enable-decoder=adpcm_ima_apc \
     --enable-parser=mpegaudio \
-    --enable-demuxer=mov --enable-demuxer=mp3
+    --enable-demuxer=mov --enable-demuxer=mp3 \
+    --enable-videotoolbox --enable-audiotoolbox
 
 make -j 4
 make install

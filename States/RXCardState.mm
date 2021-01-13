@@ -83,10 +83,10 @@ static CFArrayCallBacks g_deleteOnReleaseAudioSourceArrayCallbacks = {
 
 static void RXCardAudioSourceFadeInApplier(const void* value, void* context)
 {
-  rx::AudioRenderer* renderer = reinterpret_cast<rx::AudioRenderer*>(context);
-  RX::CardAudioSource* source = const_cast<RX::CardAudioSource*>(reinterpret_cast<const RX::CardAudioSource*>(value));
-  renderer->SetSourceGain(*source, 0.0f);
-  renderer->RampSourceGain(*source, source->NominalGain(), RX_AUDIO_GAIN_RAMP_DURATION);
+//  rx::AudioRenderer* renderer = reinterpret_cast<rx::AudioRenderer*>(context);
+//  RX::CardAudioSource* source = const_cast<RX::CardAudioSource*>(reinterpret_cast<const RX::CardAudioSource*>(value));
+//  renderer->SetSourceGain(*source, 0.0f);
+//  renderer->RampSourceGain(*source, source->NominalGain(), RX_AUDIO_GAIN_RAMP_DURATION);
 }
 
 static void RXCardAudioSourceEnableApplier(const void* value, void* context)
@@ -124,11 +124,11 @@ static void rx_release_owner_applier(const void* value, void* context) { [[(id)v
 
 typedef void (*RenderCardImp_t)(id, SEL, const CVTimeStamp*, CGLContextObj);
 static RenderCardImp_t render_card_imp;
-static SEL render_card_sel = @selector(_renderCardWithTimestamp:inContext:);
+static const SEL render_card_sel = @selector(_renderCardWithTimestamp:inContext:);
 
 typedef void (*PostFlushCardImp_t)(id, SEL, const CVTimeStamp*);
 static PostFlushCardImp_t post_flush_card_imp;
-static SEL post_flush_card_sel = @selector(_postFlushCard:);
+static const SEL post_flush_card_sel = @selector(_postFlushCard:);
 
 @implementation RXCardState
 
@@ -199,9 +199,9 @@ static SEL post_flush_card_sel = @selector(_postFlushCard:);
   if (kerr != 0)
     goto init_failure;
 
-  _render_lock = OS_SPINLOCK_INIT;
-  _state_swap_lock = OS_SPINLOCK_INIT;
-  _inventory_update_lock = OS_SPINLOCK_INIT;
+  _render_lock = OS_UNFAIR_LOCK_INIT;
+  _state_swap_lock = OS_UNFAIR_LOCK_INIT;
+  _inventory_update_lock = OS_UNFAIR_LOCK_INIT;
 
   // initialize all the rendering stuff (shaders, textures, buffers, VAOs)
   [self _initializeRendering];
@@ -706,9 +706,9 @@ init_failure:
   CFMutableArrayRef newActiveSources = [self _newSourceArrayFromSoundSets:@[ _activeSounds, _activeDataSounds ] callbacks:&g_weakAudioSourceArrayCallbacks];
   CFMutableArrayRef oldActiveSources = _activeSources;
 
-  OSSpinLockLock(&_audioTaskThreadStatusLock);
+  ::os_unfair_lock_lock(&_audioTaskThreadStatusLock);
   _activeSources = newActiveSources;
-  OSSpinLockUnlock(&_audioTaskThreadStatusLock);
+  os_unfair_lock_unlock(&_audioTaskThreadStatusLock);
 
   // release the old array of sources
   CFRelease(oldActiveSources);
@@ -736,14 +736,14 @@ init_failure:
 
   // detach the sources
   rx::AudioRenderer* renderer = (reinterpret_cast<rx::AudioRenderer*>([g_world audioRenderer]));
-  renderer->DetachSources(_sourcesToDelete);
+//  renderer->DetachSources(_sourcesToDelete);
 
   // if automatic graph updates are enabled, we can safely delete the sources,
   // otherwise the responsibility falls on whatever will re-enabled automatic graph updates
-  if (renderer->AutomaticGraphUpdates()) {
-    CFRelease(_sourcesToDelete);
-    _sourcesToDelete = NULL;
-  }
+//  if (renderer->AutomaticGraphUpdates()) {
+//    CFRelease(_sourcesToDelete);
+//    _sourcesToDelete = NULL;
+//  }
 
   // done with the set
   [soundsToRemove release];
@@ -824,11 +824,11 @@ init_failure:
       active_sound->source->SetLooping(soundGroup->loop);
 
       // update the source's gain smoothly
-      renderer->RampSourceGain(*(active_sound->source), active_sound->gain * soundGroup->gain, RX_AUDIO_GAIN_RAMP_DURATION);
+//      renderer->RampSourceGain(*(active_sound->source), active_sound->gain * soundGroup->gain, RX_AUDIO_GAIN_RAMP_DURATION);
       active_sound->source->SetNominalGain(active_sound->gain * soundGroup->gain);
 
       // update the source's stereo panning smoothly
-      renderer->RampSourcePan(*(active_sound->source), active_sound->pan, RX_AUDIO_PAN_RAMP_DURATION);
+//      renderer->RampSourcePan(*(active_sound->source), active_sound->pan, RX_AUDIO_PAN_RAMP_DURATION);
       active_sound->source->SetNominalPan(active_sound->pan);
 
 #if defined(DEBUG) && DEBUG > 1
@@ -851,11 +851,11 @@ init_failure:
   [old release];
 
   // disable automatic graph updates on the audio renderer (e.g. begin a transaction)
-  renderer->SetAutomaticGraphUpdates(false);
+//  renderer->SetAutomaticGraphUpdates(false);
 
   // FIXME: handle situation where there are not enough busses (in which case
   // we would probably have to do a graph update to really release the busses)
-  release_assert(renderer->AvailableMixerBusCount() >= (uint32_t)CFArrayGetCount(sourcesToAdd));
+//  release_assert(renderer->AvailableMixerBusCount() >= (uint32_t)CFArrayGetCount(sourcesToAdd));
 
   // update active sources immediately
   [self _updateActiveSources];
@@ -868,14 +868,14 @@ init_failure:
     // disabling the sources will prevent the fade in from starting before we update the graph
     CFRange everything = CFRangeMake(0, CFArrayGetCount(sourcesToAdd));
     CFArrayApplyFunction(sourcesToAdd, everything, RXCardAudioSourceDisableApplier, [g_world audioRenderer]);
-    renderer->AttachSources(sourcesToAdd);
+//    renderer->AttachSources(sourcesToAdd);
     CFArrayApplyFunction(sourcesToAdd, everything, RXCardAudioSourceFadeInApplier, [g_world audioRenderer]);
   } else {
-    renderer->AttachSources(sourcesToAdd);
+//    renderer->AttachSources(sourcesToAdd);
   }
 
   // re-enable automatic updates; this will automatically do an update if one is needed
-  renderer->SetAutomaticGraphUpdates(true);
+//  renderer->SetAutomaticGraphUpdates(true);
 
   // delete any sources that were detached
   if (_sourcesToDelete) {
@@ -892,7 +892,7 @@ init_failure:
   // schedule a fade out ramp for all to-be-removed sources if the fade out flag is on
   if (soundGroup->fadeOutRemovedSounds) {
     CFMutableArrayRef sourcesToRemove = [self _newSourceArrayFromSoundSet:soundsToRemove callbacks:&g_weakAudioSourceArrayCallbacks];
-    renderer->RampSourcesGain(sourcesToRemove, 0.0f, RX_AUDIO_GAIN_RAMP_DURATION);
+//    renderer->RampSourcesGain(sourcesToRemove, 0.0f, RX_AUDIO_GAIN_RAMP_DURATION);
     CFRelease(sourcesToRemove);
 
     // the detach timestamp for those sources is now + the ramp duration + some comfort offset
@@ -944,7 +944,7 @@ init_failure:
     sound->detach_timestamp = 0;
 
     // disable automatic graph updates on the audio renderer (e.g. begin a transaction)
-    renderer->SetAutomaticGraphUpdates(false);
+//    renderer->SetAutomaticGraphUpdates(false);
 
     // add the sound to the set of active data sounds
     [_activeDataSounds addObject:sound];
@@ -953,13 +953,13 @@ init_failure:
     [self _updateActiveSources];
 
     // now that any sources bound to be detached has been, go ahead and attach the new source
-    renderer->AttachSource(*(sound->source));
+//    renderer->AttachSource(*(sound->source));
 
     // set the sound's detatch timestamp to the sound's duration plus some comfort offset
     sound->detach_timestamp = RXTimingOffsetTimestamp(RXTimingNow(), sound->source->Duration() + 0.5);
 
     // re-enable automatic updates. this will automatically do an update if one is needed
-    renderer->SetAutomaticGraphUpdates(true);
+//    renderer->SetAutomaticGraphUpdates(true);
 
     // delete any sources that were detached
     if (_sourcesToDelete) {
@@ -977,11 +977,11 @@ init_failure:
     active_sound->pan = sound->pan;
 
     // update the source's gain smoothly
-    renderer->SetSourceGain(*(active_sound->source), active_sound->gain);
+//    renderer->SetSourceGain(*(active_sound->source), active_sound->gain);
     active_sound->source->SetNominalGain(active_sound->gain);
 
     // update the source's stereo panning smoothly
-    renderer->SetSourceGain(*(active_sound->source), active_sound->pan);
+//    renderer->SetSourceGain(*(active_sound->source), active_sound->pan);
     active_sound->source->SetNominalPan(active_sound->pan);
 
     // reset the sound's source
@@ -1023,12 +1023,12 @@ init_failure:
 
   uint32_t cycles = 0;
   while (1) {
-    OSSpinLockLock(&_audioTaskThreadStatusLock);
+    os_unfair_lock_lock(&_audioTaskThreadStatusLock);
 
     everything.length = CFArrayGetCount(_activeSources);
     CFArrayApplyFunction(_activeSources, everything, RXCardAudioSourceTaskApplier, renderer);
 
-    OSSpinLockUnlock(&_audioTaskThreadStatusLock);
+    os_unfair_lock_unlock(&_audioTaskThreadStatusLock);
 
     // recycle the pool every 500 cycles
     cycles++;
@@ -1065,7 +1065,7 @@ init_failure:
 
 - (void)enableMovie:(RXMovie*)movie
 {
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   NSInteger index;
 
@@ -1084,7 +1084,7 @@ init_failure:
   if (index == NSNotFound)
     [[movie owner] retain];
 
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 
 #if defined(DEBUG)
   RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"enabled movie %@ [%lu active movies]", movie, (unsigned long)[_active_movies count]);
@@ -1093,7 +1093,7 @@ init_failure:
 
 - (void)disableMovie:(RXMovie*)movie
 {
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   NSInteger index = [_active_movies indexOfObject:movie];
   if (index != NSNotFound) {
@@ -1101,7 +1101,7 @@ init_failure:
     [_active_movies removeObjectAtIndex:index];
   }
 
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 
 #if defined(DEBUG)
   RXOLog2(kRXLoggingGraphics, kRXLoggingLevelDebug, @"disabled movie %@ [%lu active movies]", movie, (unsigned long)[_active_movies count]);
@@ -1155,16 +1155,16 @@ init_failure:
 
 - (void)disableWaterSpecialEffect
 {
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
   _water_sfx_disabled = YES;
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 }
 
 - (void)enableWaterSpecialEffect
 {
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
   _water_sfx_disabled = NO;
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 }
 
 - (void)queueTransition:(RXTransition*)transition
@@ -1216,7 +1216,7 @@ init_failure:
   struct rx_card_state_render_state* previous_front_render_state = _front_render_state;
 
   // take the render lock
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   if (_front_render_state->refresh_static) {
     // we need to merge the back render state into the front render state because we swapped before we could even render a single frame
@@ -1229,19 +1229,19 @@ init_failure:
   }
 
   // take the state swap lock
-  OSSpinLockLock(&_state_swap_lock);
+  os_unfair_lock_lock(&_state_swap_lock);
 
   // fast swap
   _front_render_state = _back_render_state;
 
   // release the state swap lock
-  OSSpinLockUnlock(&_state_swap_lock);
+  os_unfair_lock_unlock(&_state_swap_lock);
 
   if (_movies_to_disable_on_next_update)
     [self _disableMoviesToDisableOnNextUpdate];
 
   // we can resume rendering now
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 
   // set the back render state to the old front render state
   _back_render_state = previous_front_render_state;
@@ -1275,10 +1275,10 @@ init_failure:
 
 - (void)beginEndCredits
 {
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
   _render_credits = YES;
   _credits_state = 0;
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 
   [self hideMouseCursor];
 }
@@ -1313,9 +1313,9 @@ init_failure:
   [self clearActiveCardWaitingUntilDone:YES];
 
   // disable credits rendering mode now that the active card has been cleared
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
   _render_credits = NO;
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 
   // load a new game; note that we cannot use newDocument: since that method is disabled while
   // there is activity on the script thread (as expressed by hotspot handling being disabled,
@@ -1335,9 +1335,9 @@ init_failure:
 
 - (void)_broadcastCurrentCard:(NSNotification*)notification
 {
-  OSSpinLockLock(&_state_swap_lock);
+  os_unfair_lock_lock(&_state_swap_lock);
   [self _postCardSwitchNotification:_front_render_state->card];
-  OSSpinLockUnlock(&_state_swap_lock);
+  os_unfair_lock_unlock(&_state_swap_lock);
 }
 
 - (void)_switchCardWithSimpleDescriptor:(RXSimpleCardDescriptor*)scd
@@ -1599,7 +1599,7 @@ init_failure:
   if ([gs unsigned32ForKey:@"atrapbook"] == 1)
     new_flags |= 1 << RX_INVENTORY_TRAP;
 
-  OSSpinLockLock(&_inventory_update_lock);
+  os_unfair_lock_lock(&_inventory_update_lock);
 
   // update the inventory flags
   uint32_t old_flags = _inventory_flags;
@@ -1651,7 +1651,7 @@ init_failure:
   }
 
   // we can unlock the inventory update lock now since the rest of the work only affects the rendering thread
-  OSSpinLockUnlock(&_inventory_update_lock);
+  os_unfair_lock_unlock(&_inventory_update_lock);
 
   // get the active state of the entire inventory HUD
   BOOL inv_active = [gs unsigned32ForKey:@"ainventory"] != 0;
@@ -2054,7 +2054,7 @@ init_failure:
                        bgraBuffer:rx::BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4)
                             error:NULL];
       } else {
-        memset(BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4), 0, 360 * 392 * 4);
+        memset(rx::BUFFER_OFFSET(_credits_texture_buffer, 360 * 392 * 4), 0, 360 * 392 * 4);
       }
 
       glTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 0, 0, 360, 784, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, _credits_texture_buffer);
@@ -2071,7 +2071,7 @@ init_failure:
     if (_credits_state == 24) {
       // delete credits resources
       glDeleteTextures(1, &_credits_texture);
-      free(_credits_texture_buffer), _credits_texture_buffer = nil;
+      free(_credits_texture_buffer); _credits_texture_buffer = nil;
 
       // end the credits and begin a new game; note that we'll remain in credit rendering mode
       // until the active card has been cleared but we won't be rendering anything by checking
@@ -2143,7 +2143,7 @@ init_failure:
 - (void)render:(const CVTimeStamp*)output_time inContext:(CGLContextObj)cgl_ctx framebuffer:(GLuint)fbo
 {
   // WARNING: MUST RUN IN THE CORE VIDEO RENDER THREAD
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   // alias the render context state object pointer
   NSObject<RXOpenGLStateProtocol>* gl_state = RXGetContextState(cgl_ctx);
@@ -2289,7 +2289,7 @@ init_failure:
 
 exit_render:
   [p release];
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 }
 
 - (void)renderInMainRT:(CGLContextObj)cgl_ctx
@@ -2319,9 +2319,9 @@ exit_render:
   if (render_hotspots) {
     // need to take the render lock to avoid a race condition with the script thread executing a card swap
     if (!front_card) {
-      OSSpinLockLock(&_state_swap_lock);
+      os_unfair_lock_lock(&_state_swap_lock);
       front_card = [_front_render_state->card retain];
-      OSSpinLockUnlock(&_state_swap_lock);
+      os_unfair_lock_unlock(&_state_swap_lock);
     }
 
     NSArray* activeHotspots = [sengine activeHotspots];
@@ -2461,9 +2461,9 @@ exit_render:
   if (render_cardinfo) {
     // need to take the render lock to avoid a race condition with the script thread executing a card swap
     if (!front_card) {
-      OSSpinLockLock(&_state_swap_lock);
+      os_unfair_lock_lock(&_state_swap_lock);
       front_card = [_front_render_state->card retain];
-      OSSpinLockUnlock(&_state_swap_lock);
+      os_unfair_lock_unlock(&_state_swap_lock);
     }
 
     if (front_card) {
@@ -2523,9 +2523,9 @@ exit_render:
 
   // hotspots info (part 2)
   if (render_hotspots) {
-    OSSpinLockLock(&_state_swap_lock);
+    os_unfair_lock_lock(&_state_swap_lock);
     RXHotspot* hotspot = (_current_hotspot >= (RXHotspot*)0x1000) ? [_current_hotspot retain] : _current_hotspot;
-    OSSpinLockUnlock(&_state_swap_lock);
+    os_unfair_lock_unlock(&_state_swap_lock);
 
     if (hotspot >= (RXHotspot*)0x1000)
       snprintf(debug_buffer, 100, "hotspot: %s", [[hotspot description] cStringUsingEncoding:NSASCIIStringEncoding]);
@@ -2627,7 +2627,7 @@ exit_render:
 - (void)performPostFlushTasks:(const CVTimeStamp*)outputTime
 {
   // WARNING: MUST RUN IN THE CORE VIDEO RENDER THREAD
-  OSSpinLockLock(&_render_lock);
+  os_unfair_lock_lock(&_render_lock);
 
   // we need an inner pool within the scope of that lock, or we run the risk of
   // autoreleased enumerators causing objects that should be deallocated on the
@@ -2642,7 +2642,7 @@ exit_render:
 
 exit_flush_tasks:
   [p release];
-  OSSpinLockUnlock(&_render_lock);
+  os_unfair_lock_unlock(&_render_lock);
 }
 
 - (void)exportCompositeFramebuffer
@@ -2669,14 +2669,14 @@ exit_flush_tasks:
   glGetTexImage(GL_TEXTURE_RECTANGLE_ARB, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, [image_rep bitmapData]);
   CGLUnlockContext(cgl_ctx);
 
-  OSSpinLockLock(&_state_swap_lock);
+  os_unfair_lock_lock(&_state_swap_lock);
   RXCardDescriptor* desc = [[_front_render_state->card descriptor] retain];
-  OSSpinLockUnlock(&_state_swap_lock);
+  os_unfair_lock_unlock(&_state_swap_lock);
 
   NSString* png_path =
       [[[NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[desc description]]
           stringByAppendingPathExtension:@"png"];
-  NSData* png_data = [image_rep representationUsingType:NSPNGFileType properties:nil];
+  NSData* png_data = [image_rep representationUsingType:NSPNGFileType properties:@{}];
   [png_data writeToFile:png_path options:0 error:NULL];
 
   [desc release];
@@ -2688,45 +2688,45 @@ exit_flush_tasks:
 
 - (double)mouseTimestamp
 {
-  OSSpinLockLock(&_mouse_state_lock);
+  os_unfair_lock_lock(&_mouse_state_lock);
   double t = _mouse_timestamp;
-  OSSpinLockUnlock(&_mouse_state_lock);
+  os_unfair_lock_unlock(&_mouse_state_lock);
   return t;
 }
 
 - (NSRect)mouseVector
 {
-  OSSpinLockLock(&_mouse_state_lock);
+  os_unfair_lock_lock(&_mouse_state_lock);
   NSRect r = _mouse_vector;
-  OSSpinLockUnlock(&_mouse_state_lock);
+  os_unfair_lock_unlock(&_mouse_state_lock);
   return r;
 }
 
 - (rx_event_t)lastMouseDownEvent
 {
-  OSSpinLockLock(&_mouse_state_lock);
+  os_unfair_lock_lock(&_mouse_state_lock);
   rx_event_t e = _last_mouse_down_event;
-  OSSpinLockUnlock(&_mouse_state_lock);
+  os_unfair_lock_unlock(&_mouse_state_lock);
   return e;
 }
 
 - (void)resetMouseVector
 {
-  OSSpinLockLock(&_mouse_state_lock);
+  os_unfair_lock_lock(&_mouse_state_lock);
   if (isfinite(_mouse_vector.size.width)) {
     _mouse_vector.origin.x = _mouse_vector.origin.x + _mouse_vector.size.width;
     _mouse_vector.origin.y = _mouse_vector.origin.y + _mouse_vector.size.height;
     _mouse_vector.size.width = 0.0;
     _mouse_vector.size.height = 0.0;
   }
-  OSSpinLockUnlock(&_mouse_state_lock);
+  os_unfair_lock_unlock(&_mouse_state_lock);
 }
 
 - (void)showMouseCursor
 {
   [self enableHotspotHandling];
 
-  int32_t updated_counter = OSAtomicDecrement32Barrier(&_cursor_hide_counter);
+  int32_t updated_counter = std::atomic_fetch_sub_explicit(&_cursor_hide_counter, 1, std::memory_order_seq_cst) - 1;
   release_assert(updated_counter >= 0);
 #if defined(DEBUG) && DEBUG > 1
   RXOLog2(kRXLoggingEngine, kRXLoggingLevelDebug, @"showMouseCursor; counter=%d", updated_counter);
@@ -2746,7 +2746,7 @@ exit_flush_tasks:
 {
   [self disableHotspotHandling];
 
-  int32_t updated_counter = OSAtomicIncrement32Barrier(&_cursor_hide_counter);
+  int32_t updated_counter = std::atomic_fetch_add_explicit(&_cursor_hide_counter, 1, std::memory_order_seq_cst) + 1;
   release_assert(updated_counter >= 0);
 #if defined(DEBUG) && DEBUG > 1
   RXOLog2(kRXLoggingEngine, kRXLoggingLevelDebug, @"hideMouseCursor; counter=%d", updated_counter);
@@ -2772,7 +2772,7 @@ exit_flush_tasks:
 
 - (void)enableHotspotHandling
 {
-  int32_t updated_counter = OSAtomicDecrement32Barrier(&_hotspot_handling_disable_counter);
+  int32_t updated_counter = std::atomic_fetch_sub_explicit(&_hotspot_handling_disable_counter, 1, std::memory_order_seq_cst) - 1;
   release_assert(updated_counter >= 0);
 
   if (updated_counter == 0)
@@ -2781,7 +2781,7 @@ exit_flush_tasks:
 
 - (void)disableHotspotHandling
 {
-  int32_t updated_counter = OSAtomicIncrement32Barrier(&_hotspot_handling_disable_counter);
+  int32_t updated_counter = std::atomic_fetch_add_explicit(&_hotspot_handling_disable_counter, 1, std::memory_order_seq_cst) + 1;
   release_assert(updated_counter >= 0);
 
   if (updated_counter == 1)
@@ -2815,7 +2815,7 @@ exit_flush_tasks:
 
   // now check if we're over one of the inventory regions
   if (!hotspot) {
-    OSSpinLockLock(&_inventory_update_lock);
+    os_unfair_lock_lock(&_inventory_update_lock);
     if ([[g_world gameState] unsigned32ForKey:@"ainventory"] && _inventory_flags) {
       for (GLuint inventory_i = 0; inventory_i < RX_MAX_INVENTORY_ITEMS; inventory_i++) {
         if (!(_inventory_flags & (1 << inventory_i)))
@@ -2829,7 +2829,7 @@ exit_flush_tasks:
         }
       }
     }
-    OSSpinLockUnlock(&_inventory_update_lock);
+    os_unfair_lock_unlock(&_inventory_update_lock);
   }
 
   // if the new current hotspot is valid, matches the mouse down hotspot and the mouse is not dragging, we need to send
@@ -2969,10 +2969,10 @@ exit_flush_tasks:
   NSPoint mousePoint = [(NSView*)g_worldView convertPoint:[event locationInWindow] fromView:nil];
 
   // update the mouse vector
-  OSSpinLockLock(&_mouse_state_lock);
+  os_unfair_lock_lock(&_mouse_state_lock);
   _mouse_vector.origin = mousePoint;
   _mouse_timestamp = [event timestamp];
-  OSSpinLockUnlock(&_mouse_state_lock);
+  os_unfair_lock_unlock(&_mouse_state_lock);
 
   // update the hotspot state
   [self updateHotspotState];
@@ -2983,11 +2983,11 @@ exit_flush_tasks:
   NSPoint mousePoint = [(NSView*)g_worldView convertPoint:[event locationInWindow] fromView:nil];
 
   // update the mouse vector
-  OSSpinLockLock(&_mouse_state_lock);
+  os_unfair_lock_lock(&_mouse_state_lock);
   _mouse_vector.size.width = mousePoint.x - _mouse_vector.origin.x;
   _mouse_vector.size.height = mousePoint.y - _mouse_vector.origin.y;
   _mouse_timestamp = [event timestamp];
-  OSSpinLockUnlock(&_mouse_state_lock);
+  os_unfair_lock_unlock(&_mouse_state_lock);
 
   // update the hotspot state
   [self updateHotspotState];
@@ -3021,14 +3021,14 @@ exit_flush_tasks:
   NSPoint mouse_point = [(NSView*)g_worldView convertPoint:[event locationInWindow] fromView:nil];
 
   // update the mouse vector
-  OSSpinLockLock(&_mouse_state_lock);
+  os_unfair_lock_lock(&_mouse_state_lock);
   _mouse_vector.origin = mouse_point;
   _mouse_vector.size = NSZeroSize;
   _mouse_timestamp = [event timestamp];
 
   _last_mouse_down_event.location = _mouse_vector.origin;
   _last_mouse_down_event.timestamp = _mouse_timestamp;
-  OSSpinLockUnlock(&_mouse_state_lock);
+  os_unfair_lock_unlock(&_mouse_state_lock);
 
   // if hotspot handling is disabled, simply return
   if (_hotspot_handling_disable_counter > 0)
@@ -3044,12 +3044,12 @@ exit_flush_tasks:
 - (void)mouseUp:(NSEvent*)event
 {
   // update the mouse vector
-  OSSpinLockLock(&_mouse_state_lock);
+  os_unfair_lock_lock(&_mouse_state_lock);
   _mouse_vector.origin = [(NSView*)g_worldView convertPoint:[event locationInWindow] fromView:nil];
   _mouse_vector.size.width = INFINITY;
   _mouse_vector.size.height = INFINITY;
   _mouse_timestamp = [event timestamp];
-  OSSpinLockUnlock(&_mouse_state_lock);
+  os_unfair_lock_unlock(&_mouse_state_lock);
 
   // if hotspot handling is disabled, simply return
   if (_hotspot_handling_disable_counter > 0)
@@ -3225,11 +3225,11 @@ exit_flush_tasks:
   NSWindow* window = [notification object];
   if (window == [g_worldView window]) {
     // update the mouse vector
-    OSSpinLockLock(&_mouse_state_lock);
+    os_unfair_lock_lock(&_mouse_state_lock);
     _mouse_vector.origin = [(NSView*)g_worldView convertPoint:[[(NSView*)g_worldView window] mouseLocationOutsideOfEventStream] fromView:nil];
     _mouse_vector.size.width = INFINITY;
     _mouse_vector.size.height = INFINITY;
-    OSSpinLockUnlock(&_mouse_state_lock);
+    os_unfair_lock_unlock(&_mouse_state_lock);
 
     // update the hotspot state
     [self updateHotspotState];

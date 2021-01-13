@@ -80,10 +80,12 @@ class CAAUChanHelper;
 // NOT const whereas those that don't change the externally related state of the AU are not const
 
 class CAAudioUnit {
+#ifndef __MACERRORS__
 	enum {
 		paramErr = -50,
 		badComponentSelector = (long)0x80008002
 	};
+#endif
 public:
 	typedef std::vector<AudioChannelLayoutTag> 	ChannelTagVector;
 	typedef ChannelTagVector::iterator 			ChannelTagVectorIter;

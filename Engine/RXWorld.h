@@ -14,6 +14,7 @@
 #import "States/RXRenderState.h"
 
 #import <AppKit/NSApplication.h>
+#include <os/lock.h>
 
 @interface RXWorld : NSObject <RXWorldProtocol> {
   NSURL* _worldBase;
@@ -40,7 +41,7 @@
   RXGameState* _gameStateToLoad;
 
   NSMutableDictionary* _engineVariables;
-  OSSpinLock _engineVariablesLock;
+  os_unfair_lock _engineVariablesLock;
 
   NSApplicationPresentationOptions _defaultPresentationOptions;
 

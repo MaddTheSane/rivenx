@@ -49,7 +49,7 @@
 
 #include "CAAtomic.h"
 
-// base class for reference-counted objects
+//! base class for reference-counted objects
 class CAReferenceCounted {
 public:
 	CAReferenceCounted() : mRefCount(1) {}
@@ -89,8 +89,8 @@ public:
 private:
 	SInt32		mRefCount;
 
-	CAReferenceCounted(const CAReferenceCounted &a);
-	CAReferenceCounted &operator=(const CAReferenceCounted &a);
+	CAReferenceCounted(const CAReferenceCounted &a) = delete;
+	CAReferenceCounted &operator=(const CAReferenceCounted &a) = delete;
 };
 
 
