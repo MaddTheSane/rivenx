@@ -56,7 +56,7 @@ static CVReturn rx_render_output_callback(CVDisplayLinkRef displayLink, const CV
   return kCVReturnSuccess;
 }
 
-static NSOpenGLPixelFormatAttribute base_window_attribs[] = {NSOpenGLPFAWindow, NSOpenGLPFADoubleBuffer, NSOpenGLPFAColorSize, 24, NSOpenGLPFAAlphaSize, 8, };
+static NSOpenGLPixelFormatAttribute base_window_attribs[] = {NSOpenGLPFAWindow, NSOpenGLPFADoubleBuffer, NSOpenGLPFAColorSize, 24, NSOpenGLPFAAlphaSize, 8, 0};
 
 static NSString* required_extensions[] = {@"GL_APPLE_vertex_array_object", @"GL_APPLE_flush_buffer_range", @"GL_ARB_texture_rectangle",
                                           @"GL_ARB_pixel_buffer_object",   @"GL_EXT_framebuffer_object", };

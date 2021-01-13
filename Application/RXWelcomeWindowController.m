@@ -61,8 +61,8 @@ static BOOL filename_is_gog_installer(NSString* filename) {
                         includingPropertiesForKeys:[NSArray array]
                                            options:(NSDirectoryEnumerationOptions)0
                                              error:NULL];
-  for (NSURL* url in contents) {
-    BZFSRemoveItemAtURL(url, NULL);
+  for (NSURL* aurl in contents) {
+    BZFSRemoveItemAtURL(aurl, NULL);
   }
   [fm release];
 }
@@ -138,7 +138,7 @@ static BOOL filename_is_gog_installer(NSString* filename) {
 
 - (IBAction)buyRiven:(id)sender {
   [[NSWorkspace sharedWorkspace]
-      openURL:[NSURL URLWithString:@"http://www.gog.com/game/riven_the_sequel_to_myst"]];
+      openURL:[NSURL URLWithString:@"https://www.gog.com/game/riven_the_sequel_to_myst"]];
 
   [_gogBuyAlert release];
   _gogBuyAlert = [NSAlert new];
@@ -148,7 +148,9 @@ static BOOL filename_is_gog_installer(NSString* filename) {
 
   [_gogBuyAlert addButtonWithTitle:@"OK"];
 
-  [_gogBuyAlert beginSheetModalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:NULL];
+  [_gogBuyAlert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+    //Do nothing
+  }];
 }
 
 - (BOOL)panel:(id)sender shouldEnableURL:(NSURL*)url {
@@ -187,7 +189,7 @@ static BOOL filename_is_gog_installer(NSString* filename) {
   [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
     _alertOrPanelCurrentlyActive = NO;
 
-    if (result == NSCancelButton)
+    if (result == NSModalResponseCancel)
       return;
 
     NSURL* url = [panel URL];
@@ -295,9 +297,9 @@ static BOOL filename_is_gog_installer(NSString* filename) {
     [_installProgressIndicator stopAnimation:self];
 
     [(NSObject*)_installer removeObserver:self forKeyPath:@"progress"];
-    [_installer release], _installer = nil;
+    [_installer release]; _installer = nil;
 
-    [_waitedOnDiscContinuation release], _waitedOnDiscContinuation = nil;
+    [_waitedOnDiscContinuation release]; _waitedOnDiscContinuation = nil;
     _waitedOnDisc = nil;
 
     [self _finishInstallaton:success error:error];
@@ -391,7 +393,7 @@ static BOOL filename_is_gog_installer(NSString* filename) {
   debug_assert(_waitedOnDisc != nil);
   debug_assert(_waitedOnDiscContinuation != nil);
   _waitedOnDiscContinuation(mount_paths);
-  [_waitedOnDiscContinuation release], _waitedOnDiscContinuation = nil;
+  [_waitedOnDiscContinuation release]; _waitedOnDiscContinuation = nil;
   _waitedOnDisc = nil;
 }
 
@@ -431,10 +433,10 @@ static BOOL filename_is_gog_installer(NSString* filename) {
   [alert addButtonWithTitle:NSLocalizedString(@"INSTALL", NULL)];
   [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", NULL)];
 
-  [alert beginSheetModalForWindow:[self window]
-                    modalDelegate:self
-                   didEndSelector:@selector(_offerToInstallFromDiscOrGogAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo:[mount_paths retain]];
+  [mount_paths retain];
+  [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+    [self _offerToInstallFromDiscOrGogAlertDidEnd:alert returnCode:returnCode contextInfo:mount_paths];
+  }];
   _alertOrPanelCurrentlyActive = YES;
 }
 
@@ -465,10 +467,10 @@ static BOOL filename_is_gog_installer(NSString* filename) {
   [alert addButtonWithTitle:NSLocalizedStringFromTable(@"COPY_INSTALL", @"Welcome", NULL)];
   [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", NULL)];
 
-  [alert beginSheetModalForWindow:[self window]
-                    modalDelegate:self
-                   didEndSelector:@selector(_offerToInstallFromFolderAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo:[mount_paths retain]];
+  [mount_paths retain];
+  [alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
+    [self _offerToInstallFromFolderAlertDidEnd:alert returnCode:returnCode contextInfo:mount_paths];
+  }];
   _alertOrPanelCurrentlyActive = YES;
 }
 
@@ -489,10 +491,10 @@ static BOOL filename_is_gog_installer(NSString* filename) {
   [alert addButtonWithTitle:NSLocalizedString(@"INSTALL", NULL)];
   [alert addButtonWithTitle:NSLocalizedString(@"CANCEL", NULL)];
 
-  [alert beginSheetModalForWindow:[self window]
-                    modalDelegate:self
-                   didEndSelector:@selector(_offerToInstallFromDiscOrGogAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo:[mount_paths retain]];
+  [mount_paths retain];
+  [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+    [self _offerToInstallFromDiscOrGogAlertDidEnd:alert returnCode:returnCode contextInfo:mount_paths];
+  }];
   _alertOrPanelCurrentlyActive = YES;
 }
 
@@ -663,6 +665,10 @@ static BOOL filename_is_gog_installer(NSString* filename) {
   return YES;
 }
 
+- (void)_performMountScanForURL:(NSURL*)path {
+  [self _performMountScan:path.path];
+}
+
 - (void)_performMountScan:(NSString*)path {
   BOOL usable_mount = [self _checkPathContent:path removable:YES];
   if (!usable_mount && _installer && _waitedOnDisc) {
@@ -701,18 +707,19 @@ static BOOL filename_is_gog_installer(NSString* filename) {
 }
 
 - (void)_removableMediaMounted:(NSNotification*)notification {
-  NSString* path = [[notification userInfo] objectForKey:@"NSDevicePath"];
+  NSURL* path = [[notification userInfo] objectForKey:@"NSDeviceURL"];
 
   // check if the name is interesting, and if it is check the content of the mount
   NSString* mount_name = [path lastPathComponent];
 
-  if (_waitedOnDisc) {
-    if ([mount_name compare:_waitedOnDisc options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-      [self performSelector:@selector(_performMountScan:) onThread:_scanningThread withObject:path waitUntilDone:NO];
+  NSString *ourWaitedOn = [[_waitedOnDisc retain] autorelease];
+  if (ourWaitedOn) {
+    if ([mount_name compare:ourWaitedOn options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+      [self performSelector:@selector(_performMountScanForURL:) onThread:_scanningThread withObject:path waitUntilDone:NO];
     } else {
       [[NSWorkspace sharedWorkspace] performSelector:@selector(unmountAndEjectDeviceAtPath:)
                                             onThread:_scanningThread
-                                          withObject:path
+                                          withObject:path.path
                                        waitUntilDone:NO];
     }
     return;
@@ -720,23 +727,23 @@ static BOOL filename_is_gog_installer(NSString* filename) {
 
   NSPredicate* predicate = [NSPredicate predicateWithFormat:@"SELF matches[c] %@", @"^Riven[0-9]?$"];
   if ([predicate evaluateWithObject:mount_name]) {
-    [self performSelector:@selector(_performMountScan:) onThread:_scanningThread withObject:path waitUntilDone:NO];
+    [self performSelector:@selector(_performMountScanForURL:) onThread:_scanningThread withObject:path waitUntilDone:NO];
     return;
   }
 
   if ([mount_name caseInsensitiveCompare:@"Exile DVD"]) {
-    [self performSelector:@selector(_performMountScan:) onThread:_scanningThread withObject:path waitUntilDone:NO];
+    [self performSelector:@selector(_performMountScanForURL:) onThread:_scanningThread withObject:path waitUntilDone:NO];
     return;
   }
 }
 
 - (void)_scanMountedMedia {
   // scan all existing mounts
-  for (NSString* mount_path in [[NSWorkspace sharedWorkspace] mountedRemovableMedia]) {
+  for (NSURL* mount_path in [[NSFileManager defaultManager] mountedVolumeURLsIncludingResourceValuesForKeys:nil options:NSVolumeEnumerationSkipHiddenVolumes]) {
     NSNotification* notification =
         [NSNotification notificationWithName:NSWorkspaceDidMountNotification
                                       object:nil
-                                    userInfo:[NSDictionary dictionaryWithObject:mount_path forKey:@"NSDevicePath"]];
+                                    userInfo:[NSDictionary dictionaryWithObject:mount_path forKey:@"NSDeviceURL"]];
     [self _removableMediaMounted:notification];
   }
 }
@@ -775,10 +782,10 @@ static void FSEventsBlockCallback(ConstFSEventStreamRef streamRef,
                                              error:NULL];
   BOOL found = NO;
 
-  for (NSURL* url in contents) {
-    if (filename_is_gog_installer([url lastPathComponent])) {
+  for (NSURL* aurl in contents) {
+    if (filename_is_gog_installer([aurl lastPathComponent])) {
       if (_gogInstallerFoundInDownloadsFolder == NO) {
-        [self _offerToInstallFromGOGInstaller:@{@"gog_installer": url}];
+        [self _offerToInstallFromGOGInstaller:@{@"gog_installer": aurl}];
       }
       found = YES;
       break;

@@ -139,6 +139,7 @@
 
 - (BOOL)_checkQuickTime
 {
+  return YES;
   // check that the user has QuickTime 7.6.2 or later
   NSBundle* qtkit = [NSBundle bundleWithIdentifier:@"com.apple.QTKit"];
   release_assert(qtkit);
